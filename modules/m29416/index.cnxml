@@ -1,0 +1,329 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Module 8: Instruction Pipelining</title>
+  <metadata>
+  <md:content-id>m29416</md:content-id><md:title>Module 8: Instruction Pipelining</md:title>
+  <md:abstract/>
+  <md:uuid>27e1c27c-93f1-4c28-ac85-ebc6f3c1b462</md:uuid>
+</metadata>
+
+<content>
+    <section id="id-150818037237">
+      <title>1. Pipelining</title>
+      <section id="id-970846600047">
+        <title>1.1 Basic concepts </title>
+        <para id="id9536656">An instruction has a number of stages. The various stages can be worked on simultanously through various blocks of production. This is a pipeline. This process is also referred as instruction pipeling. Figure 8.1 shown the pipeline of two independent stages: fetch instruction and execusion instruction. The first stage fetches an instruction and buffers it. While the second stage is executing the instruction, the first stage takes advantage of any unused memory cycles to fetch and buffer the next instruction. This process will speed up instruction execution</para>
+        <figure id="id9536683"><media id="id2234033" alt=""><image src="../../media/graphics1-c69a.jpg" mime-type="image/jpeg"/></media>
+        </figure>
+        <para id="id9536707">Figure 8.1. Two stages Instruction Pipeline</para>
+      </section>
+      <section id="id-159891188386">
+        <title>1.2 Pipeline principle</title>
+        <para id="id9536722">The decomposition of the instruction processing by 6 stages is the following.</para>
+        <para id="id9536731">- Fetch Instruction (FI): Read the next expected introduction into a buffer</para>
+        <para id="id9536748">- Decode Instruction (DI): Determine the opcode and the operand specifiers</para>
+        <para id="id9536765">- Calculate Operands (CO): Calculate the effective address of each source operand. This may involve displacement, register indirect, indirect or other forms of address calculations.</para>
+        <para id="id9536784">- Fetch Operands (FO): Fetch each operand from memory. Operands in register need not be fetched.</para>
+        <para id="id9536802">- Execute Instruction (EI): Perform the indicated operation and store the result, if any, in the specified destination operand location.</para>
+        <para id="id9536820">- Write Operand (WO): Store result in memory.</para>
+        <para id="id9536837">Using the assumption of the equal duration for various stages, the figure 8.2 shown that a six stage pipeline can reduce the execution time for 9 instructions from 54 time units to 14 time units.</para>
+        <figure id="id9536850"><media id="id5805148" alt=""><image src="../../media/graphics2-3941.png" mime-type="image/png"/></media>
+        </figure>
+        <para id="id9536874">Figure 8.2. Timing diagram for instruction pipeline operation.</para>
+        <para id="id9536882">Also the diagram assumes that all of the stages can be performed in parallel, in particular, it is assumed that there are no memory conflicts. The processor make use of instruction pipelining to speed up executions, pipeling invokes breaking up the instruction cycle into a number of separate stages in a sequence. However the occurrence of branches and independencies between instruction complates the design and use of pipeline.</para>
+      </section>
+    </section>
+    <section id="id-488900599917">
+      <title>2. Pipeline Performance and Limitations</title>
+      <para id="id9536910">With the pipeling approach, as a form of parallelism, a “good” design goal of any system is to have all of its components performing useful work all of the time, we can obtain a high efficiency. The instruction cycle state diagram clearly shows the sequence of operations that take place in order to execute a single instruction. </para>
+      <para id="id9536929">This strategy can give the following:</para>
+      <para id="id9536933">- Perform all tasks concurrently, but on different sequential instructions</para>
+      <para id="id9536946">– The result is temporal parallelism.</para>
+      <para id="id9536953">– Result is the instruction pipeline.</para>
+      <section id="id-978497546616">
+        <title>2.1 Pipeline performance</title>
+        <para id="id9536967">In this subsection, we can show some measures of pipeline performance based on the book “Computer Organization and Architecture: Designing for Performance”, 6th Edition by William Stalling.</para>
+        <para id="id9536998">The cycle time  of an instruction pipeline can be determined as:</para>
+        <para id="id9537015"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mi>T</m:mi><m:mo stretchy="false">=</m:mo><m:mtext>max</m:mtext></m:mrow><m:mo stretchy="false">[</m:mo><m:msub><m:mi>T</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>i</m:mi></m:mrow></m:mstyle></m:msub><m:mrow><m:mrow><m:mo stretchy="false">]</m:mo><m:mo stretchy="false">+</m:mo><m:mi>d</m:mi></m:mrow><m:mo stretchy="false">=</m:mo><m:mrow><m:msub><m:mi>T</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>m</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">+</m:mo><m:mi>d</m:mi></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{T="max" \[ T rSub { size 8{i} }  \] +d=T rSub { size 8{m} } +d} {}</m:annotation></m:semantics></m:math> with 1
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow/><m:mrow/></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ &lt;= {}} {}</m:annotation></m:semantics></m:math> i 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow/><m:mrow/></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ &lt;= {}} {}</m:annotation></m:semantics></m:math>k</para>
+        <para id="id9537241">where:</para>
+        <para id="id9537245"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>T</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>m</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{T rSub { size 8{m} } } {}</m:annotation></m:semantics></m:math> = Maximun stage delay through stage</para>
+        <para id="id9537309">k = number of stages in instruction pipeline</para>
+        <para id="id9537319">d = time delay of a latch.</para>
+        <para id="id9537329">In general, the time delay d is equivalent to a clock pulse and 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>T</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>m</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{T rSub { size 8{m} } } {}</m:annotation></m:semantics></m:math> &gt;&gt; d. Suppose that n instruction are processed with no branched. </para>
+        <list id="id9537400" list-type="bulleted">
+          <item>The total time required 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>T</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>k</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{T rSub { size 8{k} } } {}</m:annotation></m:semantics></m:math> to execute all n instruction is:</item>
+        </list>
+        <para id="id9537467"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>T</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>k</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{T rSub { size 8{k} } } {}</m:annotation></m:semantics></m:math>= [k + (n-1)]</para>
+        <list id="id9537530" list-type="bulleted">
+          <item>The speedup factor for the instruction pipeline compared to execution without the pipeline is defined as:</item>
+        </list>
+        <para id="id9537541">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mrow>
+                          <m:msub>
+                            <m:mstyle fontsize="24pt">
+                              <m:mrow>
+                                <m:mi>S</m:mi>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mi>K</m:mi>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msub>
+                          <m:mo stretchy="false">=</m:mo>
+                          <m:mfrac>
+                            <m:msub>
+                              <m:mstyle fontsize="24pt">
+                                <m:mrow>
+                                  <m:mi>T</m:mi>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mn>1</m:mn>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                            <m:msub>
+                              <m:mstyle fontsize="24pt">
+                                <m:mrow>
+                                  <m:mi>T</m:mi>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mi>K</m:mi>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msub>
+                          </m:mfrac>
+                        </m:mrow>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mfrac>
+                          <m:mrow>
+                            <m:mstyle fontstyle="italic">
+                              <m:mrow>
+                                <m:mtext>nk</m:mtext>
+                              </m:mrow>
+                            </m:mstyle>
+                            <m:mi>τ</m:mi>
+                          </m:mrow>
+                          <m:mrow>
+                            <m:mfenced open="[" close="]">
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mi>k</m:mi>
+                                  <m:mo stretchy="false">+</m:mo>
+                                  <m:mo stretchy="false">(</m:mo>
+                                </m:mrow>
+                                <m:mrow>
+                                  <m:mi>n</m:mi>
+                                  <m:mo stretchy="false">−</m:mo>
+                                  <m:mn>1</m:mn>
+                                </m:mrow>
+                                <m:mo stretchy="false">)</m:mo>
+                              </m:mrow>
+                            </m:mfenced>
+                            <m:mi>τ</m:mi>
+                          </m:mrow>
+                        </m:mfrac>
+                      </m:mrow>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mfrac>
+                        <m:mstyle fontstyle="italic">
+                          <m:mrow>
+                            <m:mtext>nk</m:mtext>
+                          </m:mrow>
+                        </m:mstyle>
+                        <m:mrow>
+                          <m:mrow>
+                            <m:mi>k</m:mi>
+                            <m:mo stretchy="false">+</m:mo>
+                            <m:mo stretchy="false">(</m:mo>
+                          </m:mrow>
+                          <m:mrow>
+                            <m:mi>n</m:mi>
+                            <m:mo stretchy="false">−</m:mo>
+                            <m:mn>1</m:mn>
+                          </m:mrow>
+                          <m:mo stretchy="false">)</m:mo>
+                        </m:mrow>
+                      </m:mfrac>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{ { size 24{S} }  rSub { size 8{K} } = {  { { size 24{T} }  rSub { size 8{1} } }  over  { { size 24{T} }  rSub { size 8{K} } } } = {  { ital "nk"τ}  over  { left [k+ \( n - 1 \)  right ]τ} } = {  { ital "nk"}  over  {k+ \( n - 1 \) } } } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </para>
+        <list id="id9537732" list-type="bulleted">
+          <item>An ideal pipeline divides a task into k independent sequential subtasks</item>
+        </list>
+        <para id="id9537752">– Each subtask requires 1 time unit to complete</para>
+        <para id="id9537761">– The task itself then requires k time units tocomplete. For n iterations of the task, the execution times will be:</para>
+        <para id="id9537774">– With no pipelining: nk time units</para>
+        <para id="id9537783">– With pipelining: k + (n-1) time units</para>
+        <para id="id9537792">Speedup of a k-stage pipeline is thus</para>
+        <para id="id9537801">S = nk / [k+(n-1)] ==&gt; k (for large n)</para>
+      </section>
+      <section id="id-118889665484">
+        <title>2.2 Pipeline Limitations</title>
+        <para id="id9537819">Several factors serve to limit the pipeline performance. If the six stage are not of equal duration, there will be some waiting involved at various pipeline stage. Another difficulty is the condition branch instruction or the unpredictable event is an interrupt. Other problem arise that the memory conflicts could occur. So the system must contain logic to account for the type of conflict.</para>
+        <list id="id9537833" list-type="bulleted">
+          <item>Pipeline depth</item>
+        </list>
+        <para id="id9537842">- Data dependencies also factor into the effective length of pipelines</para>
+        <para id="id9537848">- Logic to handle memory and register use and to control the overall pipeline increases significantly with increasing pipeline depth</para>
+        <para id="id9537854">– If the speedup is based on the number of stages, why not build lots of stages?</para>
+        <para id="id9537863">– Each stage uses latches at its input (output) to buffer the next set of inputs</para>
+        <para id="id9537871">+ If the stage granularity is reduced too much, the latches and their control become a significant hardware overhead</para>
+        <para id="id9537884">+ Also suffer a time overhead in the propagation time through the latches</para>
+        <para id="id9537894">- Limits the rate at which data can be clocked through the pipeline</para>
+        <list id="id9537902" list-type="bulleted">
+          <item>Data dependencies</item>
+        </list>
+        <para id="id9537911">– Pipelining must insure that computed results are the same as if computation was performed in strict sequential order</para>
+        <para id="id9537917">– With multiple stages, two instructions “in execution” in the pipeline may have data dependencies. So we must design the pipeline to prevent this.</para>
+        <para id="id9537927">– Data dependency examples:</para>
+        <para id="id9537934">A = B + C</para>
+        <para id="id9537943">D = E + A</para>
+        <para id="id9537951">C = G x H</para>
+        <para id="id9537960">A = D / H</para>
+        <para id="id9537968">Data dependencies limit when an instruction can be input to the pipeline.</para>
+        <list id="id9537977" list-type="bulleted">
+          <item>Branching</item>
+        </list>
+        <para id="id9537986">One of the major problems in designing an instruction pipeline is assuring a steady flow of instructions to initial stages of the pipeline. However, 15-20% of instructions in an assembly-level stream are (conditional) branches. Of these, 60-70% take the branch to a target address. Until the instruction is actually executed, it is impossible to determin whether the branch will be taken or not.</para>
+        <para id="id9538000">- Impact of the branch is that pipeline never really operates at its full capacity. </para>
+        <para id="id9538008">– The average time to complete a pipelined instruction becomes</para>
+        <para id="id9538017">Tave =(1-pb)1 + pb[pt(1+b) + (1-pt)1]</para>
+        <para id="id9538022">– A number of techniques can be used to minimize the impact of the branch instruction (the branch penalty).</para>
+        <para id="id9538031">- A several approaches have been taken for dealing with conditional branches:</para>
+        <para id="id9538037">+ Multiple streams</para>
+        <para id="id9538042">+ Prefetch branch target</para>
+        <para id="id9538048">+ Loop buffer</para>
+        <para id="id9538054">+ Branch prediction</para>
+        <para id="id9538059">+Delayed branch.</para>
+        <list id="id9538065" list-type="bulleted">
+          <item>Multiple streams</item>
+        </list>
+        <para id="id9538074">- Replicate the initial portions of the pipeline and fetch both possible next instructions</para>
+        <para id="id9538079">- Increases chance of memory contention</para>
+        <para id="id9538084">- Must support multiple streams for each instruction in the pipeline</para>
+        <list id="id9538090" list-type="bulleted">
+          <item>Prefetch branch target</item>
+        </list>
+        <para id="id9538099">- When the branch instruction is decoded, begin to fetch the branch target instruction and place in a second prefetch buffer</para>
+        <para id="id9538105">- If the branch is not taken, the sequential instructions are already in the pipe, so there is not loss of performance</para>
+        <para id="id9538112">- If the branch is taken, the next instruction has been prefetched and results in minimal branch penalty (don’t have to incur a memory read operation at the end of the branch to fetch the instruction)</para>
+        <list id="id9538123" list-type="bulleted">
+          <item>Loop buffer: Look ahead, look behind buffer </item>
+        </list>
+        <para id="id9538141">- Many conditional branches operations are used for loop control</para>
+        <para id="id9538146">- Expand prefetch buffer so as to buffer the last few instructions executed in addition to the ones that are waiting to be executed</para>
+        <para id="id9538153">- If buffer is big enough, entire loop can be held in it, this can reduce the branch penalty.</para>
+        <list id="id9538162" list-type="bulleted">
+          <item>Branch prediction</item>
+        </list>
+        <para id="id9538171">- Make a good guess as to which instruction will be executed next and start that one down the pipeline.</para>
+        <para id="id9538180">- Static guesses: make the guess without considering the runtime history of the program</para>
+        <para id="id9538186">Branch never taken</para>
+        <para id="id9538191">Branch always taken</para>
+        <para id="id9538197">Predict based on the opcode</para>
+        <para id="id9538202">- Dynamic guesses: track the history of conditional branches in the program.</para>
+        <para id="id9538211">Taken / not taken switch History table</para>
+        <figure id="id9538222"><media id="id6279915" alt=""><image src="../../media/graphics3-69dd.jpg" mime-type="image/jpeg"/></media>
+        </figure>
+        <para id="id9538246">Figure 8.3. Branch prediction using 2 history bits</para>
+        <list id="id9538254" list-type="bulleted">
+          <item>Delayed branch</item>
+        </list>
+        <para id="id9548242">- Minimize the branch penalty by finding valid instructions to execute in the pipeline while the branch address is being resolved.</para>
+        <para id="id9548251">- It is possible to improve performance by automatically rearranging instruction within a program, so that branch instruction occur later than actually desired </para>
+        <para id="id9548264">- Compiler is tasked with reordering the instruction sequence to find enough independent instructions (wrt to the conditional branch) to feed into the pipeline after the branch that the branch penalty is reduced to zero</para>
+      </section>
+    </section>
+    <section id="id-703886083626">
+      <title>3. Superscalar and Superpipelined Processors</title>
+      <section id="id-9683126747">
+        <title>3.1 Superpipeline designs</title>
+        <para id="id9548289">– Observation: a large number of operations do not require the full clock cycle to complete</para>
+        <para id="id9548295">– High performance can be obtained by subdividing the clock cycle into a number of sub intervals » Higher clock frequency!</para>
+        <para id="id9548307">– Subdivide the “macro” pipeline H/W stages into smaller (thus faster) substages and clock data through at the higher clock rate</para>
+        <para id="id9548313">– Time to complete individual instructions does not change</para>
+        <para id="id9548318">» Degree of parallelism goes up</para>
+        <para id="id9548324">» Perceived speedup goes up</para>
+      </section>
+      <section id="id-536106061917">
+        <title>3.2 Superscalar</title>
+        <para id="id9548337">– Implement the CPU such that more than one instruction can be performed (completed) at a time</para>
+        <para id="id9548343">– Involves replication of some or all parts of the CPU/ALU</para>
+        <para id="id9548348">– Examples:</para>
+        <para id="id9548353">» Fetch multiple instructions at the same time</para>
+        <para id="id9548359">» Decode multiple instructions at the same time</para>
+        <para id="id9548365">» Perform add and multiply at the same time</para>
+        <para id="id9548371">» Perform load/stores while performing ALU operation</para>
+        <para id="id9548377">– Degree of parallelism and hence the speedup of the machine goes up as more instructions are executed in parallel</para>
+        <list id="id9548387" list-type="bulleted">
+          <item>Data dependencies in superscalar </item>
+        </list>
+        <para id="id9548395">– It must insure computed results are the same as would be computed on a strictly sequential machine</para>
+        <para id="id9548404">– Two instructions can not be executed in parallel if the (data) output of one is the input of the other or if they both write to the same output location</para>
+        <para id="id9548410">– Consider:</para>
+        <para id="id9548415">S1: A = B + C</para>
+        <para id="id9548425">S2: D = A + 1</para>
+        <para id="id9548434">S3: B = E + F</para>
+        <para id="id9548444">S4: A = E + 3</para>
+        <para id="id9548454">Resource dependencies: </para>
+        <para id="id9548459">– In the above sequence of instructions, the adder unit gets a real workout!</para>
+        <para id="id9548471">– Parallelism is limited by the number of adders in the ALU</para>
+      </section>
+      <section id="id-271753202191">
+        <title>3.3 Instruction issue policy</title>
+        <para id="id9548485">Problem: In what order are instructions issued to the execution unit and in what order do they finish?</para>
+        <para id="id9548494">There is 3 types of ordering.</para>
+        <para id="id9548501">- The order in which instructions are fetched</para>
+        <para id="id9548510">- The order in which instructions are executed</para>
+        <para id="id9548519">- The order in which instructions update the contents of registre or memory location.</para>
+        <list id="id9548534" list-type="bulleted">
+          <item>In-order issue, in-order completion</item>
+        </list>
+        <para id="id9548545">» Simplest method, but severely limits performance</para>
+        <para id="id9548552">» Strict ordering of instructions: data and procedural dependencies or resource conflicts delay all subsequent instructions</para>
+        <para id="id9548562">» Delay execution of some instructions delay all subsequent instructions</para>
+        <list id="id9548569" list-type="bulleted">
+          <item>In-order issue, out-of-order completion</item>
+        </list>
+        <para id="id9548578">» Any number of instructions can be executed at a time</para>
+        <para id="id9548584">» Instruction issue is still limited by resource conflicts or data and procedural dependencies</para>
+        <para id="id9548596">» Output dependencies resulting from out-of order completion must be resolved</para>
+        <para id="id9548606">» “Instruction” interrupts can be tricky</para>
+        <list id="id9548612" list-type="bulleted">
+          <item>Out-of-order issue, out-of-order completion</item>
+        </list>
+        <para id="id9548622">» Decode and execute stages are decoupled via an instruction buffer “window”</para>
+        <para id="id9548634">» Decoded instructions are “stored” in the window awaiting execution</para>
+        <para id="id9548643">» Functional units will take instructions from the window in an attempt to stay busy</para>
+        <para id="id9548656">This can result in out-of-order execution</para>
+        <para id="id9548662">S1: A = B + C</para>
+        <para id="id9548667">S2: D = E + 1</para>
+        <para id="id9548673">S3: G = E + F</para>
+        <para id="id9548678">S4: H = E * 3</para>
+        <para id="id9548684">“Antidependence” class of data dependencies must be dealt with it.</para>
+      </section>
+    </section>
+  </content>
+</document>

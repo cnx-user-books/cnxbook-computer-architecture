@@ -1,0 +1,216 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Module 10: Cahe Memory</title>
+  <metadata>
+  <md:content-id>m29312</md:content-id><md:title>Module 10: Cahe Memory</md:title>
+  <md:abstract/>
+  <md:uuid>9a156973-4874-41ae-9831-4d6cfff6bf7f</md:uuid>
+</metadata>
+
+<content>
+    <section id="id-66258319969">
+      <title>1. Cache Memory Overview</title>
+      <para id="id7962776">Cache memory is the fast and small memory. The basis idea of using a cache is simple. When CPU need a word, it first looks in the cache. Only if the word is not there does it go to main memory. If a substantial fraction of the words are in the cache, the average access time can be greatly reduced. So the success or faillure thus depends on what fraction of the words are in cache. The idea solution is that when a word is referenced, it and some of its neighbors are brought from the large slow memory into the cache, so that the next time it can be accessed quickly.</para>
+      <list id="id6735299" list-type="bulleted">
+        <item>Improving Performance</item>
+      </list>
+      <para id="id9601288">The memory mean access time, TM, is considered as follow:</para>
+      <para id="id9155977">TM = c + (1- h).m</para>
+      <para id="id7651158">Where: </para>
+      <para id="id7651163">c : the cache access time</para>
+      <para id="id7152544">m: the main memory access time</para>
+      <para id="id7878449">h: the hit ratio, which is the fraction of all references that can be satisfied out of cache (the success of cache), also the miss ratio is 1-h.</para>
+      <list id="id8789508" list-type="bulleted">
+        <item>Cache memory is a critical component of the memory hierarchy. </item>
+      </list>
+      <figure id="id8859701">
+        <media id="id1168606913349" alt=""><image src="../../media/graphics1-63e7.jpg" mime-type="image/jpeg" height="261" width="484"/></media>
+      </figure>
+      <para id="id8917004">Figure 10.1. The cache is logically between the CPU and main memory in the the memory hierarchy. Physically, there are several possible places it could be located.</para>
+      <list id="id8917011" list-type="bulleted">
+        <item>Characteristics</item>
+      </list>
+      <para id="id9110104">– Compared to the size of main memory, cache is relatively small</para>
+      <para id="id9110111">– Operates at or near the speed of the processor</para>
+      <para id="id9618909">– Cache is very expensive compared to main memory</para>
+      <para id="id8220462">– Cache contains copies of sections of main memory</para>
+      <list id="id8220469" list-type="bulleted">
+        <item>Cache is considered as the main memory interface</item>
+      </list>
+      <para id="id9147363">– Assume an access to main memory causes a block of K words to be transferred to the cache</para>
+      <para id="id8130492">– The block transferred from main memory is stored in the cache as a single unit called a slot, line, or page</para>
+      <para id="id8897384">– Once copied to the cache, individual words within a line can be accessed by the CPU</para>
+      <para id="id7757081">– Because of the high speeds involved with the cache, management of the data transfer and storage in the cache is done in hardware</para>
+      <para id="id7428305">- If there are 2n words in the main memory, then there will be M=2n /K blocks in the memory</para>
+      <para id="id8859898">– M will be much greater than the number of lines, C, in the cache</para>
+      <para id="id8859904">– Every line of data in the cache must be tagged in some way to identify what main memory block it is. The line of data and its tag are stored in the cache.</para>
+      <list id="id6731534" list-type="bulleted">
+        <item>Factors in the cache design</item>
+      </list>
+      <para id="id9598743">- Mapping function between main memory and the cache</para>
+      <para id="id9611532">- Line replacement algorithm</para>
+      <para id="id8130094">- Write policy</para>
+      <para id="id8130102">- Block size</para>
+      <para id="id9158556">- Number and type of caches</para>
+    </section>
+    <section id="id-883602129464">
+      <title>2. Cache Organization and Operations</title>
+      <para id="id8793211">Mapping function organization: Mapping functions since M&gt;&gt;C, how are blocks mapped to specific lines in cache</para>
+      <section id="id-588467828137">
+        <title>2.1 Direct mapping</title>
+        <para id="id8088925">a/ Organization:</para>
+        <para id="id9467684">The simplest cache is known as a direct-mapped cache or direct mapping, it is shown in Figure 10.2. </para>
+        <para id="id7794668">– Direct mapping cache treats a main memory address as 3 distinct fields</para>
+        <para id="id7794676">+ Tag identifier</para>
+        <para id="id8601234">+ Line number identifier</para>
+        <para id="id7684484">+ Word identifier (offset)</para>
+        <para id="id7684493">– Word identifier specifies the specific word (or addressable unit) in a cache line that is to be read</para>
+        <para id="id9568764">– Line identifier specifies the physical line in cache that will hold the referenced address</para>
+        <para id="id9568770">– The tag is stored in the cache along with the data words of the line</para>
+        <figure id="id8910128">
+          <media id="id1168609736899" alt=""><image src="../../media/graphics2-c38a.jpg" mime-type="image/jpeg" height="472" width="588"/></media>
+        </figure>
+        <para id="id8763125">Figure 10.2. Direct mapping cache Organization</para>
+        <para id="id9145302">For every memory reference that the CPU makes, the specific line that would hold the reference (if it is has already been copied into the cache) is determined. The tag held in that line is checked to see if the correct block is in the cache</para>
+        <para id="id9145313">b/ Operations</para>
+        <para id="id9099380">- Each main memory block is assigned to a specific line in the cache:</para>
+        <para id="id9099385">i = j modulo C, where i is the cache line number assigned to main memory block j</para>
+        <para id="id9469590">– If M=64, C=4:</para>
+        <para id="id7640662">Line 0 can hold blocks 0, 4, 8, 12, ...</para>
+        <para id="id7640671">Line 1 can hold blocks 1, 5, 9, 13, ...</para>
+        <para id="id9600191">Line 2 can hold blocks 2, 6, 10, 14, ...</para>
+        <para id="id8897923">Line 3 can hold blocks 3, 7, 11, 15, ...</para>
+        <para id="id8897931">– Example:</para>
+        <para id="id8792372">Memory size of 1 MB (20 address bits) addressable to the individual byte</para>
+        <para id="id8792382">Cache size of 1 K lines, each holding 8 bytes:</para>
+        <para id="id8028610">Word id = 3 bits</para>
+        <para id="id9112602">Line id = 10 bits</para>
+        <para id="id7224578">Tag id = 7 bits</para>
+        <para id="id7224588">Where is the byte stored at main memory</para>
+        <para id="id8476169">location $ABCDE stored?</para>
+        <para id="id9600112">$ABCDE=1010101 1110011011 110</para>
+        <para id="id7878557">Cache line $39B, word offset $6, tag $55</para>
+        <para id="id7878566">c/ Remarks</para>
+        <list id="id8447100" list-type="bulleted">
+          <item>Advantages of direct mapping</item>
+        </list>
+        <para id="id9496776">+ Easy to implement</para>
+        <para id="id9496786">+ Relatively inexpensive to implement</para>
+        <para id="id9158626">+ Easy to determine where a main memory reference can be found in cache</para>
+        <list id="id8786406" list-type="bulleted">
+          <item>Disadvantage</item>
+        </list>
+        <para id="id9122064">+ Each main memory block is mapped to a specific cache line</para>
+        <para id="id9122074">+ Through locality of reference, it is possible to repeatedly reference to blocks that map to the same line number</para>
+        <para id="id9569046">+ These blocks will be constantly swapped in and out of cache, causing the hit ratio to be low.</para>
+      </section>
+      <section id="id-510261536786">
+        <title>2.2 Associative mapping</title>
+        <para id="id7651542">a/ Organization</para>
+        <para id="id7651546">A set-associative cache or associative mapping is inhenrently more complicated than a direct-mapped cache because although the correct cache entry to examine can be computed from the memory address being referenced, a set of n cache entries must be checked to see if the need line is present.</para>
+        <para id="id7684625">Associative mapping can overcomes direct mapping’s main of the direct mapping, the associate cache organization is illustrated in Figure 10.3. </para>
+        <figure id="id9085754">
+          <media id="id3460690" alt=""><image src="../../media/graphics3-932e.jpg" mime-type="image/jpeg" height="474" width="589"/></media>
+        </figure>
+        <para id="id9571136">Figure 10.3. Associate Cache Organization</para>
+        <para id="id8814098">– Operation must examine each line in the cache to find the right memory block</para>
+        <para id="id9598947">+ Examine the line tag id for each line</para>
+        <para id="id9598955">+ Slow process for large caches!</para>
+        <para id="id8588438">– Line numbers (ids) have no meaning in the cache</para>
+        <para id="id8030800">+ Parse the main memory address into 2 fields (tag and word offset) rather than 3 as in direct mapping</para>
+        <para id="id8127866">– Implementation of cache in 2 parts: </para>
+        <para id="id8127873">+ Part SRAM: The lines themselves in SRAM</para>
+        <para id="id8792493">+ The tag storage in associative memory</para>
+        <para id="id9618617">– Perform an associative search over all tags</para>
+        <para id="id9618622">b/ Operation example</para>
+        <para id="id7800658">With the same example: Memory size of 1 MB (20 address bits) addressable to the individual byte. Cache size of 1 K lines, each holding 8 bytes:</para>
+        <para id="id7800664">Word id = 3 bits</para>
+        <para id="id9467703">Tag id = 17 bits</para>
+        <para id="id9467708">Where is the byte stored at main memory location $ABCDE stored?</para>
+        <para id="id8897364">$ABCDE=10101011110011011 110</para>
+        <para id="id8897369">Cache line unknown, word offset $6, tag $1579D.</para>
+        <para id="id7836016">c/ Remarks</para>
+        <list id="id7836020" list-type="bulleted">
+          <item>Advantages</item>
+        </list>
+        <para id="id8887392">- Fast</para>
+        <para id="id8887400">- Flexible</para>
+        <list id="id8531682" list-type="bulleted">
+          <item>Disadvantage</item>
+          <item>Implementation cost</item>
+        </list>
+        <para id="id8219858">Example above has 8 KB cache and requires 1024 x 17 = 17,408 bits of</para>
+        <para id="id8087899">associative memory for the tags!</para>
+      </section>
+      <section id="id-888174248891">
+        <title>2.3 Set associative mapping</title>
+        <para id="id8130288">a/ Organization</para>
+        <para id="id8130292">The associative mapping is considered as compromise between direct and fully associative mappings that builds on the strengths of both</para>
+        <para id="id7592128">– Divide cache into a number of sets (v), each set holding a number of lines (k)</para>
+        <para id="id7592134">– A main memory block can be stored in any one of the k lines in a set such that</para>
+        <para id="id7153962">set number = j modulo v</para>
+        <para id="id7153966">– If a set can hold X lines, the cache is referred to as an X-way set associative cache</para>
+        <para id="id7153974">Most cache systems today that use set associative mapping are 2- or 4-way set</para>
+        <para id="id7618005">Associative.</para>
+        <figure id="id9566424">
+          <media id="id1168620106887" alt=""><image src="../../media/graphics4-4857.jpg" mime-type="image/jpeg" height="484" width="589"/></media>
+        </figure>
+        <para id="id7305522">Figure. 10. 4 Set associative cache organization</para>
+        <para id="id7592062">b/ Example</para>
+        <para id="id7592067">Assume the 1024 lines are 4-way set associative:</para>
+        <para id="id7592072">1024/4 = 256 sets</para>
+        <para id="id5943116">Word id = 3 bits</para>
+        <para id="id5943122">Set id = 8 bits</para>
+        <para id="id8130671">Tag id = 9 bits</para>
+        <para id="id8130676">Where is the byte stored at main memory</para>
+        <para id="id6741440">Location $ABCDE stored?</para>
+        <para id="id6741445">$ABCDE=101010111 10011011 110</para>
+        <para id="id6741450">Cache set $9B, word offset $6, tag $157</para>
+      </section>
+    </section>
+    <section id="id-974037791999">
+      <title>3. Replacement Algorithms</title>
+      <para id="id7640688">As we known, cache is the fast and small memory. when new block is brough into the cache, one of the blocks existing must be replaced by the new block that is to be read from memory. </para>
+      <para id="id9484297">For direct mapping, there is only one possible line for any particular block and no choice is possible. For the associative cache or a set associative cache, a replacement algorithm is needed. </para>
+      <para id="id9484304">A number of algorithms can be tried: </para>
+      <para id="id9484308">– Least Recently Used (LRU)</para>
+      <para id="id7622102">– First In First Out (FIFO)</para>
+      <para id="id8821654">– Least Frequently Used (LFU)</para>
+      <para id="id8821662">– Random</para>
+      <para id="id8740631">Probably the most effective algorithm is least recently used (LRU): Replace that block in the set that has been in the cache longest with no refrence.</para>
+    </section>
+    <section id="id-861931709397">
+      <title>4. Performances</title>
+      <section id="id-596139749479">
+        <title>4.1 Write policy</title>
+        <para id="id9609496">– When a line is to be replaced, must update the original copy of the line in main memory if any addressable unit in the line has been changed</para>
+        <para id="id9609503">– Write through</para>
+        <para id="id7962793">+ Anytime a word in cache is changed, it is also changed in main memory</para>
+        <para id="id7962803">+ Both copies always agree</para>
+        <para id="id8521920">+ Generates lots of memory writes to main memory</para>
+        <para id="id8600242">– Write back</para>
+        <para id="id8600247">+ During a write, only change the contents of the cache</para>
+        <para id="id8325349">+ Update main memory only when the cache line is to be replaced</para>
+        <para id="id7651134">+Causes “cache coherency” problems -- different values for the contents of an address are in the cache and the main memory</para>
+        <para id="id7981524">+ Complex circuitry to avoid this problem</para>
+      </section>
+      <section id="id-131774712035">
+        <title>4.2 Block / line sizes</title>
+        <para id="id8789272">– How much data should be transferred from main memory to the cache in a single memory reference</para>
+        <para id="id8789278">– Complex relationship between block size and hit ratio as well as the operation of the system bus itself</para>
+        <para id="id8868058">– As block size increases,</para>
+        <para id="id8868062">+ Locality of reference predicts that the additional information transferred will likely be used and thus increases the hit ratio (good)</para>
+        <para id="id7427615">+ Number of blocks in cache goes down, limiting the total number of blocks in the cache (bad)</para>
+        <para id="id9599511">+ As the block size gets big, the probability of referencing all the data in it goes down (hit ratio goes down) (bad)</para>
+        <para id="id8130269">+ Size of 4-8 addressable units seems about right for current systems</para>
+      </section>
+      <section id="id-978610294617">
+        <title>Number of caches</title>
+        <para id="id7836317">Single vs. 2-level cache: </para>
+        <para id="id7836324">- Modern CPU chips have on-board cache (Level 1 – L1): </para>
+        <para id="id7618027">L1 provides best performance gains</para>
+        <para id="id8139689">- Secondary, off-chip cache (Level 2) provides higher speed access to main memory</para>
+        <para id="id9642440">L2 is generally 512KB or less more than this is not cost-effective.</para>
+      </section>
+    </section>
+  </content>
+</document>

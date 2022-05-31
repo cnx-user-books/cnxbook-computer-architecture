@@ -1,0 +1,105 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Module 14: Operating System Support</title>
+  <metadata>
+  <md:content-id>m29811</md:content-id><md:title>Module 14: Operating System Support</md:title>
+  <md:abstract/>
+  <md:uuid>3adf6388-9577-49f6-9de0-2227bc0c13fb</md:uuid>
+</metadata>
+
+<content>
+    <section id="id-436880057623">
+      <title>1. Introduction to Operating System (OS)</title>
+      <para id="id5001583">The Operating System is the software that control the execution of programs on a processor and that manages the computer’s resources</para>
+      <list id="id5268725" list-type="bulleted">
+        <item>Operating System</item>
+      </list>
+      <para id="id6115855">– The Operating System (OS) is the program that manages the resources, provides</para>
+      <para id="id6115864">services to programmer, schedules execution of other programs.</para>
+      <para id="id6186337">– The OS masks the details of the hardware from the programmer</para>
+      <para id="id6141037">– The OS provides programmer a good interface for using the system that consists the new instructions are called system calls</para>
+      <para id="id6141051">– The OS mediates programmer and application programs requests for facilities and services</para>
+      <list id="id5308165" list-type="bulleted">
+        <item>Services provided</item>
+      </list>
+      <para id="id6219344">– Program creation -- general utilities</para>
+      <para id="id6219348">– Program execution -- loading, device</para>
+      <para id="id6219352">initializing, etc.</para>
+      <para id="id6219357">– Standardized access to I/O devices</para>
+      <para id="id5087176">– Controlled access to files</para>
+      <para id="id5087180">– Overall system access control</para>
+      <list id="id5087184" list-type="bulleted">
+        <item>Types of Operating System</item>
+      </list>
+      <para id="id6354770">– Interactive OS</para>
+      <para id="id4358405">User directly interacts with the OS through a keyboard / terminal</para>
+      <para id="id4358414">– Batch OS</para>
+      <para id="id6313723">User programs are collected together (“off line”) and submitted to the OS in a batch by an operator</para>
+      <para id="id5099417">Print-out results of the program execution is returned to the user</para>
+      <para id="id5099427">This type of OS is not typical of current machines</para>
+      <para id="id4412275">This type is used in the mainframes of 60-70s when the cost of hardware was such that you wanted to keep it busy all thetime</para>
+      <para id="id5682386">O/S was really a monitor program that focused on job scheduling</para>
+      <list id="id5682395" list-type="bulleted">
+        <item>Multiprogramming / time sharing</item>
+      </list>
+      <para id="id4355719">- An OS is said to be multiprogramming if it supports the simultaneous execution of more than 1 job. In this case a queue of pending jobs is maintained</para>
+      <para id="id6342421">- Current job is swapped out when it is idled waiting for I/O and other devices</para>
+      <para id="id6342431">Next pending job is started</para>
+      <para id="id6157648">- Time sharing is the term formultiprogramming when applied to an interactive system</para>
+      <para id="id6157660">Either requires much more sophistication than a typical batch OS: Memory management and Scheduling</para>
+    </section>
+    <section id="id-526379802969">
+      <title>2. OS scheduling</title>
+      <list id="id4030887" list-type="bulleted">
+        <item>In multiprogramming OS, multiple jobs are held in memory and alternate between</item>
+      </list>
+      <para id="id4030900">using the CPU, using I/O, and waiting (idle)</para>
+      <list id="id5040222" list-type="bulleted">
+        <item>The key to high efficiency with multiprogramming is effective scheduling</item>
+      </list>
+      <para id="id4977294">– High-level</para>
+      <para id="id4977301">– Short-term</para>
+      <para id="id5660100">– I/O</para>
+      <list id="id5660108" list-type="bulleted">
+        <item>High-level scheduling</item>
+      </list>
+      <para id="id5601901">– Determines which jobs are admitted into the system for processing</para>
+      <para id="id5601911">– Controls the degree of multiprocessing</para>
+      <para id="id3175208">– Admitted jobs are added to the queue of pending jobs that is managed by the short-termscheduler</para>
+      <para id="id4396369">– Works in batch or interactive modes</para>
+      <list id="id4396378" list-type="bulleted">
+        <item>Short-term scheduling</item>
+      </list>
+      <para id="id4998713">– This OS segment runs frequently and determines which pending job will receive the</para>
+      <para id="id4998722">CPU’s attention next</para>
+      <para id="id6386065">– Based on the normal changes of state that a job/process goes through</para>
+      <para id="id6386074">– A process is running in the CPU until: </para>
+      <para id="id5671366">+It issues a service call to the OS (e.g., for I/O service)</para>
+      <para id="id5671376">+ Process is suspended until the request is satisfied. Process causes and interrupt and is Suspended. External event causes interrupt</para>
+      <para id="id6012850">– Short-term scheduler is invoked to determine which process is serviced next.</para>
+      <figure id="id5267078">
+        <media id="id4729423" alt=""><image src="../../media/graphics1-7c23.png" mime-type="image/png" height="319" width="588"/></media>
+      </figure>
+      <para id="id5196813">Figure 14.1 Scheduling queues</para>
+      <para id="id5196817">- Queues are simply lists of jobs that are waiting for some type of service (e.g., CPU cycles, I/ etc.). Once job has been admitted into the system by the high-level scheduler, it is allocated its portion of memory for its program and data requirements</para>
+      <para id="id5915329">- The objective of the short-term scheduler is to keep the CPU actively working on one of the pending jobs -- maximize the used CPU cycles</para>
+      <para id="id4826061">- Problem:</para>
+      <para id="id5960913">+ The high-level scheduler will admit as many jobs as possible (constrained by</para>
+      <para id="id5960923">system resources such as available memory)</para>
+      <para id="id4965834">+ Despite many jobs in the system, the speed of the CPU (compared to peripherals) might be such that all jobs are waiting for (slow) I/O and thus the CPU is idled (no jobs in the ready queue)</para>
+      <para id="id5828051">+ Use memory management to solve this</para>
+    </section>
+    <section id="id-401907082749">
+      <title>3. OS Memory Management</title>
+      <para id="id5040203">One of important task of OS is to menage the memory system. To avoid having the CPU idle because all jobs are waiting, one could increase the memory size to hold more jobs</para>
+      <para id="id5040213">– Memory is expensive costly solution to the problem</para>
+      <para id="id4425760">– Programs’ sizes (process sizes) tend to expand to take up available memory</para>
+      <para id="id5074600">A better approach is to use a mechanism to remove a waiting job from memory and</para>
+      <para id="id5074609">replace it with one that (hopefully) will run on the CPU in the short term</para>
+      <para id="id4478641">– This is the idea of swapping</para>
+      <para id="id4478649">– Idle processes are removed from the memory and placed in an intermediate queue</para>
+      <para id="id4320398">– Replace idled job with a “ready” one from the front of the intermediate queue or with a new job</para>
+      <para id="id5854966">– Swapping uses I/O operations to read and write to disk.</para>
+      <para id="id5854975">The virtual memory will be presented in the next section.</para>
+    </section>
+  </content>
+</document>

@@ -1,0 +1,246 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Module 2: Top-Level View of Computer Organization</title>
+  <metadata>
+  <md:content-id>m29708</md:content-id><md:title>Module 2: Top-Level View of Computer Organization</md:title>
+  <md:abstract/>
+  <md:uuid>737eb4cf-3542-4737-81d1-31dbe2543e5c</md:uuid>
+</metadata>
+
+<content>
+    <section id="id-267180322687">
+      <title>1. Computer Component</title>
+      <para id="id7191153">Contemporary computer designs are based on concepts developed by John von Neumann at the Institute for Advanced Studies Princeton. Such a design is referred to as the von Neumann architecture and is based on three key concepts:</para>
+      <list id="id7191171" list-type="bulleted">
+        <item>Data and instructions are stored in a single read -write memory.</item>
+        <item>The contents of this memory are addressable by location, without regard to the type of data contained there.</item>
+        <item>Execution occurs in a sequential fashion (unless explicitly modified) from one instruction to the next.</item>
+      </list>
+      <para id="id7191195">Suppose that there is a small set of basic logic components that can be com­bined in various ways to store binary data and to perform arithmetic and logical operations on that data. If there is a particular computation to be performed, a con­figuration of logic components designed specifically for that computation could be constructed. We can think of the process of connecting the various components in the desired configuration as a form of programming. The resulting "program"' is in the form of hardware and is termed a hardwired program.</para>
+      <para id="id7191220">Now consider other alternative. Suppose we construct a general-purpose con­figuration of arithmetic and logic functions, this set of hardware will perform vari­ous functions on data depending on control signals applied to the hardware. In the original case of customized hardware, the system accepts data and produces results (Figure 1a). With general-purpose hardware, the system accepts data and control signals and produces results. Thus, instead of rewiring the hardware for each new program, The programmer merely needs to supply a new set of control signals.</para>
+      <para id="id7191240">How shall control signals be supplied? The answer is simple but subtle. The entire program is actually a sequence of steps. At each step, some arithmetic or log­ical operation is performed on some data. For each step, a new set of control signals is needed. Let us provide a unique code for each possible set of control signals, and let us add to the general-purpose hardware a segment that can accept a code and generate control signals (Figure 1b).</para>
+      <para id="id7191269">Programming is now much easier. Instead of rewiring the hardware for each new program, all we need to do is provide a new sequence of codes. Each code is, in effect, an instruction, and part of the hardware interprets each instruction and generates control signals. To distinguish this new method of programming, a sequence of codes or instructions is called software.</para>
+      <figure id="id7191299">
+        <media id="id3550191" alt=""><image src="../../media/graphics1-9ace.png" mime-type="image/png" height="610" width="572"/></media>
+      </figure>
+      <para id="id7191322">Figure 1 Hardware and software approaches</para>
+      <para id="id7191327">Figure 1b indicates two major components of the system: an instruction interpreter and a module of general-purpose arithmetic and logic functions. These two constitute the CPU. </para>
+      <para id="id7191334">Several other components are needed to yield a function­ing computer. Data and instructions must be put into the system. For this we need some sort of input module. This module contains basic components for accepting data and instructions in some form and converting them into an internal form of sig­nals usable by the system. A means of reporting results is needed, and this is in the form of an output module. Taken together, these are referred to as I/O components.</para>
+      <para id="id7191358">One more component is needed. An input device will bring instructions and data in sequentially, but a program is not invariably executed sequentially: it may jump around. Similarly, operations on data may require access to more than just one element at a lime in a predetermined sequence. Thus, There must be a place to store temporarily both instructions and data. That module is called memory, or main memory to distinguish it from external storage or peripheral devices. Von Neumann pointed out that the same memory could be used to store both instructions and data.</para>
+      <para id="id7191394">Figure 2 illustrates these top-level components and suggests the interactions among them. The CPU exchanges data with memory. For this purpose, it typically makes use of two internal (to the CPU) registers: a memory address register (MAR), which specifies the address in memory for the next read or write, and a memory buffer register (MBR), which contains the data to be written into memory or receives the data read from memory. Similarly, an I/O address register (I/OAR) specifies a particular I/O device. An I/O buffer register (I/OBR) is used for the exchange of data between an I/O module and the CPU.</para>
+      <para id="id7191411">A memory module consists of a set of locations, defined by sequentially num­bered addresses. Each location contains a binary number that can be interpreted as either an instruction or data. An I/O module transfers data from external devices to CPU and memory, and vice versa. It contains internal buffers for temporarily hold­ing these data until they can be sent on.</para>
+      <para id="id7191428">Having looked briefly al these major components, we now turn to an overview of how these components function together to execute programs.</para>
+      <figure id="id7191438">
+        <media id="id5157457" alt=""><image src="../../media/graphics2-f63f.png" mime-type="image/png" height="579" width="600"/></media>
+      </figure>
+      <para id="id7191461">Figure 2 Computer components: Top-level view</para>
+    </section>
+    <section id="id-142645524622">
+      <title>2. Computer Function</title>
+      <para id="id7191474">The basic function performed by a computer is execution of a program, which con­sists of a set of instructions stored in memory. The processor does the actual work by executing instructions specified in the program. In its simplest form, instruction processing consists of two steps: The processor reads (fetches) instructions from memory one at a time and executes each instruction. Program execution consists of repeating the process of instruction fetch and instruction execution. The Instruction execution may involve several operations and depends on the nature of the instruc­tion.</para>
+      <para id="id7191510">The processing required for a single instruction is called an instruction cycle. Using the simplified two-step description given previously, the instruction cycle is depicted in Figure 3</para>
+      <figure id="id7191532"><media id="id1637589" alt=""><image src="../../media/graphics3-d2b4.jpg" mime-type="image/jpeg"/></media>
+      </figure>
+      <para id="id7191556">Figure 3: Basic instruction cycle</para>
+      <para id="id7191560">The two steps are referred to as the fetch cycle and the execute cycle. Program execution halts only if the machine is turned off, some sort of unrecoverable error occurs, or a program instruction that halts the computer is encountered.</para>
+      <section id="id-344267155169">
+        <title>2.1 Instruction Fetch and Execute</title>
+        <section id="id-307467913671">
+          <title>Fetch Cycle:</title>
+          <list id="id7191609" list-type="bulleted">
+            <item>Program Counter (PC) holds address of next instruction to fetch</item>
+            <item>Processor fetches instruction from memory location pointed to by PC</item>
+            <item>Increment PC (Unless told otherwise)</item>
+            <item>Instruction loaded into Instruction Register (IR)</item>
+            <item>Processor interprets instruction and performs required actions</item>
+          </list>
+          <para id="id7191643">At the beginning of each instruction cycle, the processor fetches an instruction from memory. In a typical processor, a register called the program counter (PC) holds the address of the instruction to be fetched next. Unless told otherwise, the processor always increments the PC after each instruction fetch so that it will fetch the next instruction in sequence. The fetched instruction is loaded into a register in the processor known as the instruction register (IR). The instruction contains bits that specify the action the processor is to take. The processor interprets the instruction and performs the re­quired action.</para>
+        </section>
+        <section id="id-460197865689">
+          <title>Execute Cycle:</title>
+          <para id="id7191686">In general, the required actions fall into four categories:</para>
+          <list id="id7191694" list-type="bulleted">
+            <item>Processor-memory: Data may be transferred from processor to memory or from memory to processor.</item>
+            <item>Processor-I/O: Data may be transferred to or from a peripheral device by transferring between the processor and an I/O module.</item>
+            <item>Data processing: The processor may perform some arithmetic or logic opera­tion on data.</item>
+            <item>Control: An instruction may specify that the sequence of execution be altered. </item>
+            <item>An instruction’s execution may involve a combination of these actions.</item>
+          </list>
+        </section>
+        <section id="id-792382355659">
+          <title>Instruction Cycle State Diagram:</title>
+          <para id="id7191785">Figure 4 provides a more detailed look at the basic instruction cycle. The figure is in the form of a state diagram. For any given instruction cycle, some stales may be null and others may be visited more than once. The states can be described as follows:</para>
+          <figure id="id7191800"><media id="id7044753" alt=""><image src="../../media/graphics4-77a7.jpg" mime-type="image/jpeg"/></media>
+          </figure>
+          <para id="id7191824">Figure 4: Instruction cycle state diagram</para>
+          <list id="id7191828" list-type="bulleted">
+            <item>Instruction address calculation (iac): Determine the address of the next instruction to be executed. Usually, this involves adding a fixed number to the address of the previous instruction. For example, if each instruction is 16 bits long and memory is organized into 16-bit words, then add 1 to the previous address. If, instead, memory is organized as individually addressable 8-bit bytes, then add 2 to the previous address.</item>
+            <item>Instruction fetch (if): Read instruction from its memory location into the processor.</item>
+            <item>Instruction operation decoding (iod): Analyze instruction to determine type of operation to he performed and operand(s) to be used.</item>
+            <item>Operand address calculation (oac): If the operation involves reference to an operand in memory or available via I/O. then determine the address of the operand.</item>
+            <item>Operand fetch (of): Fetch the operand from memory or read it in from I/O,</item>
+            <item>Data operation (do): Perform the operation indicated in the instruction.</item>
+            <item>Operand store (os): Write the result into memory or out to I/O</item>
+          </list>
+        </section>
+      </section>
+      <section id="id-461973023345">
+        <title>2.2 Interrupts</title>
+        <para id="id7191939">Virtually all computers provide a mechanism called Interrupt, by which other modules (I/O. mem­ory) may interrupt the normal processing of the processor. Interrupts are provided primarily as a way to improve processing efficiency. </para>
+        <para id="id7191955">For example, most external devices are much slower than the processor. Suppose that the processor is transferring data to a printer using the instruction cycle scheme of Figure 3. After each write operation, the processor must pause and remain idle until the printer catches up. The length of this pause may be on the order of many hundreds or even thousands of instruction cycles that do not involve memory. Clearly, this is a very wasteful use of the processor. The figure 5a illustrates this state of affairs. </para>
+        <figure id="id7191971"><media id="id5757947" alt=""><image src="../../media/graphics5-ccad.jpg" mime-type="image/jpeg"/></media>
+        </figure>
+        <para id="id7191995">Figure 5: Program flow control without and with interrupts</para>
+        <para id="id7192000">The user program (depicted in figure 5a) performs a series of WRITE calls interleaved with processing. Code segments 1, 2, and 3 refer to sequences of instructions that do not involve I/O. The WRITE calls arc to an I/O program that is a System utility and that will perform the actual I/O operation. The I/O program consists of three sections:</para>
+        <list id="id7192013" list-type="bulleted">
+          <item>A sequence of instructions, labeled 4 in the figure, to prepare for the actual I/O operation. This may include copying the data to be output into a special buffer and preparing the parameters for a device command.</item>
+          <item>The actual I/O command. Without the use of interrupts, once this command is issued, the program must wait for the I/O device to perform the requested func­tion (or periodically poll the device). The program might wail by simply repeat­edly performing a test operation to determine if the I/O operation is done.</item>
+          <item>A sequence of instructions, labeled 5 in the figure, to complete the operation. This may include setting a flag indicating the success or failure of the operation.</item>
+        </list>
+        <para id="id7192052">Because the I/O operation may lake a relatively long time to complete. The I/O program is hung up wailing for the operation to complete; hence. The user program is slopped at the point of the WRITE call for some considerable period of time</para>
+        <section id="id-290512994341">
+          <title>Interrupts and the Instruction Cycle</title>
+          <para id="id7192079">With interrupts, the processor can be engaged in executing other instructions while an I/O operation is in progress. Consider the flow of control in Figure 5b. As before, the user program reaches a point at which it makes a system call in the form of a WRITE call. The I/O program that is invoked in this case consists only of the preparation code and the actual I/O command. After these few instructions have been executed, control returns to the user program. Meanwhile, the external device is busy accepting data from computer memory and printing it. This I/O operation is conducted concurrently with the execution of instructions in the user program.</para>
+          <para id="id7192097">When the external device becomes ready to be serviced, that is, when it is ready to accept more data from the processor, the I/O module for that external device sends an interrupt request signal to the processor. The processor responds by suspending operation of the current program, branching off to a program to service that particular I/O device, known as an interrupt handler, and resuming the original execution after the device is serviced. The points at which such interrupts occur are indicated by an asterisk in Figure 5b.</para>
+          <para id="id7192122">From the point of view of the user program, an interrupt is just that: an interruption of the normal sequence of execution. When the interrupt processing is completed, execution resumes (Figure 6). Thus, the user program does not have to contain any special code to accommodate interrupts; the processor and the oper­ating system are responsible for suspending the user program and then resuming it at the same point.</para>
+          <figure id="id7192146">
+            <media id="id7024901" alt=""><image src="../../media/graphics6.jpg" mime-type="image/jpeg" height="407" width="600"/></media>
+          </figure>
+          <para id="id7192170">Figure 6: The transfer of control via interrupt</para>
+          <para id="id7192175">To accommodate interrupts, an interrupt cycle is added to the instruction cycle, as shown in Figure 7. In the interrupt cycle, the processor checks to see if any interrupts have occurred, indicated by the presence of an interrupt signal. If no interrupts arc pending, the processor proceeds to the fetch cycle and fetches the next instruction of the current program. If an interrupt is pending, the processor does the following:</para>
+          <list id="id7192198" list-type="bulleted">
+            <item>It suspends execution of the current program being executed and saves its context. This means saving the address of the next instruction to be executed (current contents of the program counter) and any other data relevant to the processor's current activity.</item>
+          </list>
+          <list id="id7192211" list-type="bulleted">
+            <item>It sets the program counter to the starting address of an interrupt handler routine.</item>
+          </list>
+          <figure id="id7192235"><media id="id4746895" alt=""><image src="../../media/graphics7.jpg" mime-type="image/jpeg"/></media>
+          </figure>
+          <para id="id7192259">Figure 7: Instruction Cycle with Interrupts.</para>
+          <para id="id7192264">The processor now proceeds to the fetch cycle and fetches the first instruc­tion in the interrupt handler program, which will service the interrupt. The inter­rupt handler program is generally part of the operating system. Typically, this program determines the nature of the interrupt and performs whatever actions are needed. In the example we have been using, the handler determines which I/O module generated the interrupt, and may branch to a program that will write more data out to that I/O module. When the interrupt handler routine is com­pleted, the processor can resume execution of the user program at the point of interruption. Figure 8 shows a revised instruction cycle state diagram that includes interrupt cycle processing.</para>
+          <figure id="id7192291"><media id="id3943042" alt=""><image src="../../media/graphics8.jpg" mime-type="image/jpeg"/></media>
+          </figure>
+          <para id="id7192315">Figure 8: Instruction cycle state diagram with interrupt</para>
+        </section>
+        <section id="id-570307417284">
+          <title>Multiple Interrupts</title>
+          <para id="id7192328">In some cases, multiple interrupts can occur. For example, a program may be receiving data from a communications line and printing results. The printer will generate an interrupt every lime that it completes a print operation. The communi­cation line controller will generate an interrupt every time a unit of data arrives. I he unit could either be a single character or a block, depending on the nature of the communications discipline. In any case, it is possible for a communications interrupt to occur while a printer interrupt is being processed. Two approaches can be taken to dealing with multiple interrupts: </para>
+          <list id="id7192354" list-type="bulleted">
+            <item>Disabling interrupts while an interrupt is being processed.</item>
+            <item>Defining priorities for interrupts.</item>
+          </list>
+          <para id="id7192374">The first is to disable interrupts while an interrupt is being processed. A disabled interrupt sim­ply means that the processor can and will ignore that interrupt request signal. If an interrupt occurs during this time, it generally remains pending and will be cheeked by the processor after the processor has enabled interrupts. Thus, when a user pro­gram is executing and an interrupt occurs, interrupts are disabled immediately. After the interrupt handler routine completes, interrupts are enabled before re­suming the user program, and the processor checks to see if additional interrupts have occurred. This approach is nice and simple, as interrupts are handled in strict sequential order (Figure 2.10).</para>
+          <figure id="id7192416"><media id="id5113796" alt=""><image src="../../media/graphics9.jpg" mime-type="image/jpeg"/></media>
+          </figure>
+          <para id="id7192440">Figure 9: Sequential interrupt processing</para>
+          <para id="id7192444">The second approach is to define priorities for interrupts and to allow an in­terrupt of higher priority to cause a lower-priority interrupt handler to be itself interrupted (Figure 10)</para>
+          <figure id="id7192460"><media id="id6798229" alt=""><image src="../../media/graphics10.jpg" mime-type="image/jpeg"/></media>
+          </figure>
+          <para id="id7192484">Figure 10: Transfer of Control with Multiple Interrupts</para>
+        </section>
+      </section>
+    </section>
+    <section id="id-913281432426">
+      <title>3. Interconnection Structures</title>
+      <para id="id7192499">A computer consists of a set of components or modules of three basic types (proces­sor, memory, I/O) that communicate with each other. In effect, a computer is a net­work of basic modules. Thus, there must be paths for connecting the modules. </para>
+      <para id="id7192515">The collection of paths connecting the various modules is called the intercon­nection structure. The design of this structure will depend on the exchanges that must be made between modules.</para>
+      <para id="id7192534">Figure 11 suggests the types of exchanges that are needed by indicating the major forms of input and output for each module type:</para>
+      <list id="id6898853" list-type="bulleted">
+        <item>Memory</item>
+        <item>Input/Output</item>
+        <item>CPU</item>
+      </list>
+      <para id="id6898873">The interconnection struc­ture must support the following types of transfers:</para>
+      <list id="id6898880" list-type="bulleted">
+        <item>Memory to processor: The processor reads an instruction or a unit of data from memory.</item>
+        <item>Processor to memory: The processor writes a unit of data to memory.</item>
+        <item>I/O to processor: The processor reads data from an I/O device via an I/O module.</item>
+        <item>Processor to I/O: The processor sends data to the I/O device.</item>
+        <item>I/O to or from memory: For these two cases, an I/O module is allowed to ex­change data directly with memory, without going through the processor, using direct memory access (DMA).</item>
+      </list>
+      <para id="id7192542">Over the years, a number of interconnection structures have been tried. By far the most common is the bus and various multiple-bus structures. </para>
+      <figure id="id6898929">
+        <media id="id7009155" alt=""><image src="../../media/graphics11.jpg" mime-type="image/jpeg" height="819" width="450"/></media>
+      </figure>
+      <para id="id6898953">Figure 11 Computer Modules</para>
+    </section>
+    <section id="id-820417558964">
+      <title>4. Bus Interconnection</title>
+      <para id="id6898965">A bus is a communication pathway connecting two or more devices. A key charac­teristic of a bus is that it is a shared transmission medium. Multiple devices connect to the bus, and a signal transmitted by any one device is available for reception by all other devices attached to the bus (broadcast). If two devices transmit during the same time period, their signals will overlap and become garbled. Thus, only one device at a time can successfully transmit.</para>
+      <para id="id6898985">Typically, a bus consists of multiple communication pathways, or lines. Each line is capable of transmitting signals representing binary 1 and binary 0. Overtime, a sequence of binary digits can be transmitted across a single line. Taken together, several lines of a bus can be used to transmit binary digits simultaneously (in par­allel). For example, an 8-bil unit of data can be transmitted over eight bus lines.</para>
+      <para id="id6899003">Computer systems contain a number of different buses that provide pathways between components at various levels of the computer system hierarchy. A bus that connects major computer components (processor, memory, I/O) is called a system bus. The most common computer interconnection structures are based on the use of one or more system buses.</para>
+      <section id="id-862363527714">
+        <title>Bus Structure</title>
+        <para id="id6899032">A system bus consists, typically, of from about 50 to hundreds of separate lines. Each line is assigned a particular meaning or function. Although there are many dif­ferent bus designs, on any bus the lines can be classified into three functional groups (Figure 12): data, address, and control lines. In addition, there may he power dis­tribution lines that supply power to the attached modules.</para>
+        <section id="id-347136873678">
+          <title>The data lines (data bus): </title>
+          <list id="id6899059" list-type="bulleted">
+            <item>Provide a path for moving, data between system modules. These lines, collectively, are called the data bus. </item>
+            <item>The width of the data bus: The data bus may consist of from 32 to hundreds of separate lines, the number of lines being referred to as the width of the data bus. Because each line can carry only 1 bit at a time, the number of lines deter­mines how many bits can be transferred at a lime. The width of the data bus is a key factor in determining overall system performance. For example, if the data bus is 8 bits wide and each instruction is 16 bits long, then the processor must access the memory module twice during each instruction cycle.</item>
+          </list>
+        </section>
+        <section id="id-913128365077">
+          <title>The address lines ( address bus): </title>
+          <list id="id6899130" list-type="bulleted">
+            <item>Address lines are used to designate the source or destination of the data on the data bus. For example, if the processor wishes to read a word (8, 16. or 32 bits) of data from memory, it puts the address of the desired word on the address lines. </item>
+            <item>The width of the address bus: determines the maximum possible memory capacity of the system. Furthermore, the address lines are generally also used to address I/O ports. </item>
+          </list>
+        </section>
+        <section id="id-410238840829">
+          <title>The control lines (control bus): </title>
+          <list id="id6899159" list-type="bulleted">
+            <item>Control bus are used to control the access to and the use of the data and address lines. Because the data and address lines are shared by all components, there must be a means of controlling their use. Control signals transmit both com­mand and liming information between system modules. Timing signals indicate the validity of data and address information. </item>
+            <item>Command signals specify operations to be performed. Typical control lines include the following:<list id="id6899193" list-type="bulleted"><item>Memory write: Causes data on the bus to be written into the addressed location.</item><item>Memory read: Causes data from the addressed location to be placed on the bus.</item><item>I/O write: Causes data on the bus to be output to the addressed I/O port.</item><item>I/O read: Causes data from the addressed I/O port to be placed on the bus.</item><item>Transfer ACK: Indicates that data have been accepted from or placed on the bus.</item><item>Bus request: Indicates that a module needs to gain control of the bus.</item><item>Bus grant: Indicates that a requesting module has been granted control of the bus.</item><item>Interrupt request: Indicates that an interrupt is pending.</item><item>Interrupt ACK: Acknowledges that the pending interrupt has been recognized.</item><item>Clock: Used to synchronize operations.</item><item>Reset: Initializes all modules.</item></list></item>
+          </list>
+          <figure id="id6899274"><media id="id6908168" alt=""><image src="../../media/graphics12.jpg" mime-type="image/jpeg"/></media>
+          </figure>
+          <para id="id6899297">Figure 12 Bus Interconnection Scheme</para>
+        </section>
+      </section>
+      <section id="id-917322894521">
+        <title>Multiple-Bus Hierarchies</title>
+        <para id="id6899310">If a great number of devices are connected to the bus, performance will suffer. There are two main causes:</para>
+        <list id="id6899327" list-type="bulleted">
+          <item>In general, the more devices attached to the bus, the greater the bus length and hence the greater the propagation delay. This delay determines the time it takes for devices to coordinate the use of the bus. When control of the bus passes from one device to another frequently, these propagation delays can noticeably affect performance.</item>
+          <item>The bus may become a bottleneck as the aggregate data transfer demand approaches the capacity of the bus. This problem can be countered to some extent by increasing the data rate that the bus can carry and by using wider buses (e.g., increasing the data bus from 32 to 64 bit). However, because the data rates generated by attached devices (e.g.. graphics and video controllers, network interfaces) are growing rapidly, this is a race that a single bus is ulti­mately destined to lose.</item>
+        </list>
+        <para id="id6899363">Accordingly, most computer systems use multiple buses, generally laid out in a hierarchy. A typical traditional structure is shown in Figure 13. There is a local bus that connects the processor to a cache memory and that may support one or more local devices. The cache memory controller connects the cache not only to this local bus, but to a system bus to which are attached all of the main memory mod­ules. </para>
+        <para id="id6899384">It is possible to connected I/O controllers directly onto the system bus. A more efficient solution is to make use of one or more expansion buses for this purpose. An expansion bus interface buffers data transfers between the system bus and the I/O controllers on the expansion bus. This arrangement allows the system to sup­port a wide variety of I/O devices and at the same time insulate memory-to-processor traffic from I/O traffic.</para>
+        <para id="id6899406">Traditional (ISA) (with cache):</para>
+        <figure id="id6899413"><media id="id6882135" alt=""><image src="../../media/graphics13.jpg" mime-type="image/jpeg"/></media>
+        </figure>
+        <para id="id6899437">Figure 13 Traditional bus architecture</para>
+      </section>
+      <section id="id-177229999254">
+        <title>Elements of Bus Design</title>
+        <section id="id-208096489053">
+          <title>Type: </title>
+          <para id="id6899457">Dedicated </para>
+          <para id="id6899462">Multiplexed</para>
+        </section>
+        <section id="id-95009609177">
+          <title>Method of Arbitration:</title>
+          <para id="id6899474">Centralized</para>
+          <para id="id6899478">Distributed</para>
+        </section>
+        <section id="id-0262328105439">
+          <title>Timing:</title>
+          <para id="id6899490">Synchronous</para>
+          <para id="id6899495">Asynchronous</para>
+        </section>
+        <section id="id-207352587302">
+          <title>Bus Width:</title>
+          <para id="id6899507">Address</para>
+          <para id="id6899512">Data</para>
+        </section>
+        <section id="id-324118625926">
+          <title>Data Transfer Type:</title>
+          <para id="id6899524">Read</para>
+          <para id="id6899529">Write</para>
+          <para id="id6899533">Read-modify-write</para>
+          <para id="id6899538">Read-after-write</para>
+          <para id="id6899542">Block</para>
+        </section>
+      </section>
+    </section>
+  </content>
+</document>

@@ -1,0 +1,164 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Module 9: Multilevel Memories</title>
+  <metadata>
+  <md:content-id>m29480</md:content-id><md:title>Module 9: Multilevel Memories</md:title>
+  <md:abstract/>
+  <md:uuid>f8861e91-184c-44b2-9628-5a5bf2b0736a</md:uuid>
+</metadata>
+
+<content>
+    <section id="id-0901690982062">
+      <title>1. Computer Memory System and characteristics</title>
+      <section id="id-796274654207">
+        <title>1.1 Computer Memory Overview</title>
+        <para id="id5875931">The memory is that part of computer where programs and data are stored. The basical concept is the following:</para>
+        <list id="id7675286" list-type="bulleted">
+          <item>Bits</item>
+        </list>
+        <para id="id9651722">The basic unit of memory is the binary digit called a bit. A bit may contain a 0 or 1. It is the simplest possible unit</para>
+        <list id="id6469782" list-type="bulleted">
+          <item>Memory addresses</item>
+        </list>
+        <para id="id7700809">- Memories consist of a number of cells or locations each of which can store a piece of information. Each location has a number called its address, by which program can refer to it. The cells is the smallest addressable </para>
+        <para id="id8369445">- If an address has m bits, the maximum number of cells addressable is 2m.</para>
+        <para id="id6389046">- Byte: 8-bits</para>
+        <para id="id9511374">- Bytes are grouped into words. The significance of word is that most instruction operate on entire word. A computer with a 32bit/word has 4 bytes/word</para>
+        <list id="id9651437" list-type="bulleted">
+          <item>Byte ordering</item>
+        </list>
+        <para id="id8031167">- The bytes in a word can be numbered from left-to-right or right-to-left. </para>
+        <para id="id9722479">- The former system, where the numbering begin at the “big” (i.e, high-order) end is called a big endian computer, such as the SPARC or the big IBM mainframes. In contras it is a little endian computer, such as the Intel family using right-to-left numbering for the representation of a 32 bit computer.</para>
+      </section>
+      <section id="id-759882393174">
+        <title>1.2 Characteristics of Memory System</title>
+        <list id="id8259878" list-type="bulleted">
+          <item>Capacity: the amount of information that can be contained in a memory unit -- usually in terms of words or bytes</item>
+          <item>Memory word: the natural unit of organization in the memory, typically the number of bits used to represent a number</item>
+          <item>Addressable unit: the fundamental data element size that can be addressed in the memory -- typically either the word size or individual bytes</item>
+          <item>Unit of transfer: The number of data elements transferred at a time – usually bits in main memory and blocks in secondary memory</item>
+          <item>Transfer rate: Rate at which data is transferred to/from the memory device</item>
+          <item>Access time:</item>
+        </list>
+        <para id="id7314894">– For RAM, the time to address the unit and perform the transfer</para>
+        <para id="id7314901">– For non-random access memory, the time to position the R/W head over the desired location</para>
+        <list id="id7828330" list-type="bulleted">
+          <item>Memory cycle time: Access time plus any other time required before a second access can be started</item>
+          <item>Access technique: how are memory contents accessed</item>
+        </list>
+        <para id="id5881048">– Random access:</para>
+        <para id="id9178686">» Each location has a unique physical address</para>
+        <para id="id9698538">» Locations can be accessed in any order and all access times are the same</para>
+        <para id="id7701097">» What we term “RAM” is more aptly called</para>
+        <para id="id8397172">read/write memory since this access technique also applies to ROMs as well</para>
+        <para id="id7156997">» Example: main memory</para>
+        <para id="id6729249">– Sequential access:</para>
+        <para id="id7637258">» Data does not have a unique address</para>
+        <para id="id8097068">» Must read all data items in sequence until the desired item is found</para>
+        <para id="id8259958">» Access times are highly variable</para>
+        <para id="id8259964">» Example: tape drive units</para>
+        <para id="id9671324">– Direct access:</para>
+        <para id="id7700887">» Data items have unique addresses</para>
+        <para id="id8096976">» Access is done using a combination of moving to a general memory “area” followed by a sequential access to reach the</para>
+        <para id="id6603497">desired data item</para>
+        <para id="id5197305">» Example: disk drives</para>
+        <para id="id8178558">– Associative access:</para>
+        <para id="id7701146">» A variation of random access memory</para>
+        <para id="id7701152">» Data items are accessed based on their contents rather than their actual location</para>
+        <para id="id8261275">» Search all data items in parallel for a match to a given search pattern</para>
+        <para id="id8118551">» All memory locations searched in parallel without regard to the size of the memory</para>
+        <para id="id8133923">» Extremely fast for large memory sizes</para>
+        <para id="id8133929">» Cost per bit is 5-10 times that of a “normal” RAM cell</para>
+        <para id="id9504679">» Example: some cache memory units.</para>
+      </section>
+    </section>
+    <section id="id-888039837862">
+      <title>2. Types of Memory</title>
+      <para id="id9653515">Computer memory system consists a various types of memory. Manufactures produce a number of different types of memory devices having a variety of technologies. The technology affect not only the operating chracteristics but also the manufacturing cost. In the section following we present an overviews of types of memory. You can see the study in detail of memory in the modules 10, 11 and 12.</para>
+      <list id="id7443208" list-type="bulleted">
+        <item>Main Memory (“Internal” memory components)</item>
+      </list>
+      <para id="id5451066">- RAM (read-write memory): Static RAM, Dynamic RAM</para>
+      <para id="id7307229">- ROM (Read Only Memories) : ROMs, PROMs, EPROMs, EEPROMs, Flash Memory.</para>
+      <list id="id9076401" list-type="bulleted">
+        <item>Cache memory</item>
+      </list>
+      <para id="id8354975">The cache memories are high-speed buffers for holding recently accessed data and neighboring data in main memory. The organization and operations of cache provide an apparently fast memory system.</para>
+      <list id="id8259925" list-type="bulleted">
+        <item>External Memory</item>
+      </list>
+      <para id="id6859271">- Magnetic disks</para>
+      <para id="id6859280">- RAID technology disks</para>
+      <para id="id7367781">- Optical disks</para>
+      <para id="id7872056">- Magnetic tape</para>
+    </section>
+    <section id="id-483814363342">
+      <title>3. Memory Hierarchy</title>
+      <section id="id-223415969796">
+        <title>3.1 Memory System Organization</title>
+        <para id="id8426868">No matter how big the main memory, how we can organize effectively the memory system in order to store more information than it can hold. The traditional solution to storing a great deal of data is a memory hierarchy.</para>
+        <list id="id9660846" list-type="bulleted">
+          <item>Major design objective of any memory system:</item>
+        </list>
+        <para id="id9660855">– To provide adequate storage capacity at</para>
+        <para id="id8342386">– An acceptable level of performance</para>
+        <para id="id8342391">– At a reasonable cost</para>
+        <list id="id6742180" list-type="bulleted">
+          <item>Four interrelated ways to meet this goal</item>
+        </list>
+        <para id="id6742189">– Use a hierarchy of storage devices</para>
+        <para id="id6625457">– Develop automatic space allocation methods for efficient use of the memory</para>
+        <para id="id6411398">– Through the use of virtual memory techniques, free the user from memory management tasks</para>
+        <para id="id6411406">– Design the memory and its related interconnection structure so that the proces</para>
+      </section>
+      <section id="id-889727913523">
+        <title>3.2 Multilevel Memories Organization</title>
+        <para id="id7443160">Three key characteristics increase for a memory hierarchy. They are the access time, the storage capacity and the cost. The memory hierarchy is illustrated in figure 9.1.</para>
+        <figure id="id6460195"><media id="id1169488792847" alt=""><image src="../../media/graphics1-9cda.jpg" mime-type="image/jpeg"/></media>
+        </figure>
+        <para id="id8779552">Figure 9.1. The memory hierarchy</para>
+        <para id="id8779556">We can see the memory hierarchy with six levels. At the top there are CPU registers, which can be accessed at full CPU speed. Next commes the cache memory, which is currently on order of 32 KByte to a few Mbyte. The main memory is next, with size currently ranging from 16 MB for entry-level systems to tens of Gigabytes. After that come magnetic disks, the current work horse for permanent storage. Finally we have magnetic tape and optical disks for archival storage.</para>
+        <list id="id9056620" list-type="bulleted">
+          <item>Basis of the memory hierarchy</item>
+        </list>
+        <para id="id9659528">– Registers internal to the CPU for temporary data storage (small in number but very fast)</para>
+        <para id="id9672714">– External storage for data and programs (relatively large and fast)</para>
+        <para id="id9672720">– External permanent storage (much larger and much slower)</para>
+        <figure id="id7312835"><media id="id1169487119691" alt=""><image src="../../media/graphics2-44f4.jpg" mime-type="image/jpeg"/></media>
+        </figure>
+        <para id="id7555344">Figure 9.2 Typical Memory Parameters</para>
+        <list id="id7555351" list-type="bulleted">
+          <item>Characteristics of the memory hierarchy</item>
+        </list>
+        <para id="id8748481">– Consists of distinct “levels” of memory components</para>
+        <para id="id7555445">– Each level characterized by its size, access time, and cost per bit</para>
+        <para id="id7555452">– Each increasing level in the hierarchy consists of modules of larger capacity, slower access time, and lower cost/bit</para>
+      </section>
+    </section>
+    <section id="id-186356582618">
+      <title>4. Memory Performance</title>
+      <para id="id7159440">Goal of the memory hierarchy. Try to match the processor speed with the rate of information transfer from the lowest element in the hierarchy.</para>
+      <list id="id7730445" list-type="bulleted">
+        <item>The memory hierarchy speed up the memory performance</item>
+      </list>
+      <para id="id6730633">The memory hierarchy works because of locality of reference</para>
+      <para id="id6730641">– Memory references made by the processor, for both instructions and data, tend to cluster together</para>
+      <para id="id9704378">+ Instruction loops, subroutines</para>
+      <para id="id7430672">+ Data arrays, tables</para>
+      <para id="id9683959">– Keep these clusters in high speed memory to reduce the average delay in accessing data</para>
+      <para id="id9651643">– Over time, the clusters being referenced will change -- memory management must deal with this</para>
+      <list id="id7745460" list-type="bulleted">
+        <item>Performance of a two level memory</item>
+      </list>
+      <para id="id7730545">Example: Suppsose that the processor has access to two level of memory:</para>
+      <para id="id7441614">– Two-level memory system</para>
+      <para id="id7441620">– Level 1 access time of 1 us</para>
+      <para id="id9685320">– Level 2 access time of 10us</para>
+      <para id="id9685326">– Ave access time = H(1) + (1-H)(10) ns</para>
+      <para id="id7555631"/>
+      <para id="id7555635">where: H is a fraction of all memory access that are found in the faster memory (e.g cache)</para>
+      <figure id="id4903633"><media id="id1169489004318" alt=""><image src="../../media/graphics3-0f7c.jpg" mime-type="image/jpeg"/></media>
+      </figure>
+      <para id="id8305703">Figure 9.3. Performance of a two level memory</para>
+    </section>
+  </content>
+</document>

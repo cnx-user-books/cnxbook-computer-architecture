@@ -1,0 +1,131 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Module 11: Internal Memory</title>
+  <metadata>
+  <md:content-id>m29427</md:content-id><md:title>Module 11: Internal Memory</md:title>
+  <md:abstract/>
+  <md:uuid>4439e60b-a3ff-4ec8-a814-060ef8882b4b</md:uuid>
+</metadata>
+
+<content>
+    <para id="id6984293">1. Semiconductor Main Memory</para>
+    <para id="id5415106"/>
+    <para id="id6777579">The basic element of a semiconductor memory is the memory cell. There are a lot of semiconductor memory types shown in table 11.1</para>
+    <para id="id6381623"/>
+    <para id="id7386513"><media id="id1167556297848" alt=""><image src="../../media/graphics1-9b82.jpg" mime-type="image/jpeg"/></media>
+    </para>
+    <para id="id8897136">Table 11.1 Semiconductor Memory Types</para>
+    <para id="id7158611"/>
+    <para id="id6865288">RAM: Read-write memory</para>
+    <para id="id6891914">The two basic forms of semiconductor Random Access Memory (RAM) are dynamic RAM (DRAM) and static RAM (SRAM). SRAM is faster, more expensive and less dense than DRAM. DRAM is usually used for main memory.</para>
+    <list id="id8101396" list-type="bulleted">
+      <item>Dynamic RAM</item>
+    </list>
+    <para id="id7512660">- Storage cell is essentially a transistor acting as a capacitor</para>
+    <para id="id8130885">- Capacitor charge dissipates over time causing a 1 to flip to a zero</para>
+    <para id="id8530967">- Cells must be refreshed periodically to avoid this</para>
+    <para id="id7312994">- Very high packaging density</para>
+    <list id="id7154283" list-type="bulleted">
+      <item>Static RAM: It is basically an array of flip-flop storage cells</item>
+    </list>
+    <para id="id8740670">- Uses 5-10x more transistors than similar dynamic cell so packaging density is 10x lower</para>
+    <para id="id6964437">- Faster than a dynamic cell</para>
+    <para id="id8897848"/>
+    <para id="id4101579">ROM : Read Only Memories</para>
+    <para id="id7307947">A Read only Memory (ROM) contain a permanent of data that canot be changed.</para>
+    <para id="id7307953">- “Permanent” data storage</para>
+    <para id="id6874182">- ROMs: Data is “wired in” during fabrication at a chip manufacturer’s plant </para>
+    <para id="id7396662">- Purchased in lots of 10k or more</para>
+    <list id="id8089474" list-type="bulleted">
+      <item>PROMs: Programmable ROM</item>
+    </list>
+    <para id="id8336534">- Data can be written once by the user employing a PROM programmer</para>
+    <para id="id5168949">- Useful for small production runs</para>
+    <list id="id8600166" list-type="bulleted">
+      <item>EPROM: Erasable PROM</item>
+    </list>
+    <para id="id7018644">- Programming is similar to a PROM</para>
+    <para id="id8654522">- Can be erased by exposing to UV light</para>
+    <list id="id9589589" list-type="bulleted">
+      <item>EEPROMS: Electrically erasable PROMs</item>
+    </list>
+    <para id="id7554513">- Can be written to many times while remaining in a system</para>
+    <para id="id7702252">- Does not have to be erased first</para>
+    <para id="id7702256">- Program individual bytes</para>
+    <para id="id4342722">- Writes require several hundred usec per byte</para>
+    <para id="id7216760">- Used in systems for development, personalization, and other tasks requiring unique information to be stored</para>
+    <list id="id7651391" list-type="bulleted">
+      <item>Flash Memory: Similar to EEPROM in using electrical erase</item>
+    </list>
+    <para id="id7371419">- Fast erasures, block erasures</para>
+    <para id="id3890172">- Higher density than EEPROM</para>
+    <section id="id-707746101961">
+      <title>2. Memory Organization</title>
+      <section id="id-556551456766">
+        <title>2.1 Memory Organization from the memory chip</title>
+        <para id="id6885970">Each memory chip contains a number of 1-bit cells. The 1, 4, and 16 million cell chips are common. The cells can be arranged as a single bit column (e.g., 4Mx1) or in multiple bits per address location (e.g., 1Mx4)</para>
+        <para id="id7369000">- To reduce pin count, address lines can be multiplexed with data and/or as high and low halves Trade off is in slower operation</para>
+        <list id="id7591921" list-type="bulleted">
+          <item>Typical control lines:</item>
+        </list>
+        <para id="id6470057">W* (write), OE* (output enable) for write and read operations</para>
+        <para id="id8089974">CS* (chip select) derived from external address decoding logic</para>
+        <para id="id3704984">RAS*, CAS* (row and column address selects) used when address is applied to the chip in 2 halves</para>
+        <list id="id7542388" list-type="bulleted">
+          <item>Example: </item>
+        </list>
+        <figure id="id5670312">
+          <media id="id1167564045920" alt=""><image src="../../media/graphics2-0d80.jpg" mime-type="image/jpeg" height="670" width="589"/></media>
+        </figure>
+        <para id="id8790724">Figure 11.1 Organization 256Kx8 memory from 256Kx1 chips</para>
+        <figure id="id8853303"><media id="id1167559734991" alt=""><image src="../../media/graphics3-f2a9.jpg" mime-type="image/jpeg"/></media>
+        </figure>
+        <para id="id6874009">Figure 11.2 . Mbyte Memory Organization</para>
+      </section>
+      <section id="id-00370738064097">
+        <title>2.2 Error correction</title>
+        <list id="id8145576" list-type="bulleted">
+          <item>Problem: Semiconductor memories are subject to errors</item>
+        </list>
+        <para id="id8465856">– Hard (permanent) errors</para>
+        <para id="id7152972">» Environmental abuse</para>
+        <para id="id7152977">» Manufacturing defects</para>
+        <para id="id7306000">» Wear</para>
+        <para id="id7568607">– Soft (transient) errors</para>
+        <para id="id7542374">» Power supply problems</para>
+        <para id="id7018903">» Alpha particles: Problematic as feature sizes shrink</para>
+        <para id="id7501178">– Memory systems include logic to detect and/or correct errors</para>
+        <para id="id6735658">» Width of memory word is increased</para>
+        <para id="id9168711">» Additional bits are parity bits</para>
+        <para id="id6959073">» Number of parity bits required depends on the level of detection and correction needed</para>
+        <list id="id6742012" list-type="bulleted">
+          <item>General error detection and correction</item>
+        </list>
+        <para id="id8237553">– A single error is a bit flip -- multiple bit flips can occur in a word</para>
+        <para id="id7216869">– 2M valid data words</para>
+        <para id="id4636151">– 2M+K codeword combinations in the memory</para>
+        <para id="id7306175">– Distribute the 2M valid data words among the 2 M+K codeword combinations such that the “distance” between valid words is sufficient to distinguish the error</para>
+        <figure id="id8794866"><media id="id1167551586554" alt=""><image src="../../media/graphics4-6035.jpg" mime-type="image/jpeg"/></media>
+        </figure>
+        <para id="id4334346">Figure 11.3</para>
+        <list id="id6892308" list-type="bulleted">
+          <item>Single error detection and correction</item>
+        </list>
+        <para id="id7491174">– For each valid codeword, there will be 2K-1 invalid codewords</para>
+        <para id="id6321498">– 2K-1 must be large enough to identify which of the M+K bit positions is in error</para>
+        <para id="id8490596">– Therefore 2K-1 &gt; M+K</para>
+        <para id="id4635663">» 8-bit data, 4 check bits</para>
+        <para id="id8328267">» 32-bit data, 6 check bits</para>
+        <para id="id4295817">– Arrange bits as shown in Figure 11.4</para>
+        <figure id="id9112393"><media id="id1167559652443" alt=""><image src="../../media/graphics5-4a57.jpg" mime-type="image/jpeg"/></media>
+        </figure>
+        <para id="id6734026">Figure 11.4 </para>
+        <para id="id8022689">– Bit position n is checked by bits Ci such that the sum of the subscripts, i, equals n (e.g., position 10, bit M6, is checked by bits C2 and C8)</para>
+        <para id="id8612306">To detect errors, compare the check bits read from memory to those computed during the read operation (use XOR)</para>
+        <para id="id9111075">+ If the result of the XOR is 0000, no error</para>
+        <para id="id4630521">+ If non-zero, the numerical value of the result indicates the bit position in error</para>
+        <para id="id8130514">+ If the XOR result was 0110, bit position 6 (M3) is in error</para>
+        <para id="id8588210">Double error detection can be added by adding another check bit that implements a parity check for the whole word of M+K bits. SED and SEC-DED are generally enough protection in typical systems</para>
+      </section>
+    </section>
+  </content>
+</document>

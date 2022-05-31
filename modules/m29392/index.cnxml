@@ -1,0 +1,99 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Exercise</title>
+  <metadata>
+  <md:content-id>m29392</md:content-id><md:title>Exercise</md:title>
+  <md:abstract/>
+  <md:uuid>8133e14a-34b5-413b-825b-eca0139f929a</md:uuid>
+</metadata>
+
+<content>
+    <section id="id-62852861109">
+      <title>Exercise for module 3</title>
+      <para id="id36031303">Exercise 3.1</para>
+      <para id="id34502307">Find the following differences using twos complement arithmetic:</para>
+      <para id="id38411533">a) 111000</para>
+      <para id="id39467428">- 110011</para>
+      <para id="id36228517">b) 11001100</para>
+      <para id="id39284786">- 101110 </para>
+      <para id="id40171501">c) 111100001111</para>
+      <para id="id38594126">-110011110011</para>
+      <para id="id39102747">d) 11000011</para>
+      <para id="id40268288">-11101000</para>
+      <para id="id38484107">Exercise 3.2</para>
+      <para id="id15908950">Given x=0101 and y =1010 in twos complement notation (i.e. x=4, y=6), compute the product p= x *y .</para>
+      <para id="id40031162">Exercise 3.3</para>
+      <para id="id39200318">Divide -145 by 13 in binary twos complement notation, using 12 bit words. </para>
+      <para id="id35271052">Exercise 3.4</para>
+      <para id="id37504658">Express the following number in IEEE 32-bit floating-point format:</para>
+      <para id="id39631994">a) -5 b) -6 c) -1.5 d) 384 e) 1/16 f) -1/32</para>
+      <para id="id37359395">Exercise 3.5</para>
+      <para id="id38926448">Consider a floating-point format with 8 bits for the biased exponent and 23 bits for the significant. Show the bit pattern for the following numbers in this format:</para>
+      <list id="id39207223" list-type="enumerated">
+        <item>-720</item>
+        <item>0.645</item>
+      </list>
+    </section>
+    <section id="id-970852766809">
+      <title>Exercise for module 4</title>
+      <para id="id40196716">Exercise 4.1</para>
+      <para id="id34866342">Let the address stored in the program counter be designated by the symbol X1. The instruction stored in X1 has an address part (operand reference) X2. The operand needed to execute the instruction is stored in the memory word with address X3. An index register contains the value X4. What is the relationship between these various quantities if the addressing mode of the instruction is </para>
+      <para id="id40230628">a) directb) indirectc) PC relative d) indexed </para>
+      <para id="id38731011">Exercise 4.2</para>
+      <para id="id37187486">An address field in an instruction contains decimal value 14. Where is the corresponding operand located for:</para>
+      <para id="id32087158">a) immediate addressing?</para>
+      <para id="id40276359">b) direct addressing?</para>
+      <para id="id3245282">c) indirect addressing?</para>
+      <para id="id39381382">d) register addressing?</para>
+      <para id="id36232648">e) register indirect addressing?</para>
+    </section>
+    <section id="id-584652443991">
+      <title>Exercise for module 5, 6</title>
+      <para id="id37750803">Exercise 5.1 </para>
+      <para id="id39228772">If the last operation performed on a computer with an 8-bit word was an addition in which the two operands were 2 and 3, what would be the value of the following flags?</para>
+      <para id="id39225888">Carry</para>
+      <para id="id35650249">Zero</para>
+      <para id="id39469866">Overflow</para>
+      <para id="id38606148">Sign</para>
+      <para id="id36834016">Even parity</para>
+      <para id="id15903505">Exercise 5.2</para>
+      <para id="id38874110">There is only a two-stage pipeline (fetch, execute). Draw the timing diagram to show how many time units are needed for 4 instructions.</para>
+      <para id="id40138476">Exercise 6.1</para>
+      <para id="id38931052">Your ALU can add its two input registers, and it can logically complement the bits of either input register. But it cannot subtract. Numbers are to be stored in twos complement representation. List the micro-operations your control unit must perform to cause a subtraction.</para>
+    </section>
+    <section id="id-532462032766">
+      <title>Exercises for module 8</title>
+      <para id="id37568849">Exercise 8.1: A computer with a five-stage pipeline deals with conditional braches by stalling for the next three cycles after hitting one. How much does stalling hurt the performance of 20% of all instructions are conditional branches? Ignore all sources of stalling except conditional branches.</para>
+      <para id="id38878383">Exercise 8.2: Suppose that a computer prefetches up to 20 instructions in advance. However, on the average, four of these are conditional branches, each with a probability of 90 % of being predicted correctly. What is the probability that the prefetching is on the right track?</para>
+      <para id="id38448257">Exercise 8.3: Normally, dependences cause trouble with pipelined CPUs. Are there any optimizations that can e done with WAW dependences that might actually improve matters? What?</para>
+    </section>
+    <section id="id-700745002352">
+      <title>Exercise for module 9</title>
+      <para id="id36920557">Exercise 9.1: A computer with a 32-bit wide data bus uses 1M x 1 dynamic RAM memory chips. What is the smallest memory (in bytes) that computer can have?</para>
+      <para id="id38014001">Exercise 9.2: A 32-bit CPU with address line A2-A31 requires all memory references to be aligned. That is, words have to be addressed al multiples of 4 bytes, and haft-words have to be addressed at even bytes. Bytes can be anywhere. How many legal combinations are there for memory reads, and how many pins are needed to express them? Give two answers and make a case for each one.</para>
+    </section>
+    <section id="id-376998814449">
+      <title>Exercises for module 10</title>
+      <para id="id37743962">Exercise 10.1: A computer has 1 two-level cache. Suppose that 60% of the memory references hit on the first level cache, 35% hit on second level and 5% miss. The access time are 5ns, 15ns and 60ns, respectively, where the time for the level 2 cache and memory start counting at the moment it is known that they are needed (e.g. a level 2 cache access does not even start until the level 1 cache miss occurs). What is the average access time?</para>
+      <para id="id39946047">Exercise 10.2: Write a simulator for a 1-way direct mapped cache. Make the number of entries and line size parameters of the simulation. Experiment with it and report on your findings.</para>
+    </section>
+    <section id="id-336254785349">
+      <title>Exercises for module 13</title>
+      <para id="id38396676">Exercise 13.1: Calculate the bus bandwidth needed to display a VGA (640 x 480) true color movie at 30 frames/sec. Assume that the data must pass over the bus twice, one from the CDROM to the memory and once from the memory to the screen.</para>
+      <para id="id38354765">Exercise 13.2: A computer has instruction that each require two bus cycles, one to fetch the instruction and one to fetch the data. Each bus cycle takes 10 ns and each instruction takes 20 ns (i.e. the internal processing time is negligible). The computer also has a disk with 2048 512-bytes sectors per track. Disk rotation time is 5 ms. To what percent of its normal speed is the computer reduced during a DMA transfer if each 32-bit DMA transfer takes one bus cycle?</para>
+    </section>
+    <section id="id-758132992617">
+      <title>Exercises for module 14</title>
+      <para id="id38355332">Exercise 14.1 Operating systems that allow memory-mapped files always require files to be mapped at page boundaries. For example, with 4-KB page, a file can be mapped in starting at virtual address 4096, but not starting at virtual address 5000. Why?</para>
+      <para id="id38860639">Exercise 14.2: In some way, caching and paging are very similar. In both case there are two levels of memory (the cache and main memory in the former, and main memory and disk in the latter). . We look at some of the arguments in favor of larger disk pages and small disk pages. Do the same arguments hold for cache line size?</para>
+    </section>
+    <section id="id-355579628115">
+      <title>Exercise for module 15</title>
+      <para id="id39198054">Exercise 15.1: It is common to test the page replacement algorithms by simulation. For this exercise, you are to write a simulator for the page-based virtual memory for a machine with 64 1-KB pages. The simulator should maintain a single table of 64 entries, one per page, containing the physical page number corresponding to that virtual page. Generate a file consisting of random address and test performance for both LRU and FIFO algorithms.</para>
+    </section>
+    <section id="id-865095095662">
+      <title>Exercises for module 16</title>
+      <para id="id36908301">Exercise 16.1: Consider a multiprocessor using a shared bus. What happens if two processors try to access the global memory at exactly the same time?</para>
+      
+    </section>
+  </content>
+</document>

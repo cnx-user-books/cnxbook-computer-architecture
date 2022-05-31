@@ -1,0 +1,534 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Module 3: Computer Arithmetic</title>
+  <metadata>
+  <md:content-id>m29343</md:content-id><md:title>Module 3: Computer Arithmetic</md:title>
+  <md:abstract/>
+  <md:uuid>113da73e-68d1-485c-9a68-61a15b108e4d</md:uuid>
+</metadata>
+
+<content>
+    <section id="id-278831037788">
+      <title>1. The Arithmetic and Logic Unit</title>
+      <para id="id9511157">The ALU is that part of the computer that actually performs arithmetic and logical operations on data. All of the other elements of the computer system—control unit, registers, memory, I/O—are there mainly to bring data into the ALU for it to process and then to take the results back out. We have, in a sense, reached the core or essence of a computer when we consider the ALU. An ALU and, indeed, all electronic components in the computer arc based on the use of simple digital logic devices that can store binary digits and perform simple Boolean logic operations. </para>
+      <para id="id9511177">Figure 3.1 indicates, in general terms, how the ALU is interconnected with the rest of the processor. Data are presented to the ALU in registers, and the results of an operation are stored in registers. These registers are temporary storage locations within the processor that are connected by signal paths to the ALU. The ALU may also set flags as the result of an operation. For example, an over­flow flag is set to 1 if the result of a computation exceeds the length of the register into which it is to be stored.</para>
+      <figure id="id9511350"><media id="id8958068" alt=""><image src="../../media/graphics1-d5e2.png" mime-type="image/png"/></media>
+      </figure>
+      <para id="id9511373">Figure 3.1 ALU Input and Output</para>
+    </section>
+    <section id="id-434618251354">
+      <title>2. Integer Representation</title>
+      <para id="id9511385">In the binary number system, arbitrary numbers can be represented with just the digits zero and one, the minus sign, and the period, or radix point.</para>
+      <para id="id9511392">For purposes of computer storage and processing, however, we do not have the ben­efit of minus signs and periods. Only binary digits (0 and 1) may be used lo represent numbers. </para>
+      <section id="id-284966535677">
+        <title>2.1 Unsigned Integer</title>
+        <para id="id9511409">If we are limited to nonnegative integers, the representation is straightforward.</para>
+        <para id="id9511415">In general, if an n-bit sequence of binary digits 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle></m:msub><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>2</m:mn></m:mrow></m:mrow></m:mstyle></m:msub><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{a rSub { size 8{n - 1} } a rSub { size 8{n - 2} }  "."  "."  "." a rSub { size 8{1} } a rSub { size 8{0} } } {}</m:annotation></m:semantics></m:math> is interpreted as an unsigned integer A, its value is 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mi>A</m:mi><m:mo stretchy="false">=</m:mo><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle></m:msub></m:mrow><m:mrow><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle></m:msup><m:mo stretchy="false">+</m:mo><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>2</m:mn></m:mrow></m:mrow></m:mstyle></m:msub></m:mrow><m:mrow><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>2</m:mn></m:mrow></m:mrow></m:mstyle></m:msup><m:mo stretchy="false">+</m:mo><m:mtext>.</m:mtext></m:mrow><m:mtext>.</m:mtext><m:mrow><m:mtext>.</m:mtext><m:mo stretchy="false">+</m:mo><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub></m:mrow><m:mrow><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msup><m:mo stretchy="false">+</m:mo><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msup></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{A=a rSub { size 8{n - 1} } 2 rSup { size 8{n - 1} } +a rSub { size 8{n - 2} } 2 rSup { size 8{n - 2} } + "."  "."  "." +a rSub { size 8{1} } 2 rSup { size 8{1} } +a rSub { size 8{0} } 2 rSup { size 8{0} } } {}</m:annotation></m:semantics></m:math></para>
+        <para id="id9671419">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mi>A</m:mi>
+                      <m:mo stretchy="false">=</m:mo>
+                      <m:mrow>
+                        <m:munderover>
+                          <m:mo stretchy="false">∑</m:mo>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mi>i</m:mi>
+                                <m:mo stretchy="false">=</m:mo>
+                                <m:mn>0</m:mn>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                          <m:mstyle fontsize="8pt">
+                            <m:mrow>
+                              <m:mrow>
+                                <m:mi>n</m:mi>
+                                <m:mo stretchy="false">−</m:mo>
+                                <m:mn>1</m:mn>
+                              </m:mrow>
+                            </m:mrow>
+                          </m:mstyle>
+                        </m:munderover>
+                        <m:mrow>
+                          <m:msub>
+                            <m:mi>a</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mi>i</m:mi>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msub>
+                          <m:msup>
+                            <m:mn>2</m:mn>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mi>i</m:mi>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msup>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{A= Sum cSub { size 8{i=0} }  cSup { size 8{n - 1} }  {a rSub { size 8{i} } 2 rSup { size 8{i} } } } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </para>
+      </section>
+      <section id="id-402227900983">
+        <title>2.2 Signed Integer</title>
+        <section id="id-747413219454">
+          <title>Sign-magnitude representation</title>
+          <para id="id9673082">There are several alternative conventions used to represent negative as well as positive integers, all of which involve treating the most significant (leftmost) bit in the word as a sign bit. If the sign bit is 0, the number is positive: if the sign bit is 1, the number is negative.</para>
+          <para id="id9673091">The simplest form of representation that employs a sign bit is the sign-magnitude representation. In an n-bit word, the rightmost n - 1 bits hold the mag­nitude of the integer.</para>
+          <para id="id9683919">In general, if an n-bit sequence of binary digits 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle></m:msub><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>2</m:mn></m:mrow></m:mrow></m:mstyle></m:msub><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{a rSub { size 8{n - 1} } a rSub { size 8{n - 2} }  "."  "."  "." a rSub { size 8{1} } a rSub { size 8{0} } } {}</m:annotation></m:semantics></m:math> represented A, its value is </para>
+          
+          <para id="id9698453"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>A</m:mi><m:mo stretchy="false">=</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∑</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>i</m:mi><m:mo stretchy="false">=</m:mo><m:mn>0</m:mn></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>2</m:mn></m:mrow></m:mrow></m:mstyle></m:munderover><m:mrow><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>i</m:mi></m:mrow></m:mstyle></m:msub><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mi>i</m:mi></m:mrow></m:mstyle></m:msup></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{A= Sum cSub { size 8{i=0} }  cSup { size 8{n - 2} }  {a rSub { size 8{i} } 2 rSup { size 8{i} } } } {}</m:annotation></m:semantics></m:math> If 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mn>0</m:mn></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{a rSub { size 8{n - 1} } =0} {}</m:annotation></m:semantics></m:math></para>
+          <para id="id9504582"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>A</m:mi><m:mo stretchy="false">=</m:mo><m:mrow><m:mo stretchy="false">−</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∑</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>i</m:mi><m:mo stretchy="false">=</m:mo><m:mn>0</m:mn></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>2</m:mn></m:mrow></m:mrow></m:mstyle></m:munderover><m:mrow><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>i</m:mi></m:mrow></m:mstyle></m:msub><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mi>i</m:mi></m:mrow></m:mstyle></m:msup></m:mrow></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{A= -  Sum cSub { size 8{i=0} }  cSup { size 8{n - 2} }  {a rSub { size 8{i} } 2 rSup { size 8{i} } } } {}</m:annotation></m:semantics></m:math> If 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{a rSub { size 8{n - 1} } =1} {}</m:annotation></m:semantics></m:math></para>
+          <para id="id9702198">For example: +18= 0 0010010</para>
+          <para id="id9702202"> - 18=1 0010010</para>
+          <para id="id9702214">There are several drawbacks to sign-magnitude representation. One is that addition and subtraction require a consideration of both the signs of the numbers and their relative magnitudes to carry out the required operation. Another drawback is that there are two representations of 0 (e.g 0000 0000 and 1000 00000).</para>
+          <para id="id9702226">This is inconvenient, because it is slightly more difficult to test for 0 (an operation performed frequently on computers) than if there were a single representation.</para>
+          <para id="id9702233">Because of these drawbacks, sign-magnitude representation is rarely used in implementing the integer portion of the ALU. Instead, the most common scheme is twos complement representation.</para>
+        </section>
+        <section id="id-489971478667">
+          <title>Twos Complement Representation</title>
+          <list id="id9702251" list-type="bulleted">
+            <item>Ones Complement</item>
+          </list>
+          <para id="id9672742">The ones complement of a number is represented by flipping the number's bits one at a time. For example, the value 01001001 becomes 10110110. </para>
+          <para id="id9672748">Suppose you are working with B-bit numbers. Then the ones complement for the number N is 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mi>B</m:mi></m:mrow></m:mstyle></m:msup></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{2 rSup { size 8{B} } } {}</m:annotation></m:semantics></m:math>-1 -N </para>
+          <list id="id9672804" list-type="bulleted">
+            <item>Twos complement </item>
+          </list>
+          <para id="id9672813">The twos complement of a number N in a B-bit system is 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mi>B</m:mi></m:mrow></m:mstyle></m:msup></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{2 rSup { size 8{B} } } {}</m:annotation></m:semantics></m:math>-N. </para>
+          <para id="id9672867">There is a simple way to calculate a twos complement value: invert the number's bits and then add 1. </para>
+          <para id="id9672873">For a concrete example, consider the value 17 which is 00010001 in binary. Inverting gives 11101110. Adding one makes this 11101111. </para>
+          <list id="id9672880" list-type="bulleted">
+            <item>Twos Complement Representation</item>
+          </list>
+          <para id="id8699142">Like sign magnitude, twos complement representation uses the most significant bit as a sign bit, making it easy to test whether an integer is positive or negative. It differs from the use of the sign-magnitude representation in the way that the other bits are interpreted. </para>
+          <para id="id8699151">Consider an n-bit integer. A, in twos complement representation. If A is positive, then the sign bit an-1 is zero. The remaining, bits represent the magnitude of the number in the same fashion as for sign magnitude:</para>
+          <para id="id8699185"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>A</m:mi><m:mo stretchy="false">=</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∑</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>i</m:mi><m:mo stretchy="false">=</m:mo><m:mn>0</m:mn></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>2</m:mn></m:mrow></m:mrow></m:mstyle></m:munderover><m:mrow><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>i</m:mi></m:mrow></m:mstyle></m:msub><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mi>i</m:mi></m:mrow></m:mstyle></m:msup></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{A= Sum cSub { size 8{i=0} }  cSup { size 8{n - 2} }  {a rSub { size 8{i} } 2 rSup { size 8{i} } } } {}</m:annotation></m:semantics></m:math> If 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mn>0</m:mn></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{a rSub { size 8{n - 1} } =0} {}</m:annotation></m:semantics></m:math></para>
+          <para id="id9675999">The number zero is identified as positive and therefore has a 0 sign bit and a mag­nitude of all 0s. We can see that the range of positive integers that may he repre­sented is from 0 (all of the magnitude bits are 0) through <!--Sorry, this media type is not supported.--><!--Sorry, this media type is not supported.--> - 1 (all of the magnitude bits are 1). Any larger number would require more bits.</para>
+          <para id="id9662561">For a negative number A (A &lt; 0), the sign bit, <!--Sorry, this media type is not supported.-->is one. The remain­ing n-1 bits can take on any one of 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle></m:msub><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle></m:msup></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{a rSub { size 8{n - 1} } 2 rSup { size 8{n - 1} } } {}</m:annotation></m:semantics></m:math> values. Therefore, the range of negative integers that can be represented is from -1 to -
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle></m:msup></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{2 rSup { size 8{n - 1} } } {}</m:annotation></m:semantics></m:math></para>
+          <para id="id9667507">This is the convention used in twos complement representation, yielding the following expression for negative and positive numbers:</para>
+          <para id="id9667514">
+            <m:math>
+              <m:semantics>
+                <m:mrow>
+                  <m:mstyle fontsize="12pt">
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mrow>
+                          <m:mi>A</m:mi>
+                          <m:mo stretchy="false">=</m:mo>
+                          <m:mrow>
+                            <m:mo stretchy="false">−</m:mo>
+                            <m:msup>
+                              <m:mn>2</m:mn>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mrow>
+                                    <m:mi>n</m:mi>
+                                    <m:mo stretchy="false">−</m:mo>
+                                    <m:mn>1</m:mn>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:msup>
+                          </m:mrow>
+                        </m:mrow>
+                        <m:mrow>
+                          <m:msub>
+                            <m:mi>a</m:mi>
+                            <m:mstyle fontsize="8pt">
+                              <m:mrow>
+                                <m:mrow>
+                                  <m:mi>n</m:mi>
+                                  <m:mo stretchy="false">−</m:mo>
+                                  <m:mn>1</m:mn>
+                                </m:mrow>
+                              </m:mrow>
+                            </m:mstyle>
+                          </m:msub>
+                          <m:mo stretchy="false">+</m:mo>
+                          <m:mrow>
+                            <m:munderover>
+                              <m:mo stretchy="false">∑</m:mo>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mrow>
+                                    <m:mi>i</m:mi>
+                                    <m:mo stretchy="false">=</m:mo>
+                                    <m:mn>0</m:mn>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mstyle>
+                              <m:mstyle fontsize="8pt">
+                                <m:mrow>
+                                  <m:mrow>
+                                    <m:mi>n</m:mi>
+                                    <m:mo stretchy="false">−</m:mo>
+                                    <m:mn>2</m:mn>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mstyle>
+                            </m:munderover>
+                            <m:mrow>
+                              <m:msub>
+                                <m:mi>a</m:mi>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mi>i</m:mi>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msub>
+                              <m:msup>
+                                <m:mn>2</m:mn>
+                                <m:mstyle fontsize="8pt">
+                                  <m:mrow>
+                                    <m:mi>i</m:mi>
+                                  </m:mrow>
+                                </m:mstyle>
+                              </m:msup>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mrow>
+                  </m:mstyle>
+                  <m:mrow/>
+                </m:mrow>
+                <m:annotation encoding="StarMath 5.0"> size 12{A= - 2 rSup { size 8{n - 1} } a rSub { size 8{n - 1} } + Sum cSub { size 8{i=0} }  cSup { size 8{n - 2} }  {a rSub { size 8{i} } 2 rSup { size 8{i} } } } {}</m:annotation>
+              </m:semantics>
+            </m:math>
+          </para>
+          <para id="id9511526">The range of A is from -
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle></m:msup></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{2 rSup { size 8{n - 1} } } {}</m:annotation></m:semantics></m:math> to 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle></m:msup></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{2 rSup { size 8{n - 1} } } {}</m:annotation></m:semantics></m:math> -1.</para>
+          <para id="id9679175">Example: Using 8 bit to represent </para>
+          <para id="id9679179">+50= 0011 0010</para>
+          <para id="id9679184">-70=1011 1010</para>
+        </section>
+        <section id="id-953516393509">
+          <title>Converting between Different Bit Lengths</title>
+          <para id="id9679197">The rule for twos complement integers is to move the sign hit to the new leftmost position and fill in with copies of the sign bit. For positive numbers, fill in with zeros, and for negative numbers, till in with ones.</para>
+          <para id="id9679204">For example:</para>
+          <para id="id9679209">+18 = 00010010</para>
+          <para id="id9679218">+18 = 00000000 00010010</para>
+          <para id="id9679222">-18 = 10010010</para>
+          <para id="id9679231">-18 = 11111111 10010010</para>
+        </section>
+      </section>
+    </section>
+    <section id="id-659777559626">
+      <title>3. Integer Arithmetic</title>
+      <section id="id-214475724516">
+        <title>3.1 Negation</title>
+        <para id="id9679255">In sign-magnitude representation, the rule for forming the negation of an integer is simple: Invert the sign bit. </para>
+        <para id="id9679270">In twos complement representation, the negation of an integer can he formed with the following rules:</para>
+        <para id="id9679279">1. Take the Boolean complement of each bit of the integer (including the sign bit). That is. set each 1 to 0 and each 0 to 1.</para>
+        <para id="id9679288">2. Treating the result as an unsigned binary integer, add 1.</para>
+        <para id="id9679295">This two-step process is referred to as the twos complement operation, or the taking of the twos complement of an integer</para>
+        <para id="id9679302">Example:</para>
+        <figure id="id9679309"><media id="id8979732" alt=""><image src="../../media/graphics2-9170.jpg" mime-type="image/jpeg"/></media>
+        </figure>
+        <para id="id9725219">Negation Special Case 1:</para>
+        <para id="id9725223">0 = 00000000</para>
+        <para id="id9725235">Bitwise not 11111111</para>
+        <para id="id9725244">Add 1 to LSB +1</para>
+        <para id="id9725252">Result 1 00000000</para>
+        <para id="id9725261">Overflow is ignored, so: - 0 = 0</para>
+        <para id="id9725265">Negation Special Case 2:</para>
+        <para id="id9725269">-128 = 10000000</para>
+        <para id="id9725278">bitwise not  01111111</para>
+        <para id="id9725289">Add 1 to LSB +1</para>
+        <para id="id9725298">Result 10000000</para>
+        <para id="id9725307">So: -(-128) = -128. </para>
+        <para id="id9725311">Because 128 is out of the range of signed 8bits numbers.</para>
+      </section>
+      <section id="id-00467344384395">
+        <title>3.2 Addition and Subtraction:</title>
+        <para id="id9725324">Addition and Subtraction is done using following steps:</para>
+        <list id="id9725329" list-type="bulleted">
+          <item>Normal binary addition</item>
+          <item>Monitor sign bit for overflow</item>
+          <item>Take twos compliment of subtrahend and add to minuend ,i.e. a - b = a + (-b) </item>
+        </list>
+        <section id="id-439429903907">
+          <title>Hardware for Addition and Subtraction:</title>
+          <figure id="id9725363"><media id="id8979943" alt=""><image src="../../media/graphics3-3c45.png" mime-type="image/png"/></media>
+          </figure>
+        </section>
+      </section>
+      <section id="id-268089227414">
+        <title>3.3 Multiplying positive numbers:</title>
+        <para id="id9642417">The multiplying is done using following steps:</para>
+        <list id="id9642422" list-type="bulleted">
+          <item>Work out partial product for each digit</item>
+          <item>Take care with place value (column)</item>
+          <item>Add partial products</item>
+        </list>
+        <figure id="id9642445"><media id="id8980017" alt=""><image src="../../media/graphics4-1257.png" mime-type="image/png"/></media>
+        </figure>
+        <section id="id-420309625998">
+          <title>Hardware Implementation of Unsigned Binary Multiplication:</title>
+          <figure id="id9642480"><media id="id8980051" alt=""><image src="../../media/graphics5-ce25.png" mime-type="image/png"/></media>
+          </figure>
+        </section>
+        <section id="id-182789208119">
+          <title>Execution of Example:</title>
+          <figure id="id9642518"><media id="id8980085" alt=""><image src="../../media/graphics6-ce25.png" mime-type="image/png"/></media>
+          </figure>
+        </section>
+        <section id="id-143742260332">
+          <title>Flowchart for Unsigned Binary Multiplication:</title>
+          <figure id="id9642556"><media id="id8980120" alt=""><image src="../../media/graphics7-2c1a.png" mime-type="image/png"/></media>
+          </figure>
+        </section>
+      </section>
+      <section id="id-210505084741">
+        <title>3.4 Multiplying Negative Numbers</title>
+        <section id="id-387160768238">
+          <title>Solution 1:</title>
+          <list id="id9677653" list-type="bulleted">
+            <item>Convert to positive if required</item>
+            <item>Multiply as above</item>
+            <item>If signs were different, negate answer</item>
+          </list>
+        </section>
+        <section id="id-826773081803">
+          <title>Solution 2: </title>
+          <list id="id9677681" list-type="bulleted">
+            <item>Booth’s algorithm:</item>
+          </list>
+          <para id="id9677691"/>
+          <figure id="id9677698"><media id="id8980240" alt=""><image src="../../media/graphics8-703b.png" mime-type="image/png"/></media>
+          </figure>
+          <para id="id9677724">Example of Booth’s Algorithm:</para>
+          <figure id="id9677733"><media id="id8980268" alt=""><image src="../../media/graphics9-5d2e.png" mime-type="image/png"/></media>
+          </figure>
+        </section>
+      </section>
+      <section id="id-45348311909">
+        <title>3.5 Division: </title>
+        <list id="id9677768" list-type="bulleted">
+          <item>More complex than multiplication</item>
+          <item>Negative numbers are really bad!</item>
+          <item>Based on long division</item>
+          <item>(for more detail, reference to Computer Organization and Architecture, William Stalling)</item>
+        </list>
+      </section>
+    </section>
+    <section id="id-688914966915">
+      <title>4. Floating-Point Representation</title>
+      <section id="id-587621219861">
+        <title>4.1 Principles</title>
+        <para id="id9700597">We can represent a real number in the form </para>
+        <para id="id9700605">
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mo stretchy="false">±</m:mo>
+                        <m:mi>S</m:mi>
+                      </m:mrow>
+                      <m:mo stretchy="false">×</m:mo>
+                      <m:msup>
+                        <m:mi>B</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mo stretchy="false">±</m:mo>
+                              <m:mi>E</m:mi>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msup>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{ +- S times B rSup { size 8{ +- E} } } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </para>
+        <para id="id9700678">This number can be stored in a binary word with three fields:</para>
+        <figure id="id9700694"><media id="id8980480" alt=""><image src="../../media/graphics10-6228.png" mime-type="image/png"/></media>
+        </figure>
+        <list id="id9700720" list-type="bulleted">
+          <item>Sign: plus or minus</item>
+          <item>Significant: S</item>
+          <item>Exponent: E. </item>
+        </list>
+        <para id="id9700747">(A fixed value, called the bias, is subtracted from the biased exponent field to get the true exponent value (E). Typically, the bias equal 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>k</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle></m:msup><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{2 rSup { size 8{k - 1} }  - 1} {}</m:annotation></m:semantics></m:math>, where k is the number of bits in the binary exponent)</para>
+        <list id="id9659842" list-type="bulleted">
+          <item>The base B is implicit and need not be stored because it is the same for all numbers.</item>
+        </list>
+      </section>
+      <section id="id-873341474565">
+        <title>4.2 IEEE Standard for Binary Floating-Point Representation</title>
+        <para id="id9659861">The most important floating-point representation is defined in IEEE Standard 754 [EEE8]. This standard was developed to facilitate the portability of programs from one processor to another and to encourage the development of sophisticated, numerically oriented programs. The standard has been widely adopted and is used on virtually all contemporary processors and arithmetic coprocessors.</para>
+        <para id="id9659872">The IEEE standard defines both a 32-bit (Single-precision) and a 64-bit (Double-precision) double format with 8-bit and 11-bit exponents, respectively. Binary floating-point numbers are stored in a form where the MSB is the sign bit, exponent is the biased exponent, and "fraction" is the significand. The implied base (B) is 2.</para>
+        <figure id="id9659898"><media id="id8980648" alt=""><image src="../../media/graphics11.png" mime-type="image/png"/></media>
+        </figure>
+        <para id="id9659924">Not all bit patterns in the IEEE formats are interpreted in die usual way; instead, some bit patterns are used to represent special values. Three special cases arise:</para>
+        <list id="id9659935" list-type="enumerated">
+          <item>if exponent is 0 and fraction is 0, the number is ±0 (depending on the sign bit)</item>
+          <item>if exponent = 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mi>e</m:mi></m:mrow></m:mstyle></m:msup></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{2 rSup { size 8{e} } } {}</m:annotation></m:semantics></m:math>-1 and fraction is 0, the number is ±infinity (again depending on the sign bit), and</item>
+          <item>if exponent = 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mi>e</m:mi></m:mrow></m:mstyle></m:msup></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{2 rSup { size 8{e} } } {}</m:annotation></m:semantics></m:math>-1 and fraction is not 0, the number being represented is not a number (NaN).</item>
+        </list>
+        <para id="id9706589">This can be summarized as:</para>
+        <figure id="id9706597"><media id="id8980776" alt=""><image src="../../media/graphics12.png" mime-type="image/png"/></media>
+        </figure>
+        <para id="id9706621">Single-precision 32 bit</para>
+        <para id="id9638878">A single-precision binary floating-point number is stored in 32 bits.</para>
+        <para id="id9638884">The number has value v:</para>
+        <para id="id9638888">v = s × 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mi>e</m:mi></m:mrow></m:mstyle></m:msup></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{2 rSup { size 8{e} } } {}</m:annotation></m:semantics></m:math>× m</para>
+        <para id="id9638943">Where</para>
+        <para id="id9638948">s = +1 (positive numbers) when the sign bit is 0</para>
+        <para id="id9638953">s = −1 (negative numbers) when the sign bit is 1</para>
+        <para id="id9638960">e = Exp − 127 (in other words the exponent is stored with 127 added to it, also called "biased with 127")</para>
+        <para id="id9638968">m = 1.fraction in binary (that is, the significand is the binary number 1 followed by the radix point followed by the binary bits of the fraction). Therefore, 1 ≤ m &lt; 2.</para>
+        <figure id="id9638981"><media id="id8980920" alt=""><image src="../../media/graphics13.png" mime-type="image/png"/></media>
+        </figure>
+        <para id="id9639005">In the example shown above:</para>
+        <para id="id9639010">S=1</para>
+        <para id="id9639014">E= 011111100(2) -127 = -3</para>
+        <para id="id9639019">M=1.01 (in binary, which is 1.25 in decimal). </para>
+        <para id="id9639025">The represented number is: +1.25 × 2−3 = +0.15625.</para>
+      </section>
+    </section>
+    <section id="id-465618709859">
+      <title>5. Floating-Point Arithmetic</title>
+      <para id="id9639042">The basic operations for floating-point 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi fontstyle="italic">X1</m:mi><m:mo stretchy="false">=</m:mo><m:mrow><m:mi fontstyle="italic">M1</m:mi><m:mo stretchy="false">∗</m:mo><m:msup><m:mi>R</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">E1</m:mi></m:mrow></m:mstyle></m:msup></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X1=M1*R rSup { size 8{E1} } } {}</m:annotation></m:semantics></m:math> and 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi fontstyle="italic">X2</m:mi><m:mo stretchy="false">=</m:mo><m:mrow><m:mi fontstyle="italic">M2</m:mi><m:mo stretchy="false">∗</m:mo><m:msup><m:mi>R</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">E2</m:mi></m:mrow></m:mstyle></m:msup></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X2=M2*R rSup { size 8{E2} } } {}</m:annotation></m:semantics></m:math></para>
+      <list id="id9682905" list-type="bulleted">
+        <item><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mrow><m:mi fontstyle="italic">X1</m:mi><m:mo stretchy="false">±</m:mo><m:mi fontstyle="italic">X2</m:mi></m:mrow><m:mo stretchy="false">=</m:mo><m:mo stretchy="false">(</m:mo></m:mrow><m:mrow><m:mi fontstyle="italic">M1</m:mi><m:mo stretchy="false">∗</m:mo><m:msup><m:mi>R</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi fontstyle="italic">E1</m:mi><m:mo stretchy="false">−</m:mo><m:mi fontstyle="italic">E2</m:mi></m:mrow></m:mrow></m:mstyle></m:msup></m:mrow><m:mo stretchy="false">)</m:mo><m:msup><m:mi>R</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">E2</m:mi></m:mrow></m:mstyle></m:msup></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X1 +- X2= \( M1*R rSup { size 8{E1 - E2} }  \) R rSup { size 8{E2} } } {}</m:annotation></m:semantics></m:math> (assume E1
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow/><m:mrow/></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ &lt;= {}} {}</m:annotation></m:semantics></m:math>E2)</item>
+        <item>
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mrow>
+                          <m:mi fontstyle="italic">X1</m:mi>
+                          <m:mo stretchy="false">∗</m:mo>
+                          <m:mi fontstyle="italic">X2</m:mi>
+                        </m:mrow>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mo stretchy="false">(</m:mo>
+                      </m:mrow>
+                      <m:mrow>
+                        <m:mi fontstyle="italic">M1</m:mi>
+                        <m:mo stretchy="false">∗</m:mo>
+                        <m:mi fontstyle="italic">M2</m:mi>
+                      </m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:msup>
+                        <m:mi>R</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mi fontstyle="italic">E1</m:mi>
+                              <m:mo stretchy="false">+</m:mo>
+                              <m:mi fontstyle="italic">E2</m:mi>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msup>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{X1*X2= \( M1*M2 \) R rSup { size 8{E1+E2} } } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </item>
+        <item>
+          <m:math>
+            <m:semantics>
+              <m:mrow>
+                <m:mstyle fontsize="12pt">
+                  <m:mrow>
+                    <m:mrow>
+                      <m:mrow>
+                        <m:mrow>
+                          <m:mi fontstyle="italic">X1</m:mi>
+                          <m:mo stretchy="false">/</m:mo>
+                          <m:mi fontstyle="italic">X2</m:mi>
+                        </m:mrow>
+                        <m:mo stretchy="false">=</m:mo>
+                        <m:mo stretchy="false">(</m:mo>
+                      </m:mrow>
+                      <m:mrow>
+                        <m:mi fontstyle="italic">M1</m:mi>
+                        <m:mo stretchy="false">/</m:mo>
+                        <m:mi fontstyle="italic">M2</m:mi>
+                      </m:mrow>
+                      <m:mo stretchy="false">)</m:mo>
+                      <m:msup>
+                        <m:mi>R</m:mi>
+                        <m:mstyle fontsize="8pt">
+                          <m:mrow>
+                            <m:mrow>
+                              <m:mi fontstyle="italic">E1</m:mi>
+                              <m:mo stretchy="false">−</m:mo>
+                              <m:mi fontstyle="italic">E2</m:mi>
+                            </m:mrow>
+                          </m:mrow>
+                        </m:mstyle>
+                      </m:msup>
+                    </m:mrow>
+                  </m:mrow>
+                </m:mstyle>
+                <m:mrow/>
+              </m:mrow>
+              <m:annotation encoding="StarMath 5.0"> size 12{X1/X2= \( M1/M2 \) R rSup { size 8{E1 - E2} } } {}</m:annotation>
+            </m:semantics>
+          </m:math>
+        </item>
+      </list>
+      <para id="id9677249">For addi­tion and subtraction, it is necessary lo ensure that both operands have the same exponent value. I his may require shifting the radix point on one of the operands to achieve alignment. Multiplication and division are more straightforward.</para>
+      <para id="id9677261">A floating-point operation may produce one of these conditions:</para>
+      <list id="id9677266" list-type="bulleted">
+        <item>Exponent overflow: A positive exponent exceeds the maximum possible expo­nent value. In some systems, this may be designated as <!--Sorry, this media type is not supported.--></item>
+        <item>Exponent underflow: A negative exponent is less than the minimum possible exponent value (e.g.. -200 is less than -127). This means that the number is too small to be represented, and it may be reported as 0.</item>
+        <item>Significand underflow: In the process of aligning significands, digits may flow off the right end of the significand. Some form of rounding is required.</item>
+        <item>Significand overflow: The addition of two significands of the same sign may result in a carry out of the most significant bit. This can be fixed by realign­ment.</item>
+      </list>
+    </section>
+  </content>
+</document>

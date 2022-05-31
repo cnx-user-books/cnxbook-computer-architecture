@@ -1,0 +1,151 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Module 15: Virtual Memory</title>
+  <metadata>
+  <md:content-id>m29737</md:content-id><md:title>Module 15: Virtual Memory</md:title>
+  <md:abstract/>
+  <md:uuid>8f50e119-7887-4a82-a2ea-6d76513f4487</md:uuid>
+</metadata>
+
+<content>
+    <section id="id-327172363787">
+      <title>1. Partitioning</title>
+      <para id="id9525593">Partitioning of memory is as a job that is brought into memory, it must be allocated a portion of the memory, this is its partition. Partitions can be fixed size of variable sized</para>
+      <para id="id9525606">– Fixed size: </para>
+      <para id="id9525613">This is a rigid size divisions of memory</para>
+      <para id="id9525622">Process is assigned to smallest available partition it fits into</para>
+      <para id="id9525631">Process can be very wasteful of memory</para>
+      <para id="id9525639">– Variable size</para>
+      <para id="id9525644">Allocate a process to only as much memory as it needs</para>
+      <para id="id9525653">Other memory can be used for other processes</para>
+      <para id="id9525662">Efficient use of memory but, over time, can lead to large numbers of little left over pieces of free memory -- too small to use</para>
+      <para id="id9525675"> Must consider use of memory compaction</para>
+      <list id="id9525684" list-type="bulleted">
+        <item>Effect of partitioning</item>
+      </list>
+      <para id="id9525696">Since a process can be swapped in and out of memory and end up in different partitions, addressing within the process must not be tied to specific physical memory addresses</para>
+      <para id="id9525707">– Program/process addresses are logical ones with respect to the starting address of the</para>
+      <para id="id9525715">program itself</para>
+      <para id="id9525720">– Processor hardware must convert the logical address reference of the program into a physical address that the machine can operate on</para>
+      <para id="id9525730">– In effect this is a form of index addressing -- base addressing -- where the base address is the first address of the program.</para>
+      <figure id="id9525742">
+        <media id="id6534023" alt=""><image src="../../media/graphics1-d975.jpg" mime-type="image/jpeg" height="379" width="588"/></media>
+      </figure>
+      <para id="id9525766">Figure 15.1 Effect of partitioning</para>
+    </section>
+    <section id="id-156001287093">
+      <title>2. Paging</title>
+      <list id="id9525778" list-type="bulleted">
+        <item>Paging is to subdivide memory into small fixed-size “chunks” called frames or page frames</item>
+        <item>Divide programs into same sized chunks, called pages</item>
+        <item>Loading a program in memory requires the allocation of the required number of pages</item>
+        <item>Limits wasted memory to a fraction of the last page</item>
+        <item>Page frames used in loading process need not be contiguous</item>
+      </list>
+      <para id="id9525831">– Each program has a page table associated with it that maps each program page to a memory page frame</para>
+      <para id="id9525843">– Thus, logical addresses in a program are interpreted as a physical address -- page frame number and an offset within the page</para>
+      <list id="id9525856" list-type="bulleted">
+        <item>Principle for allocation of free page frames</item>
+      </list>
+      <figure id="id9525872">
+        <media id="id1170471112924" alt=""><image src="../../media/graphics2-0382.png" mime-type="image/png" height="564" width="587"/></media>
+      </figure>
+      <para id="id9525896">Figure 15.2 Allocation of free pages</para>
+      <list id="id9525904" list-type="bulleted">
+        <item>Address mapping in a paging system</item>
+      </list>
+      <para id="id9525912">The more sophistiated way of mapping address from the address space onto the actual memory address is possible. Principle of address mapping in a paging system is shown in Figure 15.3 .</para>
+      <para id="id9525922">The address that the program can refer is called the virtual address space, the actual hardwired (pgysical) memory address is called the physical address space.</para>
+      <figure id="id9525932">
+        <media id="id1170471754917" alt=""><image src="../../media/graphics3-d131.png" mime-type="image/png" height="474" width="588"/></media>
+      </figure>
+      <para id="id9525956">Figure 15.3 Address mapping in a paging system</para>
+    </section>
+    <section id="id-460395385445">
+      <title>3. Implementation of Paging</title>
+      <list id="id9525970" list-type="bulleted">
+        <item>The implementation of paging systems permit true multiprogramming systems through the use of virtual memory / demand paging</item>
+      </list>
+      <para id="id9525983">– Only the program pages that are required for the execution of the program are actually loaded -- hence the “demanded” concept</para>
+      <para id="id9525997">– Only a few (of the many potential) pages of any one program might be in memory at a time</para>
+      <para id="id9526009">– Many “active” programs can have pages -- increasing the degree of multiprogramming</para>
+      <list id="id9526022" list-type="bulleted">
+        <item>With demand paging, it is possible for a program consisting of more pages than can (ever) fit into memory to run</item>
+      </list>
+      <para id="id9543721">– This is presents a virtual memory system that seems unlimited in size to the programmer</para>
+      <para id="id9543733">– Significantly simplifies program development</para>
+      <list id="id9543742" list-type="bulleted">
+        <item>Page tables can be large and are themselves subject to being stored in</item>
+      </list>
+      <para id="id9543755">secondary storage. Only a small portion will be kept in main memory</para>
+      <list id="id9543765" list-type="bulleted">
+        <item>To reduce size of a page table consider</item>
+      </list>
+      <para id="id9543774">– Using a 2-level page table:</para>
+      <para id="id9543782"> Entry in first level point to a table at the second level</para>
+      <para id="id9543792"> First level is small -- in many cases the size of a single page</para>
+      <para id="id9543801">– Use an inverted table structure: A hashing function maps a page request</para>
+      <para id="id9543815">into an inverted table that is used by all processes. One structure is usec for all processes and virtual pages</para>
+      <list id="id9543828" list-type="bulleted">
+        <item>It would seem that each virtual address reference causes 2 memory accesses</item>
+      </list>
+      <para id="id9543840">– An access to get to the page table</para>
+      <para id="id9543850">– An access to get the actual data page</para>
+      <list id="id9543859" list-type="bulleted">
+        <item>To avoid this delay, use a special cache to hold page table information </item>
+        <item>Every memory access requires</item>
+      </list>
+      <para id="id9543880">– Trying to find frame reference in TLB</para>
+      <para id="id9543889">– If not there, go to page table in memory</para>
+      <para id="id9543898">– With frame identified, check the cache to see if it is there,</para>
+      <para id="id9543908">– If not there, get from main memory or retrieve from disk</para>
+      <list id="id9543917" list-type="bulleted">
+        <item>Operation of paging and TLB</item>
+      </list>
+      <figure id="id9543929">
+        <media id="id1170476936410" alt=""><image src="../../media/graphics4-857d.png" mime-type="image/png" height="863" width="588"/></media>
+      </figure>
+      <para id="id9543953">Figure 15.3 Operation of paging and TLB</para>
+      <figure id="id9543964">
+        <media id="id1170470798631" alt=""><image src="../../media/graphics5-e930.png" mime-type="image/png" height="471" width="586"/></media>
+      </figure>
+      <para id="id9543988">Figure 15.4. TLB and cache operation</para>
+    </section>
+    <section id="id-645044610462">
+      <title>4. Page Replacemenr Policy</title>
+      <list id="id9544004" list-type="bulleted">
+        <item>Principle of Replacemenr Policy</item>
+      </list>
+      <para id="id9544016">- If there is an unused page frame, it can be loaded into it</para>
+      <para id="id9544025">- If all page frames are in use, one must be selected for replacement</para>
+      <para id="id9544035">- If it has been altered, the page to be replaced must be copied back to secondary</para>
+      <para id="id9544045">storage</para>
+      <list id="id9544053" list-type="bulleted">
+        <item>Page replacement algorithms</item>
+      </list>
+      <para id="id9544062">Similar to the ones discussed in caching, the following algorithms have been used</para>
+      <para id="id9544071">LRU</para>
+      <para id="id9544080">FIFO</para>
+      <para id="id9544088">Random, etc.</para>
+    </section>
+    <section id="id-692949837181">
+      <title>5. Segmentation</title>
+      <para id="id9544105">In addition to partitioning and paging, segmentation can be used to subdivide</para>
+      <para id="id9544114">memory</para>
+      <para id="id9544118">– Programmer subdivides the program into logical units called segments</para>
+      <para id="id9544126"> Programs subdivided by function</para>
+      <para id="id9544135">Data array items grouped together as a unit</para>
+      <para id="id9544144">– Advantages</para>
+      <para id="id9544148">Simplifies data structure handling</para>
+      <para id="id9544157">Supports code modification and maintenance</para>
+      <para id="id9544166">Supports sharing code segments</para>
+      <para id="id9544174">Provides a degree of protection</para>
+      <para id="id9544182">– Memory reference is in the form of a segment ID and an offset</para>
+      <para id="id9544191">– Segmentation can be combined with paging in a segment ID, page number, page offset scheme</para>
+      <para id="id9544200">Resume of Virtual Memory management</para>
+      <para id="id9544207">– Partitioning</para>
+      <para id="id9544211">– Paging</para>
+      <para id="id9544216">– Segmentation</para>
+      <para id="id9544220">– Segmentation and paging</para>
+    </section>
+  </content>
+</document>

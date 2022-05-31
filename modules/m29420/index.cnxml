@@ -1,0 +1,100 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Module 13: Input/Output</title>
+  <metadata>
+  <md:content-id>m29420</md:content-id><md:title>Module 13: Input/Output</md:title>
+  <md:abstract/>
+  <md:uuid>d6a70407-32db-4aa9-9912-3b637344c57a</md:uuid>
+</metadata>
+
+<content>
+    <list id="id9592616" list-type="enumerated">
+      <item>I/O Overview</item>
+    </list>
+    <para id="id9592622">The computer system’s I/O architecture is its interface to the outside world. The I/O components consist the buses, the keybroads, CRT Minitor, Flat panel display, scanner, modem …The I/O architecture consiste the buses and a set of I/O modules, each module interfaces to the bus system or to the outside world. </para>
+    <list id="id9592640" list-type="bulleted">
+      <item>There are 3 principal I/O techniques: </item>
+    </list>
+    <para id="id9592646">- Programmed I/O</para>
+    <para id="id9592652">- Interrupt-dreiven I/O</para>
+    <para id="id9592657">- Direct Memory Access (DMA)</para>
+    <list id="id9592662" list-type="bulleted">
+      <item>There are two I/O techniques.</item>
+    </list>
+    <para id="id9592669">I/O parallel</para>
+    <para id="id9592674">I/O serial </para>
+    <list id="id9592684" list-type="enumerated">
+      <item>Buses</item>
+    </list>
+    <para id="id9592695">The collection of paths that connect the system modules together form the interconnection structure.</para>
+    <list id="id9592705" list-type="bulleted">
+      <item>Bus Interconnection</item>
+    </list>
+    <para id="id9592712">Computer systems contain a number of buses that provide pathways between</para>
+    <para id="id9592721">components</para>
+    <para id="id9592725">– Shared transmission media connecting 2 or more devices together</para>
+    <para id="id9592733">– Broadcast, 1-to-all operation</para>
+    <para id="id9592738">– Must insure only 1 device places information onto a bus at any given time</para>
+    <list id="id9592746" list-type="bulleted">
+      <item>Typical buses consist of 50-100 lines</item>
+    </list>
+    <para id="id9592752">- Address information (address bus)</para>
+    <para id="id9592760"> Specifies source/destination of data transfer</para>
+    <para id="id9592769"> Width determines the capacity of the system</para>
+    <para id="id9592778">– Data information (data bus)</para>
+    <para id="id9592782">Width is key in determining overall performance</para>
+    <para id="id9592791">– Control information: Controls access to and use of the address and data bus</para>
+    <para id="id9592800">– Miscellaneous: power, ground, clock</para>
+    <list id="id9592810" list-type="bulleted">
+      <item>Bus performance and limitations</item>
+    </list>
+    <para id="id9592819">The performance is limited by:</para>
+    <para id="id9592823">+ Data propagation delay through the bus longer buses (to support more devices) require longer delays</para>
+    <para id="id9592830">+ Aggregate demand for access to the bus from all devices connected to the bus</para>
+    <para id="id9592837">multiple buses To avoid bottlenecks, </para>
+    <list id="id9592841" list-type="bulleted">
+      <item>Multiple Buses: </item>
+    </list>
+    <para id="id9592848">– Hierarchical</para>
+    <para id="id9592856">– High-speed limited access buses close to the processor</para>
+    <para id="id9592866">– Slower-speed general access buses farther away from the processor.</para>
+    <list id="id9592883" list-type="bulleted">
+      <item>External Bus - PC bus</item>
+    </list>
+    <para id="id9592892">ISA (Industrial Standard Architecture)</para>
+    <para id="id9592896">– First open system bus architecture for PCs (meaning IBM-type machines)</para>
+    <para id="id9592905">– 8-bit and 16-bit ISA buses</para>
+    <figure id="id9592912"><media id="id5604688" alt=""><image src="../../media/graphics1-f7e9.jpg" mime-type="image/jpeg"/></media>
+    </figure>
+    <para id="id9592936">Figure 13.2 ISA Bus</para>
+    <para id="id9592943">- Micro Channel Architecture</para>
+    <para id="id9592947">- PCI</para>
+    <list id="id9592952" list-type="bulleted">
+      <item>VESA Video Local Bus</item>
+      <item>Bus architecture and organization</item>
+    </list>
+    <figure id="id9592966"><media id="id1170886626493" alt=""><image src="../../media/graphics2-6836.jpg" mime-type="image/jpeg"/></media>
+    </figure>
+    <para id="id9592990">Figure 13.1 Hierarchical bus configurations</para>
+    <section id="id-447099164498">
+      <title>I/O Modules and InterfaceStructure</title>
+      <section id="id-958266601315">
+        <title>Programmed I/O</title>
+        <para id="id9593001">
+          <!--Empty sections are illegal in CNXML 0.5.  This empty paragraph is a place holder that added as a byproduct of the word importer.-->
+        </para>
+      </section>
+      <section id="id-685115849693">
+        <title>Interrup Drive I/O</title>
+        <para id="id9593009">
+          <!--Empty sections are illegal in CNXML 0.5.  This empty paragraph is a place holder that added as a byproduct of the word importer.-->
+        </para>
+      </section>
+      <section id="id-00329968175212">
+        <title>Direct Memory Access</title>
+        <para id="id9593017">
+          <!--Empty sections are illegal in CNXML 0.5.  This empty paragraph is a place holder that added as a byproduct of the word importer.-->
+        </para>
+      </section>
+    </section>
+  </content>
+</document>

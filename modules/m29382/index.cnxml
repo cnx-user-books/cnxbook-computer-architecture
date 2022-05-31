@@ -1,0 +1,128 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Module 12: External Memory</title>
+  <metadata>
+  <md:content-id>m29382</md:content-id><md:title>Module 12: External Memory</md:title>
+  <md:abstract/>
+  <md:uuid>9177705f-0b41-4a30-849f-438e29e68d61</md:uuid>
+</metadata>
+
+<content>
+    <section id="id-976910771452">
+      <title>1. Magnetic disks</title>
+      <section id="id-654632178965">
+        <title>1.1 Magnetic disks overview</title>
+        <para id="id8910585">The magnetic disks are the foundation of external memory on virtually all computer system. Both removable and fixed disk or hard disk are used in computer system from personal computer to mainframe or supercpomputer.</para>
+        <list id="id8792992" list-type="bulleted">
+          <item>Principle</item>
+        </list>
+        <para id="id9111550">– The disk is a metal or plastic platter coated with magnetizable material</para>
+        <para id="id8048472">– Data is recorded onto and later read from the disk using a conducting coil, the head</para>
+        <para id="id8910351">– Data is organized into concentric rings, called tracks, on the platter</para>
+        <para id="id4630282">– Tracks are separated by gaps</para>
+        <para id="id4630287">– Disk rotates at a constant speed – constant angular velocity</para>
+        <para id="id4630145">The number of data bits per track is a constant</para>
+        <para id="id6338130">The data density is higher on the inner tracks</para>
+        <para id="id8089416">– Logical data transfer unit is the sector</para>
+        <para id="id4296034"> Sectors are identified on each track during the formatting process</para>
+        <list id="id6533555" list-type="bulleted">
+          <item>Disk characteristics</item>
+        </list>
+        <para id="id4630710">- Single vs. multiple platters per drive (each platter has its own read/write head)</para>
+        <para id="id6055130">- Fixed vs. movable head. Fixed head has a head per track. Movable head uses one head per platter</para>
+        <para id="id8087961">- Removable vs. nonremovable platters. Removable platter can be removed from disk drive for storage of transfer to another machine</para>
+        <para id="id7427586">- Data accessing times:</para>
+        <para id="id8196504">+ Seek time -- position the head over the correct track</para>
+        <para id="id5190638">+ Rotational latency -- wait for the desired sector to come under the head</para>
+        <para id="id6934197">+ Access time -- seek time plus rotational latency</para>
+        <para id="id8337475">+ Block transfer time -- time to read the block (sector) off of the disk and</para>
+        <para id="id9663162">transfer it to main memory.</para>
+        <figure id="id4865892">
+          <media id="id1172779120511" alt=""><image src="../../media/graphics1-e62f.jpg" mime-type="image/jpeg" height="295" width="296"/></media>
+        </figure>
+        <para id="id7156078">Figure 12.1. Disk Organization</para>
+      </section>
+      <section id="id-496422775079">
+        <title>1.2 RAID Technology</title>
+        <para id="id8880537">The RAID (Redundant Array of Independent Disk) technology can obtain greater performance and higher availability. RAID refers to a family of techniquesfor using multiple disks as a paralle array of data storage devices with redundant built in to compensate for disk failure.</para>
+        <para id="id9123281">– Disk drive performance has not kept pace withimprovements in other parts of the system</para>
+        <para id="id8031956">– Limited in many cases by the electromechanical transport means</para>
+        <para id="id8110943">– Capacity of a high performance disk drive can be duplicated by operating many (much cheaper) disks in parallel with simultaneous access</para>
+        <para id="id9192846">– Data is distributed across all disks</para>
+        <para id="id9192850">– With many parallel disks operating as if they were a single unit, redundancy techniques can be used to guard against data loss in the unit (due to aggregate failure rate being higher)</para>
+        <para id="id4844936">– “RAID” developed at Berkeley – Redundant Array of Independent Disks</para>
+        <list id="id7039854" list-type="bulleted">
+          <item>Six levels RAID: 0 – 5</item>
+        </list>
+        <para id="id3976302">– RAID 0</para>
+        <para id="id3976306">» No redundancy techniques are used</para>
+        <para id="id8322134">» Data is distributed over all disks in the array</para>
+        <para id="id8257801">» Data is divided into strips for actual storage similar in operation to interleaved</para>
+        <para id="id6714165">memory data storage</para>
+        <para id="id7745648">» RAID can be used to support high data transfer rates by having block transfer size be in multiples of the strip</para>
+        <para id="id9099569">» RAID can support low response time by having the block transfer size equal a strip --</para>
+        <para id="id7891508">support multiple strip transfers in parallel</para>
+        <para id="id9588393">– RAID 1</para>
+        <para id="id5505533">All disks are mirrored – duplicated Data is stored on a disk and its mirror Read from either the disk or its mirror Write must be done to both the disk and mirror</para>
+        <list id="id6733691" list-type="bulleted">
+          <item>Fault recovery is easy -- use the data on the mirror</item>
+          <item>System is expensive!</item>
+        </list>
+        <para id="id7877970">– RAID 2</para>
+        <para id="id7634061">All disks are used for every access – disks are synchronized together</para>
+        <para id="id8821006">Data strips are small (byte)</para>
+        <para id="id6625482">Error correcting code computed across all disks and stored on additional disks</para>
+        <para id="id8172800">Uses fewer disks than RAID 1 but still expensive.Number of additional disks is</para>
+        <para id="id4342721">proportional to log of number of data disks</para>
+        <para id="id4296218">– RAID 3</para>
+        <para id="id7618075">Like RAID 2 however only a single redundant disk is used -- the parity drive</para>
+        <para id="id7715041">Parity bit is computed for the set of individual bits in the same position on all</para>
+        <para id="id8031576">Disks If a drive fails, parity information on the redundant disks can be used to calculate thedata from the failed disk “on the fly”</para>
+      </section>
+    </section>
+    <section id="id-518855532193">
+      <title>2. Optical disks</title>
+      <para id="id7878360">Advent of CDs in the early 1980s revolutionized the audio and computer industries</para>
+      <list id="id8463210" list-type="bulleted">
+        <item>Basic operations</item>
+      </list>
+      <para id="id8780126">» CD is operated using constant linear velocity</para>
+      <para id="id8463223">» Essentially one long track spiraled onto the disk</para>
+      <para id="id4636152">» Track passes under the disk’s head at a constant rate -- requires the disk to change rotational speed based on what part of the track you are on</para>
+      <para id="id6683056">» To write to the disk, a laser is used to burn pits into the track -- write once!</para>
+      <para id="id8897448">» During reads, a low power laser illuminates the track and its pits</para>
+      <para id="id3961154">- In the track, pits reflect light differently than no pits thus allowing you to store 1s and 0s</para>
+      <para id="id7248609">– Characteristics: </para>
+      <para id="id6694072">- Master disk is made using the laser</para>
+      <para id="id6694077"> - Master is used to “press” copies in a mass production mechanical style</para>
+      <para id="id8506874">- Cheaper than production of information on magnetic disks</para>
+      <para id="id7981609">- Storage capacity roughly 775 NB or 550 3.5” disks</para>
+      <para id="id7248676">- Transfer rate standard is 176 MB/second</para>
+      <para id="id9560596">- Only economical for production of large quantities of disks</para>
+      <para id="id8851608">- Disks are removable and thus archival</para>
+      <para id="id7554524">- Slower than magnetic disks.</para>
+      <list id="id6865610" list-type="bulleted">
+        <item>WORMs -- Write Once, Read Many disks</item>
+      </list>
+      <para id="id8155790">» User can produce CD ROMs in limited quantities</para>
+      <para id="id6730214">» Specially prepared disk is written to using a medium power laser</para>
+      <para id="id4515648">» Can be read many times just like a normal CD ROM</para>
+      <para id="id6873999">» Permits archival storage of user information, distribution of large amounts of information by a user.</para>
+      <list id="id4636270" list-type="bulleted">
+        <item>Erasable optical disk</item>
+      </list>
+      <para id="id6734739">» Combines laser and magnetic technology to permit information storage</para>
+      <para id="id8022637">» Laser heats an area that can then have an efield orientation changed to alter information storage</para>
+      <para id="id8328266">» “State of the e-field” can be detected using polarized light during reads.</para>
+    </section>
+    <section id="id-878303925134">
+      <title>3. Magnetic Tape</title>
+      <para id="id7037906">– The first kind of secondary memory</para>
+      <para id="id7549440">– Still widely used</para>
+      <para id="id7549444">» Very cheap</para>
+      <para id="id8028792">» Very slow</para>
+      <para id="id7524088">– Sequential access</para>
+      <para id="id8257747">» Data is organized as records with physical air gaps between records</para>
+      <para id="id8772484">» One words is stored across the width of the tape and read using multiple read/write heads.</para>
+    </section>
+  </content>
+</document>

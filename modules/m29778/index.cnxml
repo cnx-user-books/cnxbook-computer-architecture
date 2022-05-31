@@ -1,0 +1,90 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Syllabus</title>
+  <metadata>
+  <md:content-id>m29778</md:content-id><md:title>Syllabus</md:title>
+  <md:abstract/>
+  <md:uuid>c6ed3218-b13f-4840-b886-e86f347cbaab</md:uuid>
+</metadata>
+
+<content>
+    <section id="id-0518588551437">
+      <title>1. Course Title:Computer Architecture </title>
+      <para id="id38592940">
+        <!--Empty sections are illegal in CNXML 0.5.  This empty paragraph is a place holder that added as a byproduct of the word importer.-->
+      </para>
+    </section>
+    <section id="id-615659367415">
+      <title>2. Course ID:</title>
+      <para id="id39978586"/>
+    </section>
+    <section id="id-796758476308">
+      <title>3. Course Units: </title>
+      <para id="id35359530">Lecture:30 hours</para>
+      <para id="id38469677">Seminar/ Exercise:15 hours</para>
+      <para id="id39159871">Total unit: 3 Credits</para>
+    </section>
+    <section id="id-379012654754">
+      <title>4. Expected Participants</title>
+      <para id="id36900340">Three-year students in Undergraduate Programs with having good English skills.</para>
+    </section>
+    <section id="id-248427981391">
+      <title>5. Prerequisites</title>
+      <para id="id34918369">Circuits and Electronics, Digital Electronics, Digital System, Analysis and Design of Digital Integrated Circuits, Computation Structures, Programming.</para>
+    </section>
+    <section id="id-636163101772">
+      <title>6. Course Objectives</title>
+      <para id="id39049396">The course is designed for undergraduate student. The course is intended to provide student the fundamentals of computer architecture and organization, the factors influencing the design of hardware and software elements to computer systems. </para>
+      <para id="id38944366">The goals of the course are to provide students with the basis knowledge of the followings:</para>
+      <list id="id40304004" list-type="bulleted">
+        <item>Introduction to Organization and Architecture Computer </item>
+        <item>Overview of Computer Organization; </item>
+        <item>Computer Arithmetic; </item>
+        <item>Instruction-set Architecture; </item>
+        <item>CPU Structure and Function; </item>
+        <item>Control Unit Operation; </item>
+        <item>Micro-Programming; </item>
+        <item>Instruction Pipelining; </item>
+        <item>Multilevel Memories; </item>
+        <item>Cache Memory; </item>
+        <item>Internal Memory; </item>
+        <item>External Memory; </item>
+        <item>Input/Output; </item>
+        <item>Operating System Support; </item>
+        <item>Virtual Memory; </item>
+        <item>Advanced Architectures.</item>
+      </list>
+    </section>
+    <section id="id-13160415391">
+      <title>7. Course Description</title>
+      <para id="id40116162">This course is about the aspects of both Computer Architecture (attributes of a multilevel machine, a system visible to Micro-architecture, Micro-Programming level) and Computer Organization (the operational components and their interconnections in the system). Moreover, some advanced architectures will be presented.</para>
+      <para id="id36230160">This courser consists 16 lecture notes of 16 modules/sessions. Each module is designed to provide theoretical fundamental and practical exercises.</para>
+    </section>
+    <section id="id-594109856524">
+      <title>8. Student Duties</title>
+      <para id="id39379870"/>
+      <list id="id36640592" list-type="bulleted">
+        <item>Class attendance: ≥ 80%</item>
+        <item>Homework</item>
+      </list>
+    </section>
+    <section id="id-70258869865">
+      <title>9. Assessment</title>
+      <list id="id26780709" list-type="bulleted">
+        <item>Mid-term grade: 0.4 (40%)</item>
+      </list>
+      <para id="id39242944">- Home exercise grading</para>
+      <para id="id26503492">- Mini-seminar or Mid-tem test</para>
+      <list id="id39428192" list-type="bulleted">
+        <item>Final exam : 0.6 (60%)</item>
+      </list>
+    </section>
+    <section id="id-152755880652">
+      <title>10. Course Materials: </title>
+      <para id="id25725663">Textbooks </para>
+      <para id="id39635037">[1]. William Stalling, Computer Organization and Architecture: Designing for Performance, 6th Edition, Prentice Hall, 2003.</para>
+      <para id="id39776361">This is the main textbook used in this course. Supplemental readings from selected papers may also be assigned; in which case, there may be a nominal photocopying charge, 2003</para>
+      <para id="id36687398">[2].Patterson-Hennessy, Computer Organization and Design (3th Edition)
+[3]. Andrew S. Tannenbauum, Structured Computer Organization, 5th Edition, Prentice Hall, 2006. </para>
+    </section>
+  </content>
+</document>

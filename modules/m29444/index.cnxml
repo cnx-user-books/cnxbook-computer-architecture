@@ -1,0 +1,134 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Module 1: Introduction to Organization and Architecture Of Computer</title>
+  <metadata>
+  <md:content-id>m29444</md:content-id><md:title>Module 1: Introduction to Organization and Architecture Of Computer</md:title>
+  <md:abstract>This module presents an introduction and a background to helps understanding the fundamental concepts of Organization and Architecture Computer. The module includes(1)Fundamental concepts of Organization and Architecture, (2)Structure and Function of computer, and (3)Brief History of Computers. Readings and Resources: Part I, Computer Organization and Architecture: Designing for Performance, 6th Edition by William Stalling, textbook.</md:abstract>
+  <md:uuid>08401e98-5b73-4bec-8c0c-774e34075717</md:uuid>
+</metadata>
+
+<content>
+    <section id="id-688427195097">
+      <title>Organization and Architecture</title>
+      <para id="id3472931">In describing computer system, a distinction is often made between <term>computer architecture</term> and <term>computer organization</term>. Although it is difficult to give precise definition for these terms, a consensus exists about the general areas covered by each.</para>
+      <para id="id4086810">Computer architecture refers to those attributes of a system visible to a programmer, or put another way, those attributes that have a direct impact on the logical execution of a program.</para>
+      <para id="id4086818">Computer organization refers to the operational units and their interconnection that realize the architecture specification. </para>
+      <para id="id4086826">Examples of architecture attributes include the instruction set, the number of bit to represent various data types (e.g.., numbers, and characters), I/O mechanisms, and technique for addressing memory. Organization attributes include those hardware details transparent to the programmer, such as control signals, interfaces between the computer and peripherals, and the memory technology used.</para>
+      <para id="id4086838">As an example, it is an architectural design issue whether a computer will have a multiply instruction. It is an organizational issue whether that instruction will be implemented by a special multiply unit or by a mechanism that makes repeated use of the add unit of the system. The organization decision may be bases on the anticipated frequency of use of the multiply instruction, the relative speed of the two approaches, and the cost and physical size of a special multiply unit.</para>
+      <para id="id4086851">Historically, and still today, the distinction between architecture and organization has been an important one. Many computer manufacturers offer a family of computer model, all with the same architecture but with differences in organization. Consequently, the different models in the family have different price and performance characteristics. Furthermore, an architecture may survive many years, but its organization changes with changing technology.</para>
+    </section>
+    <section id="id-00711529174064">
+      <title>Structure and Function</title>
+      <para id="id3422177">A computer is a complex system; contemporary computers contain million of elementary electronic components. How, then, can one clearly describe them? The key is to recognize the hierarchic nature of most complex system. A hierarchic system is a set of interrelated subsystem, each of the later, in turn, hierarchic in structure until we reach some lowest level of elementary subsystem.</para>
+      <para id="id3422187">The hierarchic nature of complex systems is essential to both their design and their description. The designer need only deal with a particular level of the system at a time. At each level, the system consists of a set of components and their interrelationships. The behavior at each level depends only on a simplified, abstracted characterization of the system at the nest lower level. At each level, the designer is concerned with structure and function:</para>
+      <list id="id3422200" list-type="bulleted">
+        <item>Structure: The way in which the components are interrelated.</item>
+        <item>Function: The operation of each individual component as part of the structure.</item>
+      </list>
+      <para id="id3422224">In term of description, we have to choices: starting ant the bottom and building up to a complete description or with a top view and decomposing the system, describing their structure and function, and proceed to successively lower layer of the hierarchy. The approach taken is this course follows the latter.</para>
+      <para id="id3422234">
+        <emphasis>Functions</emphasis>
+      </para>
+      <para id="id3336328">In general terms, there are four main functions of a computer:</para>
+      <list id="id3336339" list-type="bulleted">
+        <item>Data processing</item>
+        <item>Data storage</item>
+        <item>Data movement</item>
+        <item>Control</item>
+      </list>
+      <figure id="id3336367"><media id="id1167558249891" alt=""><image src="../../media/graphics1-3f69.jpg" mime-type="image/jpeg" height="515" width="330"/></media>
+      <caption>A functional view of the computer</caption></figure>
+      
+      <para id="id3440778">The computer, of course, must be able to process data. The data may take a wide variety of forms, and the range of processing requirements is broad. However, we shall see that there are only a few fundamental methods or types of data processing. </para>
+      <para id="id3440786">It is also essential that a computer store data. Event if the computer is processing data on the fly (i.e., data come in and get processed, and the results go right out), the computer must temporarily store at least those pieces of data that are being worked on at any given moment. Thus, there is at least a short-term data storage function. Files of data are stored on the computer for subsequent retrieval and update. </para>
+      <para id="id3440807">The computer must be able to move data between itself and the outside world. The computer’s operating environment consists of devices that serve as either sources or destinations of data. When data are received from or delivered to a device that is directly connected to the computer, the process id known as input-output (I/O), and the device is referred to as a peripheral. When data are moved over longer distances, to or from a remote device, the process is known as data communications.</para>
+      <para id="id3440815">Finally, there must be control of there three functions. Ultimately, this control is exercised by the individual who provides the computer with instructions. Within the computer system, a control unit manages the computer’s resources and orchestrates the performance of its functional parts in response to those instructions.</para>
+      <para id="id3491916">At this general level of discussion, the number of possible operations that can be performed is few. The <link target-id="id3491944"/> depicts the four possible types of operations. The computer can function as a data movement device (<link target-id="id3491944"/>(a)), simply transferring data from one peripheral or communications line to another. It can also function as a data storage device (<link target-id="id3491944"/>(b)), with data transferred from the external environment to computer storage (read) and vice versa (write). The final two diagrams show operations involving data processing, on data either in storage or in route between storage and the external environment.</para>
+      <para id="id3491935">
+        <figure id="id3491944"><media id="id8480036" alt=""><image src="../../media/graphics2-27e9.png" mime-type="image/png" height="743" width="592"/></media>
+        <caption>Possible computer operations</caption></figure>
+      </para>
+      
+      <para id="id4086758">
+        <emphasis>Structure</emphasis>
+      </para>
+      <para id="id4086765"><link target-id="id3434355"/> is the simplest possible depiction of a computer. The computer is an entity that interacts in some fashion with its external environment. In general, all of its linkages to the external environment can be classified as peripheral devices or communication lines. We will have something to say about both types of linkages. </para>
+      <list id="id4086779" list-type="bulleted">
+        <item>Central Processing Unit (CPU): Controls the operation of the computer and performs its data processing functions. Often simply referred to as processor.</item>
+        <item>Main Memory: Stores data.</item>
+        <item>I/O: Moves data between the computer and its external environment.</item>
+        <item>System Interconnection: Some mechanism that provides for communication among CPU, main memory, and I/O.</item>
+      </list>
+      <para id="id3434345">
+        <figure id="id3434355"><media id="id8438563" alt=""><image src="../../media/graphics3-659b.png" mime-type="image/png" height="329" width="592"/></media>
+        <caption>The computer: top-level structure</caption></figure>
+      </para>
+      
+      <para id="id3472994">There may be one or more of each of the above components. Traditionally, there has been just a single CPU. In recent years, there has been increasing use of multiple processors, in a single system. Each of these components will be examined in some detail in later lectures. However, for our purpose, the most interesting and in some ways the most complex component is the CPU; its structure is depicted in <link target-id="id3442784"/>. Its major structural components are:</para>
+      <list id="id3473007" list-type="bulleted">
+        <item>Control Unit (CU): Controls the operation of the CPU and hence the computer.</item>
+        <item>Arithmetic and Logic Unit (ALU): Performs computer’s data processing functions.</item>
+        <item>Register: Provides storage internal to the CPU.</item>
+        <item>CPU Interconnection: Some mechanism that provides for communication among the control unit, ALU, and register.</item>
+      </list>
+      <para id="id3442775">Each of these components will be examined in some detail in next lectures.</para>
+      <figure id="id3442784"><media id="id2411721" alt=""><image src="../../media/graphics4-b43c.png" mime-type="image/png" height="326" width="592"/></media>
+      <caption>The CPU</caption></figure>
+      
+    </section>
+    <section id="id-296204387">
+      <title>Brief history of Computers</title>
+      <section id="id-402653922639">
+        <title>The first Generation: Vacuum Tubes</title>
+        <list id="id3439533" list-type="bulleted">
+          <item>ENIAC</item>
+        </list>
+        <para id="id3439538"><emphasis>The ENIAC</emphasis> (Electronic Numerical Integrator And Computer), designed by and constructed under the supervision of Jonh Mauchly and John Presper Eckert at the University of Pennsylvania, was the world’s first general-purpose electronic digital computer. The project was a response to U.S. wartime needs. Mauchly, a professor of electrical engineering at the University of Pennsylvania and Eckert, one of his graduate students, proposed to build a general-purpose computer using vacuum tubes. In 1943, this proposal was accepted by the Army, and work began on the ENIAC. The resulting machine was enormous, weighting 30 tons, occupying 15,000 square feet of floor space, and containing more than 18,000 vacuum tubes. When operating, it consumed 140 kilowatts of power. It was aloes substantially faster than any electronic-mechanical computer, being capable of 5000 additions per second.</para>
+        <para id="id3439572">The ENIAC was decimal rather than a binary machine. That is, numbers were represented in decimal form and arithmetic was performed in the decimal system. Its memory consisted of 20 “accumulators”, each capable of holding a 10-digit decimal number. Each digit was represented by a ring of 10 vacuum tubes. At any time, only one vacuum tube was in the ON state, representing one of the 10 digits. The major drawback of the ENIAC was that it had to be programmed manually by setting switches and plugging and unplugging cables.</para>
+        <para id="id3439580">The ENIAC was completed in 1946, too late to be used in the war effort. Instead, its first task was to perform a series of complex calculations that were used to help determine the feasibility of the H-bomb. The ENIAC continued to be used until 1955.</para>
+        <list id="id3488762" list-type="bulleted">
+          <item>The von Neumann Machine</item>
+        </list>
+        <para id="id3488768">As was mentioned, the task of entering and altering programs for the ENIAC was extremely tedious. The programming process could be facilitated if the program could be represented in a form suitable for storing in memory alongside the data. Then, a computer could get its instructions by reading them from memory, and a program could be set of altered by setting the values of a portion of memory.</para>
+        <para id="id3488779">This idea, known as the <term>Stored-program concept</term>, is usually attributed to the ENIAC designers, most notably the mathematician John von Neumann, who was a consultant on the ENIAC project. The idea was also developed at about the same time by Turing. The first publication of the idea was in a 1945 proposal by von Neumann for a new computer, the EDVAC (Electronic Discrete Variable Computer).</para>
+        <para id="id3488796">In 1946, von Neumann and his colleagues began the design of a new stored-program computer, referred to as the IAS computer, at the Princeton Institute for Advanced Studies. The IAS computer, although not completed until 1952, is the prototype of all subsequent general-purpose computers. <link target-id="id4069208"/> shows the general structure of the IAS computer. It consists of:</para>
+        <list id="id3488807" list-type="bulleted">
+          <item>A main memory, which stores both data and instructions.</item>
+          <item>An arithmetic-logical unit (ALU) capable of operating on binary data.</item>
+          <item>A control unit, which interprets the instructions in memory and causes them to be executed.</item>
+          <item>Input and output (I/O) equipment operated by the control unit.</item>
+        </list>
+        <figure id="id4069208"><media id="id1167555686677" alt=""><image src="../../media/graphics5-7427.png" mime-type="image/png" height="323" width="421"/></media>
+        <caption>Structure of the IAS computer</caption></figure>
+        
+        <list id="id4098765" list-type="bulleted">
+          <item>Commercial Computers</item>
+        </list>
+        <para id="id4098770">The 1950s saw the birth of the computer industry with two companies, Sperry and IBM, dominating the marketplace.</para>
+        <para id="id4098778">In 1947, Eckert and Mauchly formed the Eckert-Maunchly computer Corporation to manufacture computers commercially. Their first successful machine was the UNIVAC I (Universal Automatic Computer), which was commissioned by the Bureau of the Census for the 1950 calculations. The Eckert-Maunchly Computer Corporation became part of the UNIVAC division of Sperry-Rand Corporation, which went on to build a series of successor machines.</para>
+        <para id="id4098790">The UNIVAC II, which had greater memory capacity and higher performance than the UNIVAC I, was delivered in the late 1950s and illustrates several trends that have remained characteristic of the computer industry. First, advances in technology allow companies to continue to build larger, more powerful computers. Second, each company tries to make its new machines upward compatible with the older machines. This means that the programs written for the older machines can be executed on the new machine. This strategy is adopted in the hopes of retaining the customer base; that is, when a customer decides to buy a newer machine, he is likely to get it from the same company to avoid losing the investment in programs.</para>
+        <para id="id4098808">The UNIVAC division also began development of the 1100 series of computers, which was to be its bread and butler. This series illustrates a distinction that existed at one time. The first model, the UNIVAC 1103, and its successors for many years were primarily intended for scientific applications, involving long and complex calculations. Other companies concentrated on business applications, which involved processing large amounts of text data. This split has largely disappeared but it was evident for a number of years.</para>
+        <para id="id4098822">IBM. which was then the major manufacturer of punched-card processing equipment, delivered its first electronic stored-program computer, the 701, in 1953. The 70l was intended primarily for scientific applications. In 1955, IBM introduced the companion 702 product, which had a number of hardware features that suited it to business applications. These were the first of a long series of 700/7000 computers that established IBM as the overwhelmingly dominant com­puter manufacturer.</para>
+      </section>
+      <section id="id-750461293753">
+        <title>The Second generation: Transistors</title>
+        <para id="id3420978">The first major change in the electronic computer came with the replacement of the vacuum tube by the transistor. The transistor is smaller, cheaper, and dissipates less heal than a vacuum tube but can be used in the same way as a vacuum tube to con­struct computers. Unlike the vacuum tube, which requires wires, metal plates, a glass capsule, and a vacuum, the transistor is a solid-state device, made from silicon.</para>
+        <para id="id3421008">The transistor was invented at Bell Labs in 1947 and by the 1950s had launched an electronic revolution. It was not until the late 1950s, however, that fully transisto­rized computers were commercially available. IBM again was not the first company to deliver the new technology. NCR and. more successfully. RCA were the front-run­ners with some small transistor machines. IBM followed shortly with the 7000 series.</para>
+        <para id="id3421012">The use of the transistor defines the second generation of computers. It has become widely accepted to classify computers into generations based on the fundamental hard­ware technology employed (Table 2.2). Each new generation is characterized by greater processing performance, larger memory capacity, smaller size than the previous one.</para>
+      </section>
+      <section id="id-224060723909">
+        <title>The 3th generation</title>
+        <para id="id3959600"><!--Empty sections are illegal in CNXML 0.5.  This empty paragraph is a place holder that added as a byproduct of the word importer.-->
+        A single, self-contained transistor is called a discrete component. Throughout the 1950s and early 1960s, electronic equipment was composed largely of discrete com¬ponents—transistors, resistors, capacitors, and so on. Discrete components were manufactured separately, packaged in their own containers, and soldered or wired together onto circuit boards, which were then installed in computers, oscilloscopes, and other electronic equipment. Whenever an electronic device called for a transistor, a little lube of metal containing a pinhead-sized piece of silicon had to be soldered to a circuit hoard. The entire manufacturing process, from transistor to circuit board, was expensive and cumbersome.
+These facts of life were beginning to create problems in the computer industry. Early second-generation computers contained about 10,000 transistors. This figure grew to the hundreds of thousands, making the manufacture of newer, more power¬ful machines increasingly difficult.
+In 1958 came the achievement that revolutionized electronics and started the era of microelectronics: the invention of the integrated circuit. It is the integrated circuit that defines the third generation of computers. Perhaps the two most important members of the third generation are the IBM System/360 and the DEC PDP-8.
+</para>
+      </section>
+      <section id="id-303842425634">
+        <title>The 4th generation</title>
+        <para id="id3959608">
+          <!--Empty sections are illegal in CNXML 0.5.  This empty paragraph is a place holder that added as a byproduct of the word importer.-->
+        </para>
+      </section>
+    </section>
+  </content>
+</document>

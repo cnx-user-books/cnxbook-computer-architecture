@@ -1,0 +1,120 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Calendar</title>
+  <metadata>
+  <md:content-id>m29307</md:content-id><md:title>Calendar</md:title>
+  <md:abstract/>
+  <md:uuid>5fcea0c4-c38b-4d67-bf31-65ae38057bce</md:uuid>
+</metadata>
+
+<content>
+    <para id="id39486545">Course Calendar</para>
+    <para id="id39486549">
+      <table id="id39486571" summary="">
+        <tgroup cols="4">
+          <colspec colnum="1" colname="c1"/>
+          <colspec colnum="2" colname="c2"/>
+          <colspec colnum="3" colname="c3"/>
+          <colspec colnum="4" colname="c4"/>
+          <tbody>
+            <row>
+              <entry>Week</entry>
+              <entry>Topic</entry>
+              <entry>Reading</entry>
+              <entry>Work</entry>
+            </row>
+            <row>
+              <entry>1</entry>
+              <entry>Introduction to Organization and Architecture Computer Overview of Computer Organization</entry>
+              <entry>Course: Module 1 and Module 2Book [1]: Part 1Book [2]: Chapter 1</entry>
+              <entry>Course</entry>
+            </row>
+            <row>
+              <entry>2</entry>
+              <entry>Computer Arithmetic</entry>
+              <entry>Course: Module 3.Book [1]: Part III, chapter 9Book [2]: Chapter 5</entry>
+              <entry>Course and Exercise</entry>
+            </row>
+            <row>
+              <entry>3</entry>
+              <entry>Instruction Set: Characteristics and Functions</entry>
+              <entry>Course: Module 4.Book [1]: Part III, chapter 11</entry>
+              <entry>Course and Exercise</entry>
+            </row>
+            <row>
+              <entry>4</entry>
+              <entry>CPU Structure and Functions</entry>
+              <entry>Course: Module 5.Book [1]: Part III, chapter 12Book [2]: Chapter 2</entry>
+              <entry>Course and Exercise</entry>
+            </row>
+            <row>
+              <entry>5</entry>
+              <entry>Control Unit Operation</entry>
+              <entry>Course: Module 6. Book [1]: Part IV, chapter 16Book [2]: Chapter 4</entry>
+              <entry>Course</entry>
+            </row>
+            <row>
+              <entry>6</entry>
+              <entry>Microprogramming</entry>
+              <entry>Course: Module 7. Book [1]: Part IV, chapter 17Book [2]: Chapter 4</entry>
+              <entry>Course</entry>
+            </row>
+            <row>
+              <entry>7</entry>
+              <entry>Instruction Pipelining</entry>
+              <entry>Course: Module 8.Book [1]: Part III chapter 13 Book [2]: Chapter 4</entry>
+              <entry>Course and Exercise</entry>
+            </row>
+            <row>
+              <entry>8</entry>
+              <entry>Multilevel Memories</entry>
+              <entry>Course: Module 9.Book [2]: Chapter 2 </entry>
+              <entry>Course and Exercise</entry>
+            </row>
+            <row>
+              <entry>9</entry>
+              <entry>Cache Memory</entry>
+              <entry>Course: Module 10.Book [1]: Part II, chapter 4Book [2]: Chapter 4</entry>
+              <entry>Course and Exercise</entry>
+            </row>
+            <row>
+              <entry>10</entry>
+              <entry>Internal Memory</entry>
+              <entry>Course: Module 11.Book [1]: Part II, chapter 5Book [2]: Chapter 2</entry>
+              <entry>Course and Exercise</entry>
+            </row>
+            <row>
+              <entry>11</entry>
+              <entry>External Memory</entry>
+              <entry>Course: Module 12Book [1]: Part II, chapter 6Book [2]: Chapter 2</entry>
+              <entry>Course</entry>
+            </row>
+            <row>
+              <entry>12</entry>
+              <entry>Input/ Output</entry>
+              <entry>Course: Module 13Book [1]: Part II, chapter 7Book [2]: Chapter 2</entry>
+              <entry>Course and Exercise</entry>
+            </row>
+            <row>
+              <entry>13</entry>
+              <entry>Operating System Support</entry>
+              <entry>Course: Module 14Book [1]: Part II, chapter 8Book [2]: Chapter 6</entry>
+              <entry>Course and Exercise</entry>
+            </row>
+            <row>
+              <entry>14</entry>
+              <entry>Virtual Memory</entry>
+              <entry>Course: Module 15. Book [2]: Chapter 6</entry>
+              <entry>Course and Exercise</entry>
+            </row>
+            <row>
+              <entry>15</entry>
+              <entry>Advanced Architectures</entry>
+              <entry>Course: Module 16.Book [1]: Part V, chapter 16Book [2]: Chapter 8</entry>
+              <entry>Course and Exercise</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </para>
+  </content>
+</document>

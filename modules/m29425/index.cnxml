@@ -1,0 +1,407 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Module 4: Instruction Set: Characteristics and Functions</title>
+  <metadata>
+  <md:content-id>m29425</md:content-id><md:title>Module 4: Instruction Set: Characteristics and Functions</md:title>
+  <md:abstract/>
+  <md:uuid>aa41edbd-cf7b-4395-89a2-90a2d58cdfdb</md:uuid>
+</metadata>
+
+<content>
+    <section id="id-883963089251">
+      <title>1. Machine Instruction Characteristics</title>
+      <section id="id-13803626737">
+        <title>1.1 What is an Instruction Set?</title>
+        <para id="id9157506">From the designer's point of view, the machine instruction set provides the functional requirements for the CPU: Implementing the CPU is a task that in large part involves implementing the machine instruction set. </para>
+        <para id="id9157517">From the user's side, the user who chooses to program in machine language (actually, in assembly language) becomes aware of the register and memory structure, the types of data directly supported by the machine, and the functioning of the ALU.</para>
+      </section>
+      <section id="id-693996858615">
+        <title>1.2 Elements of an Instruction</title>
+        <para id="id9157536">Each instruction must have elements that contain the information required by the CPU for execution. These elements are as follows</para>
+        <list id="id9157543" list-type="bulleted">
+          <item>Operation code: Specifies the operation to be performed (e.g.. ADD, I/O). The operation is specified by a binary code, known as the operation code, or opcode.</item>
+          <item>Source operand reference: The operation may involve one or more source operands, that is, operands that are inputs for the operation.</item>
+          <item>Result operand reference: The operation may produce a result.</item>
+          <item>Next instruction reference: This tells the CPU where to fetch the next instruc­tion after the execution of this instruction is complete.</item>
+        </list>
+        <para id="id9468289">The next instruction to be fetched is located in main memory or, in the case of a virtual memory system, in either main memory or secondary memory (disk). In most cases, the next instruction to be fetched immediately follows the current instruction. In those cases, there is no explicit reference to the next instruction. Source and result operands can be in one of three areas:</para>
+        <list id="id9468300" list-type="bulleted">
+          <item>Main or virtual memory: As with next instruction references, the main or vir­tual memory address must be supplied.</item>
+          <item>CPU register: With rare exceptions, a CPU contains one or more registers that may be referenced by machine instructions. If only one register exists, reference to it may be implicit. If more than one register exists, then each register is assigned a unique number, and the instruction must contain the number of the desired register.</item>
+          <item>I/O device: The instruction must specify (he I/O module and device for the operation. If memory-mapped I/O is used, this is just another main or virtual memory address.</item>
+        </list>
+        <section id="id-856682391602">
+          <title>Instruction Cycle State Diagram</title>
+          <figure id="id9468363"><media id="id4461194" alt=""><image src="../../media/graphics1-7626.png" mime-type="image/png"/></media>
+          </figure>
+        </section>
+        <section id="id-446300672957">
+          <title>Instruction Representation</title>
+          <para id="id9468397">Within the computer, each instruction is represented by a sequence of bits. The instruction is divided into fields, corresponding to the constituent elements of the instruction. During instruction execution, an instruction is read into an instruction register (IR) in the CPU. The CPU must be able to extract the data from the various instruction fields to perform the required operation.</para>
+          <para id="id9468408">It is difficult for both the programmer and the reader of textbooks to deal with binary representations of machine instructions. Thus, it has become common prac­tice to use a symbolic representation of machine instructions. Opcodes are represented by abbreviations, called mnemonics, that indicate the operation. Common examples include</para>
+          <table id="id9468441" summary="">
+            <tgroup cols="2">
+              <colspec colnum="1" colname="c1"/>
+              <colspec colnum="2" colname="c2"/>
+              <tbody>
+                <row>
+                  <entry>ADD</entry>
+                  <entry>Add</entry>
+                </row>
+                <row>
+                  <entry>SUB</entry>
+                  <entry>Subtract</entry>
+                </row>
+                <row>
+                  <entry>MPY</entry>
+                  <entry>Multiply</entry>
+                </row>
+                <row>
+                  <entry>DIV</entry>
+                  <entry>Divide</entry>
+                </row>
+                <row>
+                  <entry>LOAD</entry>
+                  <entry>Load data from memory</entry>
+                </row>
+                <row>
+                  <entry>STOR</entry>
+                  <entry>Store data to memory</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+          <para id="id9183093">Operands are also represented symbolically. For example, the instruction</para>
+          <para id="id9183098">ADD R, Y</para>
+          <para id="id9183106">may mean add the value contained in data location Y to the contents of register R. In this example. Y refers to the address of a location in memory, and R refers to a particular register. Note that the operation is performed on the contents of a loca­tion, not on its address.</para>
+          <para id="id9183122">Simple Instruction Format</para>
+          <figure id="id9183130"><media id="id1165062654587" alt=""><image src="../../media/graphics2-8a84.png" mime-type="image/png"/></media>
+          </figure>
+        </section>
+      </section>
+      <section id="id-766857867535">
+        <title>1.3 Instruction Types</title>
+        <para id="id9183165">Consider a high-level language instruction that could be expressed in a language such as BASIC or FORTRAN. For example,</para>
+        <para id="id9183175">X = X+Y</para>
+        <para id="id9183182">This statement instructs the computer lo add the value stored in Y to the value Stored in X and put the result in X. How might this be accomplished with machine instructions? Let us assume that the variables X and Y correspond lo locations 513 and 514. If we assume a simple set of machine instructions, this operation could be accomplished with three instructions:</para>
+        <para id="id9183196">1. Load a register with the contents of memory location 513.</para>
+        <para id="id9183204">2. Add the contents of memory location 514 to the register.</para>
+        <para id="id9183211">3. Store the contents of the register in memory location 513.</para>
+        <para id="id9183218">As can be seen, the single BASIC instruction may require three machine instructions. This is typical of the relationship between a high-level language and a machine language. A high-level language expresses operations in a concise algebraic form, using variables. A machine language expresses operations in a basic form involving the movement of data to or from registers.</para>
+        <para id="id9183229">With this simple example to guide us, let us consider the types of instructions that must be included in a practical computer. A computer should have a set of instructions that allows the user to formulate any data processing task. Another way to view it is to consider the capabilities of a high-level programming language. Any program written in a high-level language must be translated into machine language to be executed. Thus, the set of machine instructions must be sufficient to express any of the instructions from a high-level language. With this in mind we can cate­gorize instruction types as follows:</para>
+        <list id="id9183257" list-type="bulleted">
+          <item>Data processing: Arithmetic and logic instructions</item>
+          <item>Data storage: Memory instructions</item>
+          <item>Data movement: I/O instructions</item>
+          <item>Control: Test and branch instructions</item>
+        </list>
+      </section>
+      <section id="id-58327715031">
+        <title>1.4 Number of Addresses </title>
+        <para id="id9183296">What is the maximum number of addresses one might need in an instruction? Evidently, arithmetic and logic instructions will require the most operands. Virtually all arithmetic and logic operations are either unary (one operand) or binary (two operands). Thus, we would need a maximum of two addresses to reference operands. The result of an operation must be stored, suggesting a third address. Finally, after com­pletion of an instruction, the next instruction must be fetched, and its address is needed.</para>
+        <para id="id9183321">This line of reasoning suggests that an instruction could plausibly be required to contain four address references: two operands, one result and the address of the next instruction. In practice, four-address instructions are extremely rare. Most instructions have one, two, or three operand addresses, with the address of the next instruction being implicit (obtained from the program counter).</para>
+        <list id="id8812122" list-type="bulleted">
+          <item>Three addresses:</item>
+        </list>
+        <list id="id8812134" list-type="bulleted">
+          <item>Operand 1, Operand 2, Result</item>
+        </list>
+        <para id="id8812143">Example: a = b + c</para>
+        <list id="id8812147" list-type="bulleted">
+          <item>Three-address instruction formats are not common, because they require a rel­atively long instruction format to hold the three address references.</item>
+        </list>
+        <list id="id9183328" list-type="bulleted">
+          <item>Two addresses:</item>
+        </list>
+        <list id="id8812169" list-type="bulleted">
+          <item>One address doubles as operand and result</item>
+        </list>
+        <para id="id8812177">Example: a = a + b</para>
+        <list id="id8812182" list-type="bulleted">
+          <item>The two-address formal reduces the space requirement but also introduces some awkwardness. To avoid altering the value of an operand, a MOVE instruction is used to move one of the values to a result or temporary location before performing the operation.</item>
+        </list>
+        <list id="id8812195" list-type="bulleted">
+          <item>One addresses:</item>
+        </list>
+        <list id="id8812207" list-type="bulleted">
+          <item>a second address must be implicit. This was common in earlier machines, with the implied address being a CPU register known as the accumulator. or AC. The accumulator contains one of the operands and is used to store the result.</item>
+        </list>
+        <list id="id8812222" list-type="bulleted">
+          <item>Zero addresses</item>
+        </list>
+        <list id="id8812231" list-type="bulleted">
+          <item>Zero-address instructions are applicable to a special memory organization, called a Stack. A stack is a last-in-first-out set of locations.</item>
+        </list>
+        <section id="id-125814847627">
+          <title>How Many Addresses?</title>
+          <para id="id8812249">The number of addresses per instruction is a basic design decision. </para>
+          <para id="id8812255">Fewer addresses:</para>
+          <list id="id8812259" list-type="bulleted">
+            <item>Fewer addresses per instruction result in more primitive instructions, which requires a less complex CPU. </item>
+            <item>It also results in instructions of shorter length. On the other hand, programs contain more total instructions, which in general results in longer execu­tion times and longer, more complex programs</item>
+          </list>
+          <para id="id8812282">Multiple-address instructions:</para>
+          <list id="id8812286" list-type="bulleted">
+            <item>With multiple-address instructions, it is common to have multiple general-purpose registers. This allows some operations to be performed solely on registers. </item>
+            <item>Because register references are faster than memory references, this speeds up execution. </item>
+          </list>
+        </section>
+      </section>
+      <section id="id-576981042664">
+        <title>1.5 Design Decisions</title>
+        <para id="id8812331">One of the most interesting and most analyzed, aspects of computer design is instruction set design. The design of an instruction set is very complex, because it affects so many aspects of the computer system. The instruction set defines many of the functions performed by the CPU and thus has a significant effect on the imple­mentation of the CPU. The instruction set is the programmer's means of control­ling the CPU. Thus, programmer requirements must be considered in designing the instruction set. The most important design issues include the following:</para>
+        <list id="id8812354" list-type="bulleted">
+          <item>Operation repertoire: How many and which operations to provide, and how complex operations should be</item>
+          <item>Data types: The various types of data upon which operations are performed</item>
+          <item>Instruction format: Instruction length (in bits), number of addresses, size of various fields, and so on.</item>
+          <item>Registers: Number of CPU registers that can be referenced by instructions, and their use.</item>
+          <item>Addressing: The mode or modes by which the address of an operand is specified</item>
+        </list>
+      </section>
+    </section>
+    <section id="id-961337584039">
+      <title>2. Types of Operands</title>
+      <para id="id9136695">Machine instructions operate on data. The most important general categories of data are:</para>
+      <list id="id9136704" list-type="bulleted">
+        <item>Addresses</item>
+        <item>Numbers</item>
+        <item>Characters</item>
+        <item>Logical data</item>
+      </list>
+      <section id="id-00149849870189">
+        <title>2.1 Numbers</title>
+        <para id="id9136736">All machine languages include numeric data types. Even in nonnumeric data pro­cessing, there is a need for numbers to act as counters, field widths, and so forth. An important distinction between numbers used in ordinary mathematics and num­bers stored in a computer is that the latter are limited. Thus, the programmer is faced with understanding the consequences of rounding, overflow and underflow.</para>
+        <para id="id9136753">Three types of numerical data are common in computers:</para>
+        <list id="id9136758" list-type="bulleted">
+          <item>Integer or fixed point</item>
+          <item>Floating point</item>
+          <item>Decimal</item>
+        </list>
+      </section>
+      <section id="id-398953512229">
+        <title>2.2 Characters</title>
+        <para id="id9136786">A common form of data is text or character strings. While textual data are most con­venient for human beings, they cannot, in character form, be easily stored or transmitted by data processing and communications systems. Such systems are designed for binary data. Thus, a number of codes have been devised by which characters are represented by a sequence of bits. Perhaps the earliest common example of this is the Morse code. Today, the most commonly used character code in the International Reference Alphabet (IRA), referred to in the United States as the American Stan­dard Code for Information Interchange (ASCII). IRA is also widely used outside the United States. Each character in this code is represented by a unique 7-bit pattern, thus, 128 different characters can be represented. This is a larger number than is necessary to represent printable characters, and some of the patterns represent control characters. Some of these control characters have to do with controlling the printing of characters on a page. Others are concerned with communications procedures. IRA-encoded characters are almost always stored and transmitted using 8 bits per character. The eighth bit may be set to 0 or used as a par­ity bit for error detection. In the latter case, the bit is set such that the total number of binary 1s in each octet is always odd (odd parity) or always even (even parity).</para>
+        <para id="id9136851">Another code used to encode characters is the Extended Binary Coded Dec­imal Interchange Code (EBCDIC). EBCDIC is used on IBM S/390 machines. It is an 8-bit code. As with IRA, EBCDIC is compatible with packed decimal. In the case of EBCDIC, the codes 11110000 through 11111001 represent the digits 0 through 9.</para>
+      </section>
+      <section id="id-151819660382">
+        <title>2.3 Logical Data</title>
+        <para id="id9136877">Normally, each word or other addressable unit (byte, half-word, and soon) is treated as a single unit of data. It is sometimes useful, however, to consider an n-bit unit as consisting 1-bit items of data, each item having the value 0 or I. When data are viewed this way, they are considered to be logic data.</para>
+        <para id="id9136898">There are two advantages to the bit-oriented view:</para>
+        <list id="id9136903" list-type="bulleted">
+          <item>First, we may sometimes wish to store an array of Boolean or binary data items, in which each item can take on only the values I (true) and II (fake). With logical data, memory can be used most efficiently for this storage.</item>
+          <item>Second, there are occasions when we wish to manipulate the bits of a data item. </item>
+        </list>
+      </section>
+    </section>
+    <section id="id-264425074823">
+      <title>3. Types of Operations</title>
+      <para id="id9136932">The number of different opcodes varies widely from machine to machine. However, the same general types of operations are found on all machines. A useful and typi­cal categorization is the following:</para>
+      <list id="id9136943" list-type="bulleted">
+        <item>Data transfer</item>
+        <item>Arithmetic</item>
+        <item>Logical</item>
+        <item>Conversion</item>
+        <item>I/O</item>
+        <item>System control</item>
+        <item>Transfer of control</item>
+      </list>
+      <section id="id-250732609352">
+        <title>3.1 Data transfer</title>
+        <para id="id7529921">The most fundamental type of machine instruction is the data transfer instruction. The data transfer instruction must specify several things. </para>
+        <list id="id7529928" list-type="bulleted">
+          <item>The location of the source and destination operands must be specified. Each location could be memory. a register, or the lop of the stack. </item>
+          <item>The length of data to be transferred must be indicated.</item>
+          <item>As with all instructions with operands, the mode of addressing for each operand must be specified.</item>
+        </list>
+        <para id="id7529952">In term of CPU action, data transfer operations are perhaps the simplest type. If both source and destination are registers, then the CPU simply causes data to be transferred from one register to another; this is an operation internal to the CPU. If one or both operands are in memory, then (he CPU must perform some or all of following actions:</para>
+        <para id="id7529964">1. Calculate the memory address, based on the address mode</para>
+        <para id="id7529972">2. If the address refers to virtual memory, translate from virtual to actual mem­ory address.</para>
+        <para id="id7529983">3. Determine whether the addressed item is in cache.</para>
+        <para id="id7529992">4. If not, issue a command lo the memory module.</para>
+        <para id="id7530002">Example: </para>
+        <table id="id7530006" summary="">
+          <tgroup cols="4">
+            <colspec colnum="1" colname="c1"/>
+            <colspec colnum="2" colname="c2"/>
+            <colspec colnum="3" colname="c3"/>
+            <colspec colnum="4" colname="c4"/>
+            <tbody>
+              <row>
+                <entry>Operation mnemonic</entry>
+                <entry>Name</entry>
+                <entry>Number of bits transferred</entry>
+                <entry>Description</entry>
+              </row>
+              <row>
+                <entry>L</entry>
+                <entry>Load</entry>
+                <entry>32</entry>
+                <entry>Transfer from memory in register</entry>
+              </row>
+              <row>
+                <entry>LH</entry>
+                <entry>Load half-word</entry>
+                <entry>16</entry>
+                <entry>Transler from memory to register</entry>
+              </row>
+              <row>
+                <entry>ST</entry>
+                <entry>Store</entry>
+                <entry>32</entry>
+                <entry>Transfer from register to memory</entry>
+              </row>
+              <row>
+                <entry>STH</entry>
+                <entry>Store half-word</entry>
+                <entry>16</entry>
+                <entry>Transfer from register to memory</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </section>
+      <section id="id-483992174029">
+        <title>3.2 Arithmetic</title>
+        <para id="id7835789">Most machines provide the basic arithmetic operations of add, subtract, multiply, and divide. These are invariably provided for signed integer (fixed-point) numbers, Often they are also provided for floating-point and packed decimal numbers.</para>
+        <para id="id7835798">Other possible operations include a variety of single-operand instructions: for example.</para>
+        <para id="id7835803">• Absolute: Take the absolute value of the operand.</para>
+        <para id="id7835813">• Negate: Negate the Operand.</para>
+        <para id="id7835821">• Increment.: Add 1 to the operand.</para>
+        <para id="id7835830">• Decrement: Subtract 1 from the operand</para>
+      </section>
+      <section id="id-841792955444">
+        <title>3.3 Logical</title>
+        <para id="id7835846">Most machines also provide a variety of operations for manipulating individual bits of a word or other addressable units, often referred to as "bit twiddling." They are based upon Boolean operations.</para>
+        <para id="id7835854">Some of the basic logical operations that can be performed on Boolean or binary data are AND, OR, NOT, XOR, …</para>
+        <para id="id7835862">These logical operations can be applied bitwise to n-bit logical data units. Thus, if two registers contain the data</para>
+        <para id="id7835868">(R1) - 10100101 (R2) - 00001111</para>
+        <para id="id7835875">then</para>
+        <para id="id7835880">(R1) AND (R2) – 00000101</para>
+        <para id="id7835888">In addition lo bitwise logical operations, most machines provide a variety of shifting and rotating functions such as shift left, shift right, right rotate, left rotate…</para>
+        <figure id="id7835904"><media id="id6349270" alt=""><image src="../../media/graphics3-c4f6.png" mime-type="image/png"/></media>
+        </figure>
+      </section>
+      <section id="id-0993831717594">
+        <title>3.4 Conversion</title>
+        <para id="id7835938">Conversion instructions are those that change the format or operate on the format of data. An example is converting from decimal to binary. </para>
+      </section>
+      <section id="id-80215913277">
+        <title>3.5 Input/Output</title>
+        <para id="id7835953">As we saw, there are a variety of approaches taken, including isolated programmed IO, memory-mapped programmed I/O, DMA, and the use of an I/O processor. Many implementations provide only a few I/O instructions, with the specific actions spec­ified by parameters, codes, or command words.</para>
+      </section>
+      <section id="id-0342183940277">
+        <title>3.6 System Controls</title>
+        <para id="id7835975">System control instructions are those that can he executed only while the proces­sor is in a certain privileged state or is executing a program in a special privileged area of memory, typically, these instructions are reserved for the use of the oper­ating system.</para>
+        <para id="id7835992">Some examples of system control operations are as follows. A system control instruction may read or alter a control register. Another example is an instruction to read or modify a storage protection key, such us is used in the S/390 memory system. Another example is access to process control blocks in a multiprogramming system.</para>
+      </section>
+      <section id="id-391316704536">
+        <title>3.7 Transfer of control</title>
+        <para id="id7836013">For all of the operation types discussed so far. The next instruction to be performed is the one that immediately follows, in memory, the current instruction. However, a significant fraction of the instructions in any program have as their function chang­ing the sequence of instruction execution. For these instructions, the operation per­formed by the CPU is to update the program counter to contain the address of some instruction in memory.</para>
+        <para id="id7836032">There are a number of reasons why transfer-of-control operations are re­quired. Among the most important are the following:</para>
+        <para id="id7836040">1. In the practical use of computers, it is essential to be able to execute each instruction more than once and perhaps many thousands of times. It may require thousands or perhaps millions of instructions to implement an appli­cation. This would be unthinkable if each instruction had to be written out sep­arately. If a table or a list of items is to be processed, a program loop is needed. One sequence of instructions is executed repeatedly to process all the data.</para>
+        <para id="id7836064">2. Virtually all programs involve some decision making. We would like the com­puter to do one thing if one condition holds, and another thing if another con­dition holds. For example, a sequence of instructions computes the square root of a number. At the start of the sequence, the sign of the number is tested, If the number is negative, the computation is not performed, but an error con­dition is reported.</para>
+        <para id="id8820911">3. To compose correctly a large or even medium-size computer program is an exceedingly difficult task. It helps if there are mechanisms for breaking the task up into smaller pieces that can be worked on one at a time.</para>
+        <para id="id8820921">We now turn to a discussion of the most common transfer-of-control opera­tions found in instruction sets: branch, skip, and procedure call.</para>
+        <section id="id-397415306148">
+          <title>Branch instruction</title>
+          <para id="id8820937">A branch instruction, also called a jump instruction, has as one of its operands the address of the next instruction to be executed. Most often, the instruction is a conditional branch instruction. That is, the branch is made (update program counter to equal address specified in operand) only if a certain condition is met. Otherwise, the next instruction in sequence is executed (increment program counter as usual).</para>
+        </section>
+        <section id="id-0558496611734">
+          <title>Skip instructions</title>
+          <para id="id8820968">Another common form of transfer-of-control instruction is the skip instruc­tion. The skip instruction includes an implied address. Typically, the skip implies that one instruction be skipped; thus, the implied address equals the address of the next instruction plus one instruction-length.</para>
+        </section>
+        <section id="id-274627775009">
+          <title>Procedure call instructions</title>
+          <para id="id8821002">Perhaps the most important innovation in the development of programming languages is the procedure, a procedure is a self-contained computer program that is incorporated into a larger program. At any point in the program the procedure may he invoked, or called. The processor is instructed to go and execute the entire procedure and then return to the point from which the call took place.</para>
+          <para id="id8821032">The two principal reasons for the use of procedures are economy and modu­larity. A procedure allows the same piece of code to be used many times. This is important for economy in programming effort and for making the most efficient use of storage space in the system (the program must be stored). Procedures also allow large programming tasks to be subdivided into smaller units. This use of modularity greatly eases the programming task.</para>
+          <para id="id8821061">The procedure mechanism involves two basic instructions: a call instruction that branches from the present location to the procedure, and a return instruction that returns from the procedure to the place from which it was called. Both of these are forms of branching instructions.</para>
+          <figure id="id8821073"><media id="id1165064103786" alt=""><image src="../../media/graphics4-0b7f.png" mime-type="image/png"/></media>
+          </figure>
+          <para id="id8821099">The above figure illustrates the use of procedures to construct a program. In this example, there is a main program starting at location 4000. This program includes a call to procedure PROC1, starting at location 4500. When this call instruction is encountered, the CPU suspends execution of the main program and begins ex­ecution of PROC1 by fetching the next instruction from location 4500. Within PROC1, there are two calls to PR0C2 at location 4800. In each case, the execution of PROC1 is suspended and PROC2 is executed. The RETURN statement causes the CPU to go back to the calling program and continue execution at the instruc­tion after the corresponding CALL instruction. This behavior is illustrated in the right of this figure.</para>
+          <para id="id8821127">Several points are worth noting:</para>
+          <para id="id8821131">1. A procedure can be called from more than one location.</para>
+          <para id="id8821138">2. A procedure call can appear in a procedure. This allows the nesting of proce­dures to an arbitrary depth.</para>
+          <para id="id8821159">3. Each procedure call is matched by a return in the called program.</para>
+          <para id="id8821166">Because we would like to be able to call a procedure from a variety of points, the CPU must somehow save the return address so that the return can take place appropriately. There are three common places for storing the return address:</para>
+          <para id="id8821178">• Register</para>
+          <para id="id8821184">• Start of called procedure</para>
+          <para id="id8821191">• Top of stack</para>
+        </section>
+      </section>
+    </section>
+    <section id="id-201954149815">
+      <title>4. Addressing Modes</title>
+      <para id="id9099275">The address field or fields in a typical instruction format are relatively small. We would like to be able to reference a large range of locations in main memory or for some systems, virtual memory. To achieve this objective, a variety of addressing techniques has been employed. They all involve some trade-off between address range and/or addressing flexibility, on the one hand, and the number of memory ref­erences and/or the complexity of address calculation, on the other. In this section, we examine the most common addressing techniques:</para>
+      <list id="id9099297" list-type="bulleted">
+        <item>Immediate</item>
+        <item>Direct</item>
+        <item>Indirect</item>
+        <item>Register</item>
+        <item>Register indirect</item>
+        <item>Displacement</item>
+      </list>
+      <section id="id-785746665884">
+        <title>4.1 Immediate Addressing</title>
+        <para id="id9099341">The simplest form of addressing is immediate addressing, in which the operand is actually present in the instruction:</para>
+        <list id="id9099347" list-type="bulleted">
+          <item>Operand is part of instruction</item>
+          <item>Operand = address field</item>
+          <item>e.g. ADD 5 ;Add 5 to contents of accumulator ;5 is operand</item>
+        </list>
+        <figure id="id9099371">
+          <media id="id2078464" alt=""><image src="../../media/graphics5-cced.png" mime-type="image/png" height="113" width="446"/></media>
+        </figure>
+        <para id="id9099394">The advantage of immediate addressing is that no memory reference other than the instruction fetch is required to obtain the operand, thus saving one mem­ory or cache cycle in the instruction cycle. </para>
+        <para id="id9099409">The disadvantage is that the size of the number is restricted to the size of the address field, which, in most instruction sets, is small compared with the word length.</para>
+      </section>
+      <section id="id-0721720339409">
+        <title>4.2 Direct Addressing</title>
+        <para id="id9099427">A very simple form of addressing is direct addressing, in which:</para>
+        <list id="id9099433" list-type="bulleted">
+          <item>Address field contains address of operand</item>
+          <item>Effective address (EA) = address field (A)</item>
+          <item>e.g. ADD A ;Add contents of cell A to accumulator </item>
+        </list>
+        <figure id="id9099458"><media id="id1165061662864" alt=""><image src="../../media/graphics6-9835.png" mime-type="image/png"/></media>
+        </figure>
+        <para id="id9099482">The technique was common in earlier generations of computers but is not common on contemporary architectures. It requires only one memory reference and no spe­cial calculation. The obvious limitation is that it provides only a limited address space.</para>
+      </section>
+      <section id="id-514112347305">
+        <title>4.3 Indirect Addressing</title>
+        <para id="id9099506">With direct addressing, the length of the address field is usually less than the word length, thus limiting the address range. One solution is to have the address field refer to the address of a word in memory, which in turn contains a full-length address of the operand. This is known as indirect addressing.</para>
+        <figure id="id9099526"><media id="id3047571" alt=""><image src="../../media/graphics7-09db.png" mime-type="image/png"/></media>
+        </figure>
+      </section>
+      <section id="id-673515806746">
+        <title>4.4 Register Addressing </title>
+        <para id="id9099558">Register addressing is similar to direct addressing. The only difference is that the address field refers to a register rather than a main memory address.</para>
+        <figure id="id9099568"><media id="id1165063764044" alt=""><image src="../../media/graphics8-2060.png" mime-type="image/png" height="374" width="620"/></media>
+        </figure>
+        <para id="id7427799">The advantages of register addressing are that :</para>
+        <list id="id7427804" list-type="bulleted">
+          <item>Only a small address field is needed in the instruction</item>
+          <item>No memory 'references are required, faster instruction fetch</item>
+        </list>
+        <para id="id7427824">The disadvantage of register addressing is that the address space is very limited.</para>
+      </section>
+      <section id="id-333282840583">
+        <title>4.5 Register Indirect Addressing</title>
+        <para id="id7427837">Just as register addressing is analogous to direct addressing, register indirect ad­dressing is analogous to indirect addressing. In both cases, the only difference is whether the address field refers to a memory location or a register. Thus, for register indirect address: Operand is in memory cell pointed to by contents of register.</para>
+        <figure id="id7427859">
+          <media id="id3331415" alt=""><image src="../../media/graphics9-bd66.png" mime-type="image/png" height="334" width="600"/></media>
+        </figure>
+        <para id="id7427883">The advantages and limitations of register indirect addressing are basically the same as for indirect addressing. In both cases, the address space limitation (limited range of addresses) of the address field is overcome by having that field refer to a word-length location containing an address. In addition, register indirect addressing uses one less memory reference than indirect addressing.</para>
+      </section>
+      <section id="id-310649410061">
+        <title>4.6 Displacement Addressing</title>
+        <para id="id7427902">A very powerful mode of addressing combines the capabilities of direct addressing and register indirect addressing. It is known by a variety of names depending on the context of its use but the basic mechanism is the same. We will refer to this as displacement addressing, address field hold two values:</para>
+        <list id="id7427919" list-type="bulleted">
+          <item>A = base value</item>
+          <item>R = register that holds displacement</item>
+        </list>
+        <figure id="id7427937">
+          <media id="id7152318" alt=""><image src="../../media/graphics10-1a17.png" mime-type="image/png" height="340" width="600"/></media>
+        </figure>
+      </section>
+    </section>
+  </content>
+</document>

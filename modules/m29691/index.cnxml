@@ -1,0 +1,213 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Module 6: Control Unit Operation</title>
+  <metadata>
+  <md:content-id>m29691</md:content-id><md:title>Module 6: Control Unit Operation</md:title>
+  <md:abstract/>
+  <md:uuid>9aeafe92-aba7-4ac7-a396-5a4b8ca3c770</md:uuid>
+</metadata>
+
+<content>
+    <section id="id-126306578101">
+      <title>1. Micro-Operation</title>
+      <para id="id7396915">The execution of a program consists of the sequential execution of instructions. Each instruction is executed during an instruction cycle made up of shorter sub-cycles (e.g., fetch, indirect, execute, interrupt). The performance of each sub-cycle involves one or more shorter operations, that is, micro-operations.</para>
+      <para id="id3114871">Micro-operations are the functional, or atomic, operations of a processor. In this section, we will examine micro-operations to gain an understanding of how the events of any instruction cycle can be described as a sequence of such micro-operations (Figure 6.1). </para>
+      <figure id="id7313182"><media id="id18841988" alt=""><image src="../../media/graphics1-570a.png" mime-type="image/png"/></media>
+      </figure>
+      <para id="id7913200">Figure 6.1 Constituent Elements of Program Execution</para>
+      <section id="id-446146176464">
+        <title>1.1 The Fetch Cycle</title>
+        <para id="id6459799">We begin by looking at the fetch cycle, which occurs at the beginning of each instruction cycle and causes an instruction to be fetched from memory. Four reg­isters are involved:</para>
+        <list id="id6452884" list-type="bulleted">
+          <item>Memory address register (MAR): Is connected to the address lines of the sys­tem bus. It specifies the address in memory for a read or write operation.</item>
+          <item>Memory buffer register (MBR): Is connected to the data lines of the system bus. It contains the value to be stored in memory or the last value read from memory.</item>
+          <item>Program counter (PC): Holds the address of the next instruction to be fetched.</item>
+          <item>Instruction register (IR): Holds the last instruction fetched.</item>
+        </list>
+        <para id="id6412131">Let us look at the sequence of events for the fetch cycle from the point of view of its effect on the processor registers. An example appears in Figure 6.2. </para>
+        <figure id="id4091958"><media id="id15527145" alt=""><image src="../../media/graphics2-e3e5.png" mime-type="image/png"/></media>
+        </figure>
+        <para id="id4075050">Figure 6.2 Sequence of Events, Fetch Cycle</para>
+        <list id="id7244333" list-type="bulleted">
+          <item>At the beginning of the fetch cycle, the address of the next instruction to be executed is in the program counter (PC); in this case, the address is 1100100. </item>
+          <item>The first step is to move that address to the memory address register (MAR) because this is the only register connected lo the address lines of the system bus. </item>
+          <item>The second step is to bring in the instruction. The desired address (in the MAR) is placed on the address bus, the control unit issues a READ command on the control bus, and the result appears on the data bus and is copied into the memory buffer register (MBR). We also need to increment the PC by 1 to get ready for the next instruction. Because these two actions (read word from memory, add 1 to PC) do not interfere with each other, we can do them simultaneously to save time. </item>
+          <item>The third step is to move the contents of the MBR to the instruction register (IR). This frees up the MBR for use during a possible indirect cycle.</item>
+        </list>
+        <para id="id5145126">Thus, the simple fetch cycle actually consists of three steps and four micro-operations. Each micro-operation involves the movement of data into or out of a register. So long as these movements do not interfere with one another, several of them can take place during one step, saving lime. Symbolically, we can write this sequence of events as follows:</para>
+        <para id="id5895545">t1: MAR &lt;= (PC)</para>
+        <para id="id6972010">t2: MBR &lt;= Memory</para>
+        <para id="id6852483">PC &lt;= (PC) + l </para>
+        <para id="id6742310">t3: IR &lt;= (MBR)</para>
+        <para id="id6892726">where l is the instruction length. We need to make several comments about this sequence. We assume that a clock is available for timing purposes and that it emits regularly spaced clock pulses. Each clock pulse defines a time unit. Thus, all time units are of equal duration. Each micro-operation can be performed within the time of a single time unit. The notation (t1, t2, t3) represents successive time units. In words, we have</para>
+        <list id="id3446232" list-type="bulleted">
+          <item>First time unit: Move contents of PC to MAR.</item>
+          <item>Second time unit: <list id="id6859783" list-type="bulleted"><item>Move contents of memory location specified by MAR to MBR. </item><item>Increment by l the contents of the PC.</item></list></item>
+          <item>Third time unit: Move contents of MBR to IR.</item>
+        </list>
+        <para id="id7823066">Note that the second and third micro-operations both take place during the second time unit. The third micro-operation could have been grouped with the fourth with­out affecting the fetch operation:</para>
+        <para id="id6010867">t1: MAR &lt;= (PC)</para>
+        <para id="id6580804">t2: MBR &lt;= Memory</para>
+        <para id="id5210970">t3: PC &lt;= (PC) + l </para>
+        <para id="id3431731">IR &lt;= (MBR)</para>
+        <para id="id6893109">The groupings of micro-operations must follow two simple rules:</para>
+        <para id="id5265544">1. The proper sequence of events must be followed. Thus (MAR &lt;= (PC)) must precede (MBR &lt;= Memory) because the memory read operation makes use of the address in the MAR.</para>
+        <para id="id6399922">2. Conflicts must be avoided. One should not attempt to read to and write from the same register in one time unit, because the results would be unpredictable. For example, the micro-operations (MBR &lt;= Memory) and (IR &lt;= MBR) should not occur during the same time unit.</para>
+        <para id="id6890944">A final point worth noting is that one of the micro-operations involves an addi­tion. To avoid duplication of circuitry, this addition could be performed by the ALU. The use of the ALU may involve additional micro-operations, depending on the functionality of the ALU and the organization of the processor. </para>
+      </section>
+      <section id="id-745956905793">
+        <title>1.2 The Indirect Cycle</title>
+        <para id="id8056040">Once an instruction is fetched, the next step is to fetch source operands. Continuing our simple example, let us assume a one-address instruction format, with direct and indirect addressing allowed. If the instruction specifies an indirect address, then an indirect cycle must precede the execute cycle. The data flow includes the following micro-operations:</para>
+        <para id="id8078637">t1: MAR &lt;= (IR (Address))</para>
+        <para id="id7828406">t2: MBR &lt;= Memory</para>
+        <para id="id7044800">t3: IR(Address) &lt;= (MBR(Address) )</para>
+        <para id="id6410117">The address field of the instruction is transferred to the MAR. This is then used to fetch the address of the operand. Finally, the address field of the IR is updated from the MBR, so that it now contains a direct rather than an indirect address.</para>
+        <para id="id5929577">The IR is now in the same state as if indirect addressing had not been used, and it is ready for the execute cycle. We skip that cycle for a moment, to consider the interrupt cycle.</para>
+      </section>
+      <section id="id-0120632769565">
+        <title>1.3 The Interrupt Cycle</title>
+        <para id="id6581218">At the completion of the execute cycle, a test is made to determine whether any enabled interrupts have occurred. If so, the interrupt cycle occurs. The nature of this cycle varies greatly from one machine to another. We present a very simple sequence of events, we have</para>
+        <para id="id7112070">t1 : MBR &lt;= (PC)</para>
+        <para id="id5933118">t2 : MAR &lt;= Save_Address</para>
+        <para id="id7142518">PC &lt;= Routine_Address </para>
+        <para id="id5329502">t3: Memory &lt;= (MBR)</para>
+        <para id="id4168916">In the first step, the contents of the PC are transferred to the MBR, so that they can be saved for return from the interrupt. Then the MAR is loaded with the address at which the contents of the PC are to be saved, and the PC is loaded with the address of the start of the interrupt-processing routine. These two actions may each be a single micro-operation. However, because most processors provide multiple types and/or levels of interrupts, it may lake one or more additional micro-operations to obtain the save_address and the routine_address before they can be transferred to the MAR and PC, respectively. In any case, once this is done, the final step is to store the MBR, which contains the old value of the PC, into memory. The processor is now ready to begin the next instruction cycle.</para>
+      </section>
+      <section id="id-339110437593">
+        <title>1.4 The Execute Cycle</title>
+        <para id="id5309896">The fetch, indirect, and interrupt cycles are simple and predictable. Each involves a small, fixed sequence of micro-operations and, in each ease, the same micro-opera­tions are repealed each time around. This is not true of the execute cycle. For a machine with N different opcodes, there are N different sequences of micro-operations that can occur. Let us consider several hypothetical examples.</para>
+        <para id="id5197081">First, consider an add instruction:</para>
+        <para id="id6415267">ADD R1, X</para>
+        <para id="id6736808">which adds the contents of the location X to register Rl. The following sequence of micro-operations might occur:</para>
+        <para id="id7150544">t1: MAR &lt;= (IR(address))</para>
+        <para id="id6468872">t2: MBR &lt;= Memory</para>
+        <para id="id7110045">t3: Rl &lt;= (Rl) + (MBR) </para>
+        <para id="id7776323">We begin with the IR containing the ADD instruction. In the first step, the address portion of the IR is loaded into the MAR. Then the referenced memory location is read. Finally, the contents of R1 and MBR are added by the ALU. Again, this is a simplified example. Additional micro-operations may be required to extract the register reference from the IR and perhaps to stage the ALU inputs or outputs in some intermediate registers.Let us look at two more complex examples. A common instruction is increment and skip if zero:</para>
+        <para id="id6458276">ISZ X</para>
+        <para id="id7704449">The content of location X is incremented by 1. If the result is 0, the next instruction is skipped. A possible sequence of micro-operations is</para>
+        <para id="id8172754">t1: MAR &lt;= (CR(address) )</para>
+        <para id="id5447346">t2: MBR &lt;= Memory</para>
+        <para id="id7305960">t3: MBR &lt;= (MBR) - 1</para>
+        <para id="id6411195">t4: Memory &lt;= (MBR)</para>
+        <para id="id5311145">If ((MBR) = 0) then (PC &lt;= (PC) + I)</para>
+        <para id="id8600749">The new feature introduced here is the conditional action. The PC is incremented if (MBR) = 0; this test and action can be implemented as one micro-operation. Note also that this micro-operation can be performed during the same time unit during which the updated value in MBR is stored back to memory.</para>
+        <para id="id8654945">Finally, consider a subroutine call instruction. As an example, consider a branch-and-save-address instruction:</para>
+        <para id="id5728740">BSA X</para>
+        <para id="id5728744">The address of the instruction that follows the BSA instruction is saved in location X, and execution continues al location X - l. The saved address will later be used for return. This is a straightforward technique for providing subroutine calls. the following micro-operations suffice:</para>
+        <para id="id3166220">t1 : MAR &lt;= (IR(address))</para>
+        <para id="id6410189">MBR &lt;= (PC)</para>
+        <para id="id8101113">t2: PC &lt;= (IR(address)) Memory &lt;= (MBR)</para>
+        <para id="id4168673">t3: PC &lt;= (PC) + I</para>
+        <para id="id6104950">The address in the PC at the start of the instruction is the address of the next instruction in sequence. This is saved at the address designated in Ihe IK. The latter address is also incremented to provide the address of the instruction for the next instruction cycle.</para>
+      </section>
+      <section id="id-324347729054">
+        <title>1.5 The Instruction Cycle</title>
+        <para id="id4187716">We have seen that each phase of the instruction cycle can be decomposed into a sequence of elementary micro-operations. In our example, there is one sequence each for the fetch, indirect, and interrupt cycles, and, for the execute cycle, there is one sequence of micro-operations for each opcode. To complete the picture, we need to tie sequences of micro-operations together, and this is done in Figure 6.3. </para>
+        <figure id="id8336412"><media id="id18948062" alt=""><image src="../../media/graphics3-34e5.png" mime-type="image/png"/></media>
+        </figure>
+        <para id="id6580228">Figure 6.3 Flowchart for Instruction Cycle</para>
+        <para id="id6580232">We assume a new 2-bit register called the instruction cycle code (ICC). The ICC designates the state of the processor in terms of which portion of the cycle it is in:</para>
+        <para id="id6010319">00: Fetch</para>
+        <para id="id5780447">01: Indirect</para>
+        <para id="id5780451">10: Execute</para>
+        <para id="id6403937">11: Interrupt</para>
+        <para id="id6586490">At the end of each of the four cycles, the ICC is set appropriately. The indirect cycle is always followed by the execute cycle. The interrupt cycle is always followed by the fetch cycle. For both the execute and fetch cycles, the next cycle depends on the state of the system.</para>
+        <para id="id7639545">Thus, the flowchart of Figure 6.3 defines the complete sequence of micro-operations, depending only on the instruction sequence and the interrupt pattern. Of course, this is a simplified example. The flowchart for an actual processor would be more complex. In any case, we have reached the point in our discussion in which the operation of the processor is defined as the performance of a sequence of micro-operations. We can now consider how the control unit causes this sequence to occur.</para>
+      </section>
+    </section>
+    <section id="id-988841301075">
+      <title>2. Control Of The Processor</title>
+      <section id="id-0962075202328">
+        <title>2.1 Functional Requirements</title>
+        <para id="id6565365">As a result of our analysis in the preceding section, we have decomposed the behavior or functioning of the processor into elementary operations, called micro-operations. By reducing the operation of the processor to its most fundamental level, we are able to define exactly what it is that the control unit must cause to happen. Thus, we can define the functional requirements for the control unit those functions that the control unit must perform. A definition of these functional requirements is the basis for the design and implementation of the control unit.</para>
+        <para id="id8668648">With the information at hand, the following three-step process leads to a characterization of the control unit:</para>
+        <list id="id5272174" list-type="enumerated">
+          <item>Define the basic elements of the processor.</item>
+          <item>Describe the micro-operations that the processor performs.</item>
+          <item>Determine the functions that the control unit must perform to cause the micro-operations to be performed.</item>
+        </list>
+        <para id="id8056315">We have already performed steps 1 and 2. Let us summarize the results. First, the basic functional elements of the processor are the following:</para>
+        <list id="id6677113" list-type="bulleted">
+          <item>ALU</item>
+          <item>Registers</item>
+          <item>Internal data paths</item>
+          <item>External data paths</item>
+          <item>Control unit</item>
+        </list>
+        <para id="id6128424">Some thought should convince you that this is a complete list. The ALU is the functional essence of the computer. Registers are used to stoic data internal to the processor. Some registers contain status information needed to manage instruction sequencing (e.g., a program status word). Others contain data that go to or come from the ALU, memory, and I/O modules. Internal data paths are used to move data between registers and between register and ALU. External data paths link registers to memory and I/O modules, often by means of a system bus. The control unit causes operations to happen within the processor.</para>
+        <para id="id6558137">The execution of a program consists of operations involving these processor elements. As we have seen, these operations consist of a sequence of micro-operations. All micro-operations fall into one of the following categories:</para>
+        <list id="id5897906" list-type="bulleted">
+          <item>Transfer data from one register to another.</item>
+          <item>Transfer data from a register to an external interface (e.g., system bus).</item>
+          <item>Transfer data from an external interface lo a register.</item>
+          <item>Perform an arithmetic or logic operation, using registers for input and output.</item>
+        </list>
+        <para id="id6411107">All of the micro-operations needed to perform one instruction cycle, including all of the micro-operations to execute every instruction in the instruction set, fall into one of these categories.</para>
+        <para id="id5666007">We can now be somewhat more explicit about the way in which the control unit functions. The control unit performs two basic tasks:</para>
+        <list id="id6893478" list-type="bulleted">
+          <item>Sequencing: The control unit causes the processor lo step through a series of micro-operations in the proper sequence, based on the program being executed.</item>
+          <item>Execution: The control unit causes each micro-operation to be performed.</item>
+        </list>
+        <para id="id9120110">The preceding is a functional description of what the control unit does. The key to how the control unit operates is the use of control signals.</para>
+      </section>
+      <section id="id-491880711123">
+        <title>2.2 Control Signals</title>
+        <para id="id5614571">We have defined the elements that make up the processor (ALU, registers, data paths) and the micro-operations that are performed. For the control unit to perform its function, it must have inputs that allow it to determine the slate of the system and outputs that allow it to control the behavior of the system. These are the exter­nal specifications of the control unit. Internally, the control unit must have the logic required lo perform its sequencing and execution functions. </para>
+        <para id="id7718126">Figure 6.4 is a general model of the control unit, showing all of its inputs and outputs.</para>
+        <figure id="id5665887"><media id="id18732627" alt=""><image src="../../media/graphics4-b9a8.png" mime-type="image/png"/></media>
+        </figure>
+        <para id="id7776124">Figure 6.4 Model of Control Unit</para>
+        <para id="id5520086">The inputs are as follows:</para>
+        <list id="id8369437" list-type="bulleted">
+          <item>Clock: This is how the control unit "keeps time." The control unit causes one micro-operation (or a set of simultaneous micro-operations) to be performed for each clock pulse. This is sometimes referred to as the processor cycle time. or the clock cycle lime.</item>
+          <item>Instruction register: The opcode of the current instruction is used lo determine which micro-operations lo perform during the execute cycle.</item>
+          <item>Flags: These are needed by the control unit to determine the status of the processor and the outcome of previous ALU operations. For example, for the increment-and-skip-if-zero (ISZ) instruction, the control until will increment the PC if the zero flag is set.</item>
+          <item>Control signals from control bus: The control bus portion of the system bus pro-vides signals to the control unit, such as interrupt signals and acknowledgments.</item>
+        </list>
+        <para id="id7675443">The outputs are as follows:</para>
+        <list id="id6460012" list-type="bulleted">
+          <item>Control signals within the processor: These are two types: those that cause data to be moved from one register to another, and those that activate specific ALU functions.</item>
+          <item>Control signals to control bus: These are also of two types: control signals lo memory, and control signals lo the I/O modules.</item>
+        </list>
+        <para id="id6890889">The new element that has been introduced in this figure is the control signal. Three types of control signals are used: those that activate an ALU function, those that activate a data path, and those that are signals on the external system bus or other external interface. All of these signals are ultimately applied directly as binary inputs lo individual logic gates.</para>
+        <para id="id6581598">Let us consider again the fetch cycle to see how the control unit maintains control. The control unit keeps track of where it is in the instruction cycle. At a given point, it knows that the fetch cycle is to be performed next. The first step is to transfer the contents of the PC to the MAR. The control unit does this by activating the control signal that opens the gates between the bits of the PC and the bits of the MAR. The next step is to read a word from memory into the MBR and increment the PC. The control unit does this by sending the following control signals simultaneously:</para>
+        <list id="id6885703" list-type="bulleted">
+          <item>A control signal that opens gates, allowing the contents of the MAR onto the address bus</item>
+          <item>A memory read control signal on the control bus</item>
+          <item>A control signal that opens the gates, allowing the contents of the data bus to be stored in the MBR</item>
+          <item>Control signals to logic that add 1 to the contents of the PC and store the result back to the PC</item>
+        </list>
+        <para id="id8328426">Following this, the control unit sends a control signal that opens gates between the MBR and the IR.</para>
+        <para id="id6471568">This completes the fetch cycle except for one thing: The control unit must decide whether to perform an indirect cycle or an execute cycle next. To decide this, it examines the IR to see if an indirect memory reference is made.</para>
+        <para id="id9114523">The indirect and interrupt cycles work similarly. For the execute cycle, the control unit begins by examining the opcode and. on the basis of that, decides which sequence of micro-operations to perform for the execute cycle.</para>
+        <para id="id6411559">A Control Signals Example</para>
+        <para id="id4294364">To illustrate the functioning of the control unit, let us examine a simple example. Figure 6.5 illustrates the example. </para>
+        <figure id="id6216721"><media id="id18732932" alt=""><image src="../../media/graphics5-d3d2.png" mime-type="image/png"/></media>
+        </figure>
+        <para id="id6469235">Figure 6.5 Data Paths and Control Signals</para>
+        <para id="id6469239">This is a simple processor with a single accumulator. The data paths between elements are indicated. The control paths for signals emanating from the control unit are not shown, but the terminations of control signals are labeled Ci and indicated by a circle. The control unit receives inputs from the clock, the instruction register, and flags. With each clock cycle, the control unit reads all of its inputs and emits a set of control signals. Control signals go to three separate destinations:</para>
+        <list id="id6445955" list-type="bulleted">
+          <item>Data paths: The control unit controls the internal How of data. For example, on instruction fetch, the contents of the memory buffer register are transferred to the instruction register. For each path to be controlled, there is a gate (indicated by a circle in the figure). A control signal from the control unit temporarily opens the gate to let data pass.</item>
+          <item>ALU: The control unit controls the operation of the ALU by a set of control signals. These signals activate various logic devices and gates within the ALU.</item>
+          <item>System bus: The control unit sends control signals out onto the control lines of the system bus (e.g., memory READ).</item>
+        </list>
+        <para id="id6128509">The control unit must maintain knowledge of where it is in the instruction cycle. Using this knowledge, and by reading all of its inputs, the control unit emits a sequence of control signals that causes micro-operations to occur. </para>
+      </section>
+      <section id="id-927481668229">
+        <title>2.3 Internal Processor Organization</title>
+        <para id="id6128454">Figure 6.5 indicates the use of a variety of data paths. The complexity of this type of organization should be clear. More typically, some sort of internal bus arrangement. Using an internal processor bus, Figure 6.5 can be rearranged as shown in Figure 6.6. </para>
+        <figure id="id4157535">
+          <media id="id18813650" alt=""><image src="../../media/graphics6-dc72.png" mime-type="image/png" height="684" width="296"/></media>
+        </figure>
+        <para id="id5129418">Figure 6.6 CPU with Internal Bus</para>
+        <para id="id5129422">A single internal bus connects the ALU and all processor registers. Gates and control signals are provided for movement of data onto and off the bus from each register. Additional control signals control data transfer to and from the system (external) bus and the operation of the ALU.</para>
+        <para id="id8467892">Two new registers, labeled Y and Z have been added to the organization. These are needed for the proper operation of the ALU. When an operation involving two operands is performed, one can be obtained from the internal bus, but the other must be obtained from another source. The AC could be used for this purpose, but this limits the flexibility of the system and would not work with a processor with multiple general-purpose registers. Register Y provides temporary storage for the other input. The ALU is a combinatorial circuit with no internal storage, Thus, when control signals activate an ALU function, the input to the ALU is transformed to the output. Thus, the output of the ALU cannot be directly connected to the bus, because this output would feed back to the input. Register Z provides temporary output storage, with this arrangement, an operation to add a value from memory to the AC would have the following steps:</para>
+        <para id="id6565346">t1: MAR &lt;= (IR(address))</para>
+        <para id="id6411379">t2: MBR &lt;= Memory</para>
+        <para id="id6891778">t3: Y &lt;= (MBR)</para>
+        <para id="id7221178">t4: Z &lt;= (AC0 + (Y)</para>
+        <para id="id8029649">t5: ac &lt;= (z)</para>
+        <para id="id7717994">Other organizations are possible, but, in general, some sort of internal bus or set of internal buses is used. The use of common data paths simplifies the interconnection layout and the control of the processor. Another practical reason for the use of an internal bus is to save space. Especially for microprocessors, which may occupy only a 1/4-inch square piece of silicon, space occupied by internal connections must be minimized.</para>
+      </section>
+    </section>
+  </content>
+</document>
